@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quiz de caractères chinois</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    --bg: #EDE6D6;
+    --bg-elevated: #F8F4EA;
+    --ink: #2B2A28;
+    --ink-soft: #6b665c;
+    --accent-seal: #A63D2F;
+    --accent-seal-soft: rgba(166,61,47,0.12);
+    --accent-gold: #9C7A2E;
+    --accent-gold-soft: rgba(156,122,46,0.14);
+    --accent-jade: #43593B;
+    --border: rgba(43,42,40,0.16);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1B1A17;
+      --bg-elevated: #242220;
+      --ink: #EDE6D6;
+      --ink-soft: #b3ac9c;
+      --accent-seal: #D3594A;
+      --accent-seal-soft: rgba(211,89,74,0.16);
+      --accent-gold: #D4AF5A;
+      --accent-gold-soft: rgba(212,175,90,0.16);
+      --accent-jade: #7C9C71;
+      --border: rgba(237,230,214,0.16);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1B1A17;
+    --bg-elevated: #242220;
+    --ink: #EDE6D6;
+    --ink-soft: #b3ac9c;
+    --accent-seal: #D3594A;
+    --accent-seal-soft: rgba(211,89,74,0.16);
+    --accent-gold: #D4AF5A;
+    --accent-gold-soft: rgba(212,175,90,0.16);
+    --accent-jade: #7C9C71;
+    --border: rgba(237,230,214,0.16);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Work Sans", -apple-system, sans-serif;
+    min-height: 100%;
+    line-height: 1.5;
+  }
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 32px 24px calc(48px + env(safe-area-inset-bottom, 0px));
+  }
+
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 22px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { display: flex; align-items: baseline; gap: 14px; }
+  .brand-glyph {
+    font-family: "Noto Serif SC", serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--accent-seal);
+    line-height: 1;
+  }
+  .brand-text h1 { margin: 0; font-size: 1.3rem; font-weight: 600; }
+  .brand-text p { margin: 2px 0 0; color: var(--ink-soft); font-size: 0.88rem; }
+  .theme-btn {
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    color: var(--ink-soft);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 0.82rem;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .theme-btn:hover { color: var(--ink); border-color: var(--ink-soft); }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 760px) {
+    .layout { grid-template-columns: 1fr; }
+    .panel { order: 2; }
+    .stage-col { order: 1; }
+  }
+
+  h2.section-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin: 0 0 12px;
+    letter-spacing: 0.03em;
+  }
+
+  .panel {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+  }
+  .profile-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .profile-btn {
+    font-family: inherit;
+    font-size: 0.84rem;
+    padding: 6px 13px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .profile-btn:hover { border-color: var(--ink-soft); }
+  .profile-btn.active { background: var(--accent-seal); border-color: var(--accent-seal); color: #F8F4EA; }
+  .legacy-box {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border: 1px dashed var(--accent-gold);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+  .legacy-box .btn-row { margin-top: 8px; flex-wrap: wrap; }
+  .divider { border: none; border-top: 1px dashed var(--border); margin: 18px 0; }
+
+  .btn {
+    font-family: inherit;
+    font-size: 0.86rem;
+    font-weight: 500;
+    padding: 9px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--accent-seal);
+    background: var(--accent-seal);
+    color: #F8F4EA;
+    cursor: pointer;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn.secondary { background: transparent; color: var(--ink); border-color: var(--border); }
+  .btn.secondary:hover { border-color: var(--ink-soft); }
+  .btn.small { padding: 4px 10px; font-size: 0.76rem; }
+  button:focus-visible, input:focus-visible {
+    outline: 2px solid var(--accent-seal);
+    outline-offset: 1px;
+  }
+  .btn-row { display: flex; gap: 8px; margin-top: 10px; }
+
+  /* rows with checkbox */
+  .overview-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 0.84rem;
+    padding: 4px 0;
+  }
+  .overview-row label { flex: 1; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .overview-row input[type="checkbox"] {
+    width: 15px; height: 15px;
+    accent-color: var(--accent-seal);
+    cursor: pointer;
+  }
+  .overview-row .ov-count {
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.78rem;
+  }
+  .overview-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--border);
+    overflow: hidden;
+    display: flex;
+    margin-bottom: 14px;
+  }
+  .overview-bar span { height: 100%; }
+  .overview-hint { font-size: 0.76rem; color: var(--ink-soft); margin: 8px 0 0; }
+
+  .level-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .level-dot.lv-new { background: var(--border); box-shadow: inset 0 0 0 1px var(--ink-soft); }
+  .level-dot.lv-unknown { background: var(--accent-seal); }
+  .level-dot.lv-half { background: var(--accent-gold); }
+  .level-dot.lv-known { background: var(--accent-jade); }
+
+  .char-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .char-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 9px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    font-size: 0.82rem;
+  }
+  .char-list .cl-char {
+    font-family: "Noto Serif SC", serif;
+    font-size: 1.15rem;
+    color: var(--accent-seal);
+    min-width: 26px;
+  }
+  .char-list .cl-meta { flex: 1; color: var(--ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .empty-note { color: var(--ink-soft); font-size: 0.82rem; padding: 6px 2px; }
+
+  .stat-line {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: var(--ink-soft);
+    margin-top: 14px;
+  }
+
+  /* stage */
+  .stage {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    min-height: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    position: relative;
+    text-align: center;
+  }
+  .stage-empty { color: var(--ink-soft); max-width: 320px; }
+  .stage-empty .seal { font-family: "Noto Serif SC", serif; font-size: 3rem; color: var(--accent-seal); opacity: 0.5; margin-bottom: 12px; }
+  .card-index { position: absolute; top: 18px; left: 22px; font-size: 0.78rem; color: var(--ink-soft); }
+  .score-badge { position: absolute; top: 18px; right: 22px; font-size: 0.78rem; color: var(--ink-soft); display: flex; gap: 10px; }
+  .score-badge span.ok { color: var(--accent-jade); }
+  .score-badge span.half { color: var(--accent-gold); }
+  .score-badge span.ko { color: var(--accent-seal); }
+
+  .hanzi-display {
+    font-family: "Noto Serif SC", serif;
+    font-weight: 700;
+    font-size: clamp(4.5rem, 14vw, 7.5rem);
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 30px;
+    word-break: keep-all;
+  }
+  .answer-block { min-height: 74px; margin-bottom: 22px; }
+  .answer-hidden { color: var(--ink-soft); font-size: 0.88rem; }
+  .answer-revealed { opacity: 0; animation: settle 0.35s ease forwards; }
+  @keyframes settle { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .answer-revealed { animation: none; opacity: 1; } }
+  .pinyin { font-size: 1.5rem; color: var(--accent-gold); font-weight: 600; margin-bottom: 4px; }
+  .meaning { font-size: 1.05rem; color: var(--ink); }
+
+  .stage-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .btn.big { padding: 12px 20px; font-size: 0.92rem; }
+  .btn.jade { background: var(--accent-jade); border-color: var(--accent-jade); }
+  .btn.outline-seal { background: transparent; color: var(--accent-seal); border-color: var(--accent-seal); }
+  .btn.outline-seal:hover { background: var(--accent-seal-soft); }
+  .btn.outline-gold { background: transparent; color: var(--accent-gold); border-color: var(--accent-gold); }
+  .btn.outline-gold:hover { background: var(--accent-gold-soft); }
+  .hint { font-size: 0.78rem; color: var(--ink-soft); margin-top: 18px; }
+
+  /* ---------- Préparation / résultats du test ---------- */
+  .stage.setup { align-items: stretch; justify-content: flex-start; text-align: left; padding: 28px 28px 32px; }
+  .setup h3 { margin: 0 0 4px; font-size: 1.15rem; font-weight: 600; }
+  .setup .sub { color: var(--ink-soft); font-size: 0.86rem; margin: 0 0 22px; }
+  .setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  @media (max-width: 760px) { .setup-grid { grid-template-columns: 1fr; gap: 0; } }
+  .step { margin-bottom: 22px; }
+  .step-title { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.03em; color: var(--ink-soft); margin-bottom: 10px; }
+  .step-num { width: 20px; height: 20px; border-radius: 50%; background: var(--accent-seal); color: #F8F4EA; display: inline-flex; align-items: center; justify-content: center; font-size: 0.72rem; flex-shrink: 0; }
+  .len-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .len-btn { font-family: inherit; font-size: 0.9rem; padding: 8px 18px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--ink); cursor: pointer; }
+  .len-btn:hover { border-color: var(--ink-soft); }
+  .len-btn.active { background: var(--accent-seal); border-color: var(--accent-seal); color: #F8F4EA; }
+  .launch-row { display: flex; align-items: center; gap: 12px 16px; flex-wrap: wrap; margin-top: 6px; }
+  .launch-summary { font-size: 0.86rem; color: var(--ink-soft); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; filter: none; }
+  .stop-row { margin-top: 26px; }
+  .result-list { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-direction: column; gap: 6px; max-height: 260px; overflow-y: auto; }
+  .result-list li { display: flex; align-items: center; gap: 10px; padding: 7px 9px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg); font-size: 0.84rem; }
+  .result-list .cl-char { font-family: "Noto Serif SC", serif; font-size: 1.15rem; color: var(--accent-seal); min-width: 26px; }
+  .result-list .cl-meta { flex: 1; color: var(--ink-soft); }
+  .result-tally { display: flex; gap: 16px; font-size: 0.9rem; margin: 0 0 12px; }
+  .team-row { display: grid; grid-template-columns: 70px 1fr auto; align-items: center; gap: 8px; margin: 7px 0; font-size: 0.8rem; }
+  .team-row.me .team-name { font-weight: 600; color: var(--accent-seal); }
+  .team-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--border); }
+  .team-bar span { display: block; height: 100%; }
+  .team-num { color: var(--ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .team-bar.big { height: 12px; border-radius: 6px; margin: 8px 0; }
+  .prog-head { display: flex; align-items: baseline; gap: 10px; }
+  .prog-pct { font-size: 1.7rem; font-weight: 600; color: var(--accent-jade); }
+  .prog-cap { font-size: 0.78rem; color: var(--ink-soft); }
+  .prog-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 10px; font-size: 0.76rem; margin: 6px 0; }
+  .prog-sub { font-size: 0.72rem; letter-spacing: 0.08em; color: var(--ink-soft); margin: 16px 0 6px; }
+  .chap-prog { margin: 0 0 11px; }
+  .chap-top { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px; }
+  .chap-det { font-size: 0.72rem; color: var(--ink-soft); margin-top: 3px; }
+  .stage { position: relative; overflow: hidden; }
+  kbd { font-family: inherit; font-size: 0.68rem; opacity: 0.7; border: 1px solid currentColor; border-radius: 4px; padding: 0 5px; margin-left: 8px; vertical-align: 1px; }
+  .kbd-hint { font-size: 0.76rem; color: var(--ink-soft); text-align: center; margin-top: 14px; }
+  .fx-known { animation: fxPop 0.4s ease; }
+  .fx-half { animation: fxPulse 0.28s ease; }
+  .fx-unknown { animation: fxShake 0.28s ease; }
+  .fx-known .hanzi-display { animation: fxGlow 0.4s ease; }
+  .fx-check { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%) scale(0); font-size: 5rem; color: var(--accent-jade); pointer-events: none; animation: fxCheck 0.4s ease forwards; text-shadow: 0 2px 20px rgba(90,130,90,0.4); }
+  .fx-spark { position: absolute; left: 50%; top: 42%; width: 9px; height: 9px; border-radius: 50%; pointer-events: none; opacity: 0; animation: fxSpark 0.45s ease-out forwards; }
+  @keyframes fxPop { 0% { box-shadow: 0 0 0 0 rgba(90,130,90,0.55); } 100% { box-shadow: 0 0 0 28px rgba(90,130,90,0); } }
+  @keyframes fxGlow { 0% { color: var(--ink); } 40% { color: var(--accent-jade); transform: scale(1.08); } 100% { transform: scale(1); } }
+  @keyframes fxPulse { 0% { box-shadow: 0 0 0 0 rgba(180,140,40,0.5); } 100% { box-shadow: 0 0 0 20px rgba(180,140,40,0); } }
+  @keyframes fxShake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-7px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(3px); } }
+  @keyframes fxCheck { 0% { transform: translate(-50%,-50%) scale(0); opacity: 0; } 40% { transform: translate(-50%,-50%) scale(1.25); opacity: 1; } 100% { transform: translate(-50%,-50%) scale(1); opacity: 0; } }
+  @keyframes fxSpark { 0% { opacity: 1; transform: translate(0,0) scale(1); } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.3); } }
+  .answer-revealed { opacity: 1; animation: fxReveal 0.35s ease-out; }
+  .answer-revealed .pinyin { animation: fxRise 0.35s ease-out; }
+  .answer-revealed .meaning { animation: fxRise 0.35s 0.08s ease-out both; }
+  .stage.just-revealed .hanzi-display { animation: fxFlip 0.35s ease-out; }
+  .stage.just-revealed .stage-actions .btn { animation: fxBtn 0.3s ease-out both; }
+  .stage.just-revealed .stage-actions .btn:nth-child(2) { animation-delay: 0.05s; }
+  .stage.just-revealed .stage-actions .btn:nth-child(3) { animation-delay: 0.1s; }
+  @keyframes fxReveal { 0% { opacity: 0; transform: scale(0.94); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes fxRise { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes fxFlip { 0% { transform: rotateX(70deg); opacity: 0.5; } 100% { transform: rotateX(0); opacity: 1; } }
+  @keyframes fxBtn { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .answer-revealed, .answer-revealed .pinyin, .answer-revealed .meaning, .stage.just-revealed .hanzi-display, .stage.just-revealed .stage-actions .btn { animation: none; }  .answer-revealed { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .fx-known, .fx-half, .fx-unknown, .fx-known .hanzi-display, .fx-check, .fx-spark { animation: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="brand-glyph">識</div>
+      <div class="brand-text">
+        <h1 id="appTitle">Quiz de caractères chinois</h1>
+        <p id="appSub">Prépare un test : chapitres, mots à inclure, longueur</p>
+      </div>
+    </div>
+    <button class="theme-btn" id="themeToggle" type="button">Mode sombre</button>
+  </header>
+
+  <div class="layout">
+
+    <div class="panel">
+      <h2 class="section-title" id="tProfile">PROFIL</h2>
+      <div class="profile-row" id="profileRow"></div>
+      <div id="legacyBox"></div>
+      <hr class="divider">
+      <h2 class="section-title" id="tTeam">MA PROGRESSION</h2>
+      <div id="teamBox"></div>
+      
+
+      <div id="panelBody">
+      <hr class="divider">
+
+      <h2 class="section-title" id="tSel">LES CARACTÈRES SÉLECTIONNÉS</h2>
+      <ul class="char-list" id="charList"></ul>
+      <div class="stat-line">
+        <span id="totalCount">0 caractère</span>
+        <button class="btn secondary small" id="resetProgress" type="button">Réinitialiser ma progression</button>
+      </div>
+      </div>
+    </div>
+
+    <div class="stage-col">
+      <div class="stage" id="stage"></div>
+      <p class="hint" id="hintText">Pendant le test, révèle la réponse puis indique si tu connaissais le mot. Chaque profil a sa propre progression, sauvegardée dans ce navigateur.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var STORAGE_KEY = "hanzi-quiz-data-v2";
+  var OLD_STORAGE_KEY = "hanzi-quiz-data-v1";
+
+  // [caractère, pinyin, sens]
+  var CHAPTERS = [
+    { id: "chap1", title: "Chapitre 1 — 你好", items: [
+      ["你","nǐ","tu / toi"],["好","hǎo","bien, bon"],["您","nín","vous (poli, singulier)"],
+      ["你们","nǐmen","vous (pluriel)"],["老师","lǎoshī","professeur"],["人","rén","personne"],
+      ["十","shí","dix"],["零","líng","zéro"],["一","yī","un"],["二","èr","deux"],
+      ["五","wǔ","cinq"],["八","bā","huit"],["上课","shàng kè","le cours commence"],
+      ["下课","xià kè","le cours est fini"]
+    ]},
+    { id: "chap2", title: "Chapitre 2 — 你是哪国人", items: [
+      ["早上","zǎoshang","matin, tôt le matin"],["是","shì","être (verbe)"],["哪","nǎ","quel, lequel"],
+      ["国","guó","pays"],["我","wǒ","je / moi"],["呢","ne","particule interrogative (et… ?)"],
+      ["他","tā","il / lui"],["美国","Měiguó","États-Unis"],["韩国","Hánguó","Corée du Sud"],
+      ["日本","Rìběn","Japon"],["三","sān","trois"],["四","sì","quatre"],["十","shí","dix"],
+      ["中国","Zhōngguó","Chine"],["中国人","Zhōngguó rén","Chinois(e) (personne)"],
+      ["德国","Déguó","Allemagne"],["德国人","Déguó rén","Allemand(e)"],
+      ["英国","Yīngguó","Royaume-Uni"],["英国人","Yīngguó rén","Britannique"],
+      ["印度","Yìndù","Inde"],["印度人","Yìndù rén","Indien(ne)"],
+      ["意大利","Yìdàlì","Italie"],["意大利人","Yìdàlì rén","Italien(ne)"],
+      ["法国","Fǎguó","France"],["法国人","Fǎguó rén","Français(e)"],
+      ["泰国","Tàiguó","Thaïlande"],["泰国人","Tàiguó rén","Thaïlandais(e)"],
+      ["口","kǒu","bouche ; classificateur des membres d'une famille"],["日","rì","soleil, jour"],["山","shān","montagne"],
+      ["六","liù","six"],["么","me","suffixe (ex. 什么)"]
+    ]},
+    { id: "chap3", title: "Chapitre 3 — 你叫什么名字", items: [
+      ["请问","qǐngwèn","excusez-moi, puis-je demander"],["请","qǐng","s'il vous plaît, prier de"],
+      ["问","wèn","demander"],["叫","jiào","s'appeler, appeler"],["什么","shénme","quoi, que"],
+      ["名字","míngzi","nom, prénom"],["姓","xìng","avoir pour nom de famille"],
+      ["认识","rènshi","connaître, faire connaissance"],["很","hěn","très"],
+      ["高兴","gāoxìng","content, heureux"],["也","yě","aussi"],
+      ["贵姓","guìxìng","votre nom de famille (poli)"],["她","tā","elle"],
+      ["六","liù","six"],["七","qī","sept"],["九","jiǔ","neuf"],["买","mǎi","acheter"],
+      ["小","xiǎo","petit"],["子","zǐ","fils, enfant"],["月","yuè","lune, mois"]
+    ]},
+    { id: "chap4", title: "Chapitre 4 — 你学习法语吗", items: [
+      ["留学生","liúxuéshēng","étudiant étranger"],["学习","xuéxí","étudier, apprendre"],
+      ["他们","tāmen","ils, eux"],["们","men","suffixe du pluriel"],["我们","wǒmen","nous"],
+      ["一起","yìqǐ","ensemble"],["说","shuō","parler, dire"],["汉语","Hànyǔ","chinois (langue)"],
+      ["吗","ma","particule de question oui/non"],["不","bù","ne… pas, non"],
+      ["英语","Yīngyǔ","anglais (langue)"],["法语","Fǎyǔ","français (langue)"],
+      ["谁","shéi","qui"],["同学","tóngxué","camarade de classe"],
+      ["日语","Rìyǔ","japonais (langue)"],["韩语","Hányǔ","coréen (langue)"],
+      ["德语","Déyǔ","allemand (langue)"],["意大利语","Yìdàlìyǔ","italien (langue)"],
+      ["西班牙语","Xībānyáyǔ","espagnol (langue)"],["习","xí","s'exercer, étudier"],
+      ["衣","yī","vêtement"],["语","yǔ","langue, langage"],["女","nǚ","femme, féminin"]
+    ]},
+    { id: "chap5", title: "Chapitre 5 — 你家有几口人", items: [
+      ["家","jiā","famille, maison"],["有","yǒu","avoir, il y a"],
+      ["口","kǒu","bouche ; classificateur des membres d'une famille"],
+      ["爸爸","bàba","papa"],["妈妈","māma","maman"],["哥哥","gēge","grand frère"],["和","hé","et"],
+      ["职员","zhíyuán","employé de bureau"],["都","dōu","tous, tout"],
+      ["大学生","dàxuéshēng","étudiant à l'université"],["几","jǐ","combien (petit nombre)"],
+      ["做","zuò","faire"],["工作","gōngzuò","travail, métier"],["律师","lǜshī","avocat"],
+      ["医生","yīshēng","médecin"],["你们","nǐmen","vous (pluriel)"],["班","bān","classe, groupe"],
+      ["多少","duōshao","combien (grand nombre)"],["个","gè","classificateur général"],
+      ["学生","xuésheng","élève, étudiant"],["我们","wǒmen","nous"],
+      ["两","liǎng","deux (devant un classificateur)"],["这","zhè","ce, ceci"],["百","bǎi","cent"],
+      ["姐姐","jiějie","grande sœur"],["妹妹","mèimei","petite sœur"],["弟弟","dìdi","petit frère"],
+      ["工人","gōngrén","ouvrier"],["农民","nóngmín","paysan"],["护士","hùshi","infirmier(ère)"],
+      ["警察","jǐngchá","policier"],["心","xīn","cœur"],["生","shēng","naître, vie"],
+      ["品","pǐn","article, produit"]
+    ]},
+    { id: "chap6", title: "Chapitre 6 — 香蕉多少钱一斤", items: [
+      ["想","xiǎng","vouloir, avoir envie de"],["买","mǎi","acheter"],
+      ["电子词典","diànzǐ cídiǎn","dictionnaire électronique"],["电子","diànzǐ","électron, électronique"],
+      ["词典","cídiǎn","dictionnaire"],["电脑","diànnǎo","ordinateur"],
+      ["部","bù","classificateur (livres, films, machines)"],["百","bǎi","cent"],
+      ["块","kuài","yuan (à l'oral)"],["钱","qián","argent"],
+      ["台","tái","classificateur (appareils, machines)"],["千","qiān","mille"],
+      ["一共","yígòng","en tout"],["需要","xūyào","avoir besoin de"],
+      ["营业员","yíngyèyuán","vendeur, employé de magasin"],["要","yào","vouloir, falloir"],
+      ["面包","miànbāo","pain"],["种","zhǒng","sorte, type"],["这","zhè","ce, ceci"],
+      ["谢谢","xièxie","merci"],["不客气","bú kèqi","de rien"],["客气","kèqi","poli, courtois"],
+      ["香蕉","xiāngjiāo","banane"],["斤","jīn","livre chinoise (500 g)"],["苹果","píngguǒ","pomme"],
+      ["再","zài","encore, de nouveau"],["毛","máo","mao (1/10 de yuan)"],
+      ["元","yuán","yuan"],["角","jiǎo","jiao (1/10 de yuan)"],["分","fēn","fen (1/100 de yuan)"],
+      ["万","wàn","dix mille"],
+      ["书","shū","livre"],["手机","shǒujī","téléphone portable"],["咖啡","kāfēi","café"],
+      ["牛奶","niúnǎi","lait"],["啤酒","píjiǔ","bière"],["矿泉水","kuàngquánshuǐ","eau minérale"],
+      ["可乐","kělè","cola"],["草莓","cǎoméi","fraise"],["西瓜","xīguā","pastèque"],
+      ["橘子","júzi","orange, mandarine"],["本","běn","classificateur (livres)"],
+      ["杯","bēi","tasse, verre"],["袋","dài","sachet"],["盒","hé","boîte"],
+      ["瓶","píng","bouteille"],["公斤","gōngjīn","kilogramme"],
+      ["奶","nǎi","lait"],["马","mǎ","cheval"],["风","fēng","vent"],
+      ["爸","bà","papa"],["学","xué","étudier"],["意","yì","sens, idée"]
+    ]},
+    { id: "chap7", title: "Chapitre 7 — 中国银行在哪儿", items: [
+      ["教学楼","jiàoxuélóu","bâtiment d'enseignement"],["教学","jiàoxué","enseigner"],
+      ["楼","lóu","bâtiment à étages"],["在","zài","être situé à, se trouver"],
+      ["这儿","zhèr","ici"],["图书馆","túshūguǎn","bibliothèque"],["边","biān","côté"],
+      ["北边","běibian","nord"],["西边","xībian","ouest"],["南边","nánbian","sud"],
+      ["东边","dōngbian","est"],["运动场","yùndòngchǎng","terrain de sport"],
+      ["体育馆","tǐyùguǎn","gymnase"],["饭馆","fànguǎn","restaurant"],
+      ["还","hái","aussi, en plus"],["超市","chāoshì","supermarché"],
+      ["去","qù","aller"],["哪儿","nǎr","où"],["银行","yínháng","banque"],
+      ["知道","zhīdào","savoir"],["跟","gēn","avec"],["吧","ba","particule de suggestion"],
+      ["太","tài","trop, vraiment"],["了","le","particule modale"],
+      ["卫生间","wèishēngjiān","toilettes"],["对不起","duìbuqǐ","désolé, excusez-moi"],
+      ["没关系","méi guānxi","ce n'est pas grave"],["商店","shāngdiàn","magasin"],
+      ["里边","lǐbian","intérieur, dedans"],["地方","dìfang","endroit, lieu"],
+      ["前边","qiánbian","devant"],["看","kàn","regarder, voir"],["那儿","nàr","là-bas"],
+      ["就","jiù","justement, précisément"],
+      ["东","dōng","est"],["西","xī","ouest"],["南","nán","sud"],["北","běi","nord"],
+      ["上","shàng","haut, dessus"],["下","xià","bas, dessous"],["前","qián","devant"],
+      ["后","hòu","derrière"],["里","lǐ","dans, intérieur"],["外","wài","dehors, extérieur"],
+      ["左","zuǒ","gauche"],["右","yòu","droite"],["旁","páng","à côté"],
+      ["中间","zhōngjiān","milieu"],["两边","liǎngbiān","des deux côtés"],
+      ["对面","duìmiàn","en face"],
+      ["上边","shàngbian","au-dessus, dessus"],["后边","hòubian","derrière"],
+      ["旁边","pángbiān","à côté"],["书店","shūdiàn","librairie"],["邮局","yóujú","bureau de poste"],
+      ["桌子","zhuōzi","table, bureau"],["书包","shūbāo","cartable"],["宿舍","sùshè","dortoir"],
+      ["儿","ér","suffixe -r (érhua), enfant"],["没","méi","ne pas avoir, ne pas"],
+      ["银","yín","argent (métal)"],["饭","fàn","repas, riz cuit"],["谢","xiè","remercier"]
+    ]}
+  ];
+
+  // Mots retirés car trop proches d'un caractère ou d'un mot déjà présent
+  var REMOVED = [
+    // nationalités (pays + 人)
+    "中国人","德国人","英国人","印度人","意大利人","法国人","泰国人",
+    // langues dérivées d'un nom de pays déjà vu
+    "法语","英语","日语","韩语","德语","意大利语",
+    // directions (point cardinal / position + 边)
+    "北边","西边","南边","东边","里边","前边","上边","后边","旁边","两边",
+    // mots composés de caractères déjà vus
+    "电子词典","教学楼","请问","你们","他们","我们","这儿","哪儿",
+    // caractère seul qui répète un mot déjà vu
+    "爸","奶","学","谢"
+  ];
+  CHAPTERS.forEach(function (ch) {
+    ch.items = ch.items.filter(function (it) { return REMOVED.indexOf(it[0]) === -1; });
+  });
+  // Un caractère déjà vu dans un chapitre précédent n'est pas répété dans les suivants
+  (function () {
+    var seen = {};
+    CHAPTERS.forEach(function (ch) {
+      ch.items = ch.items.filter(function (it) {
+        if (seen[it[0]]) return false;
+        seen[it[0]] = true;
+        return true;
+      });
+    });
+  })();
+
+  // Liste unique des caractères (un caractère présent dans plusieurs chapitres n'apparaît qu'une fois)
+  var ALL = [];
+  var byChar = {};
+  CHAPTERS.forEach(function (ch) {
+    ch.items.forEach(function (it) {
+      var e = byChar[it[0]];
+      if (!e) {
+        e = { char: it[0], pinyin: it[1], meaning: it[2], chapters: [] };
+        byChar[it[0]] = e;
+        ALL.push(e);
+      }
+      if (e.chapters.indexOf(ch.id) === -1) e.chapters.push(ch.id);
+    });
+  });
+
+
+  /* ---------- Langue (russe pour Dana, français pour les autres) ---------- */
+  var RU_MEANING = {"你": "ты", "好": "хорошо, хороший", "您": "вы (вежливо, ед. ч.)", "老师": "учитель, преподаватель", "人": "человек", "十": "десять", "零": "ноль", "一": "один", "二": "два", "五": "пять", "八": "восемь", "上课": "начинать урок", "下课": "заканчивать урок", "早上": "утро, рано утром", "是": "быть, являться (глагол)", "哪": "какой, который", "国": "страна", "我": "я", "呢": "вопросительная частица (а … ?)", "他": "он", "美国": "США", "韩国": "Южная Корея", "日本": "Япония", "三": "три", "四": "четыре", "中国": "Китай", "德国": "Германия", "英国": "Великобритания", "印度": "Индия", "意大利": "Италия", "法国": "Франция", "泰国": "Таиланд", "口": "рот; счётное слово для членов семьи", "日": "солнце, день", "山": "гора", "六": "шесть", "么": "суффикс (напр. 什么)", "请": "пожалуйста, просить", "问": "спрашивать", "叫": "называться, звать", "什么": "что, какой", "名字": "имя", "姓": "иметь фамилию", "认识": "знать (кого-то), знакомиться", "很": "очень", "高兴": "рад, довольный", "也": "тоже, также", "贵姓": "ваша фамилия (вежливо)", "她": "она", "七": "семь", "九": "девять", "买": "покупать", "小": "маленький", "子": "сын, ребёнок", "月": "луна, месяц", "留学生": "иностранный студент", "学习": "учиться, изучать", "们": "суффикс множественного числа", "一起": "вместе", "说": "говорить", "汉语": "китайский язык", "吗": "вопросительная частица (да/нет)", "不": "не, нет", "谁": "кто", "同学": "одноклассник, однокурсник", "西班牙语": "испанский язык", "习": "упражняться, учиться", "衣": "одежда", "语": "язык, речь", "女": "женщина, женский", "家": "семья, дом", "有": "иметь, есть", "爸爸": "папа", "妈妈": "мама", "哥哥": "старший брат", "和": "и", "职员": "служащий, сотрудник", "都": "все, всё", "大学生": "студент университета", "几": "сколько (небольшое число)", "做": "делать", "工作": "работа, профессия", "律师": "адвокат, юрист", "医生": "врач", "班": "класс, группа", "多少": "сколько (большое число)", "个": "общее счётное слово", "学生": "ученик, студент", "两": "два (перед счётным словом)", "这": "этот, это", "百": "сто", "姐姐": "старшая сестра", "妹妹": "младшая сестра", "弟弟": "младший брат", "工人": "рабочий", "农民": "крестьянин", "护士": "медсестра, медбрат", "警察": "полицейский", "心": "сердце", "生": "рождаться, жизнь", "品": "изделие, товар", "想": "хотеть, думать", "电子": "электрон, электронный", "词典": "словарь", "电脑": "компьютер", "部": "счётное слово (книги, фильмы, машины)", "块": "юань (в разговорной речи)", "钱": "деньги", "台": "счётное слово (приборы, машины)", "千": "тысяча", "一共": "всего, в общей сложности", "需要": "нуждаться, требоваться", "营业员": "продавец, работник магазина", "要": "хотеть, нужно", "面包": "хлеб", "种": "вид, сорт", "谢谢": "спасибо", "不客气": "не за что", "客气": "вежливый, любезный", "香蕉": "банан", "斤": "цзинь (китайский фунт, 500 г)", "苹果": "яблоко", "再": "снова, ещё раз", "毛": "мао (1/10 юаня)", "元": "юань", "角": "цзяо (1/10 юаня)", "分": "фэнь (1/100 юаня)", "万": "десять тысяч", "书": "книга", "手机": "мобильный телефон", "咖啡": "кофе", "牛奶": "молоко", "啤酒": "пиво", "矿泉水": "минеральная вода", "可乐": "кола", "草莓": "клубника", "西瓜": "арбуз", "橘子": "апельсин, мандарин", "本": "счётное слово (книги)", "杯": "чашка, стакан", "袋": "пакет, мешочек", "盒": "коробка", "瓶": "бутылка", "公斤": "килограмм", "马": "лошадь", "风": "ветер", "意": "смысл, мысль", "教学": "преподавать, обучение", "楼": "многоэтажное здание", "在": "находиться, быть в", "图书馆": "библиотека", "边": "сторона", "运动场": "спортивная площадка, стадион", "体育馆": "спортзал", "饭馆": "ресторан", "还": "ещё, кроме того", "超市": "супермаркет", "去": "идти, ехать", "银行": "банк", "知道": "знать", "跟": "с", "吧": "частица предложения/побуждения", "太": "слишком, очень", "了": "модальная частица", "卫生间": "туалет", "对不起": "извините, прости", "没关系": "ничего страшного", "商店": "магазин", "地方": "место", "看": "смотреть, видеть", "那儿": "там", "就": "именно, как раз", "东": "восток", "西": "запад", "南": "юг", "北": "север", "上": "верх, наверху", "下": "низ, внизу", "前": "впереди, перед", "后": "сзади, после", "里": "внутри, в", "外": "снаружи", "左": "левый, слева", "右": "правый, справа", "旁": "рядом, сбоку", "中间": "середина", "对面": "напротив", "书店": "книжный магазин", "邮局": "почта", "桌子": "стол", "书包": "школьный рюкзак, портфель", "宿舍": "общежитие", "儿": "суффикс -р (эрхуа), ребёнок", "没": "не иметь, не", "银": "серебро", "饭": "еда, варёный рис"};
+  var STR = {
+    fr: {
+      team: "MA PROGRESSION", mastered: "maîtrisés", byChapter: "PAR CHAPITRE", untested: "non testés",
+      seen: function (t, n) { return t + " mots testés sur " + n; },
+      appTitle: "Quiz de caractères chinois", appSub: "Prépare un test : chapitres, mots à inclure, longueur",
+      profile: "PROFIL", selected: "LES CARACTÈRES SÉLECTIONNÉS",
+      hint: "Pendant le test, révèle la réponse puis indique si tu connaissais le mot. Chaque profil a sa propre progression, sauvegardée dans ce navigateur.",
+      reset: "Réinitialiser ma progression", confirm: "Confirmer ?",
+      dark: "Mode sombre", light: "Mode clair",
+      lvNew: "Non testé", lvUnknown: "Pas connu du tout", lvHalf: "À moitié connu", lvKnown: "Bien connu",
+      noChap: "Aucun chapitre coché.",
+      chars: function (n) { return n + (n === 1 ? " caractère" : " caractères"); },
+      legacy: function (n) { return "J'ai retrouvé une progression enregistrée avant l'arrivée des profils (" + n + " caractères notés). À qui l'attribuer ?"; },
+      legacyTake: function (name) { return "La reprendre pour " + name; }, legacySkip: "Ignorer",
+      lenWord: "mots", lenAll: "Tous",
+      needChap: "Coche au moins un chapitre.", needLevel: "Coche au moins un type de mots à inclure.", needPool: "Aucun mot ne correspond à ta sélection.",
+      summary: function (pool, n) { return pool + (pool > 1 ? " mots disponibles" : " mot disponible") + " · test de " + n + (n > 1 ? " mots" : " mot"); },
+      setupTitle: function (name) { return "Prépare ton test, " + name; },
+      setupSub: "Choisis les chapitres, les mots à inclure et la longueur, puis lance le test.",
+      step1: "CHAPITRES", step2: "MOTS À INCLURE", step3: "LONGUEUR DU TEST",
+      all: "Tout cocher", none: "Tout décocher",
+      ovHint: "Décoche « Bien connu » pour ne pas revoir ce que tu maîtrises déjà, ou « Non testé » pour ne réviser que des mots déjà vus.",
+      launch: "Lancer le test",
+      done: "Test terminé", tested: function (n) { return n + (n > 1 ? " mots testés" : " mot testé"); },
+      allKnown: "Tous les mots étaient connus, bravo.", review: "À REVOIR", newTest: "Nouveau test", retry: "Refaire les mots à revoir",
+      noProfile: "Qui révise ? Choisis ton profil dans la colonne de gauche.",
+      hidden: "Pinyin et sens masqués", stop: "Arrêter le test", show: "Voir la réponse",
+      kbdHint: "Espace : voir la réponse · ← pas connu · ↓ à moitié · → je savais tout",
+      bUnknown: "Pas connu du tout ✗", bHalf: "À moitié 〜", bKnown: "Je savais tout ✓"
+    },
+    ru: {
+      team: "МОЙ ПРОГРЕСС", mastered: "выучено", byChapter: "ПО ГЛАВАМ", untested: "не проверено",
+      seen: function (t, n) { return "Проверено слов: " + t + " из " + n; },
+      appTitle: "Тест по китайским иероглифам", appSub: "Подготовь тест: главы, слова для включения, длина",
+      profile: "ПРОФИЛЬ", selected: "ВЫБРАННЫЕ ИЕРОГЛИФЫ",
+      hint: "Во время теста открой ответ и отметь, знала ли ты слово. У каждого профиля свой прогресс, он сохраняется в этом браузере.",
+      reset: "Сбросить мой прогресс", confirm: "Подтвердить?",
+      dark: "Тёмная тема", light: "Светлая тема",
+      lvNew: "Не проверялось", lvUnknown: "Совсем не знаю", lvHalf: "Знаю наполовину", lvKnown: "Хорошо знаю",
+      noChap: "Ни одна глава не выбрана.",
+      chars: function (n) { return "Иероглифов: " + n; },
+      legacy: function (n) { return "Найден прогресс, сохранённый до появления профилей (отмечено иероглифов: " + n + "). Кому его присвоить?"; },
+      legacyTake: function (name) { return "Взять для " + name; }, legacySkip: "Пропустить",
+      lenWord: "слов", lenAll: "Все",
+      needChap: "Выбери хотя бы одну главу.", needLevel: "Выбери хотя бы один тип слов для включения.", needPool: "Нет слов, подходящих под твой выбор.",
+      summary: function (pool, n) { return "Доступно слов: " + pool + " · в тесте: " + n; },
+      setupTitle: function (name) { return "Подготовь тест, " + name; },
+      setupSub: "Выбери главы, слова для включения и длину, затем запусти тест.",
+      step1: "ГЛАВЫ", step2: "СЛОВА ДЛЯ ВКЛЮЧЕНИЯ", step3: "ДЛИНА ТЕСТА",
+      all: "Выбрать все", none: "Снять все",
+      ovHint: "Сними галочку «Хорошо знаю», чтобы не повторять уже выученное, или «Не проверялось», чтобы повторять только уже виденные слова.",
+      launch: "Начать тест",
+      done: "Тест завершён", tested: function (n) { return "Проверено слов: " + n; },
+      allKnown: "Все слова были known — отлично!", review: "ПОВТОРИТЬ", newTest: "Новый тест", retry: "Повторить слова для повторения",
+      noProfile: "Кто занимается? Выбери свой профиль в левой колонке.",
+      hidden: "Пиньинь и значение скрыты", stop: "Остановить тест", show: "Показать ответ",
+      kbdHint: "Пробел: показать ответ · ← не знаю · ↓ наполовину · → знала всё",
+      bUnknown: "Совсем не знаю ✗", bHalf: "Наполовину 〜", bKnown: "Знала всё ✓"
+    }
+  };
+  STR.ru.allKnown = "Все слова были знакомы — отлично!";
+  function lang() { return currentProfile === "Dana" ? "ru" : "fr"; }
+  function tr(k) { return STR[lang()][k]; }
+  function meaningOf(item) { return (lang() === "ru" && RU_MEANING[item.char]) || item.meaning; }
+  function chTitle(ch) { return lang() === "ru" ? ch.title.replace("Chapitre", "Глава") : ch.title; }
+  function levelLabel(l) { return tr({ "new": "lvNew", unknown: "lvUnknown", half: "lvHalf", known: "lvKnown" }[l]); }
+  function applyStaticText() {
+    document.documentElement.lang = lang();
+    document.getElementById("appTitle").textContent = tr("appTitle");
+    document.getElementById("appSub").textContent = tr("appSub");
+    document.getElementById("tProfile").textContent = tr("profile");
+    document.getElementById("tSel").textContent = tr("selected");
+    document.getElementById("tTeam").textContent = tr("team");
+    document.getElementById("hintText").textContent = tr("hint");
+    resetBtn.textContent = tr("reset");
+    resetBtn.removeAttribute("data-armed");
+    refreshThemeText();
+  }
+
+  var LEN_CHOICES = [5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 0];
+  var LEVEL_LABELS = { "new": "Non testé", unknown: "Pas connu du tout", half: "À moitié connu", known: "Bien connu" };
+  var LEVEL_ORDER = ["new", "unknown", "half", "known"];
+  var LEVEL_COLORS = { "new": "var(--border)", unknown: "var(--accent-seal)", half: "var(--accent-gold)", known: "var(--accent-jade)" };
+
+  var PROFILES = ["Lucas", "Yasmine", "Edward", "Dana", "Arthur"];
+  var PROFILE_KEY = "hanzi-quiz-data-v5";
+  var LEGACY_FLAG = "hanzi-quiz-legacy-handled";
+
+  var store = { current: null, profiles: {} };
+  var currentProfile = null;
+
+  var progress = {};       // { caractère: "unknown" | "half" | "known" }
+  var chapSel = {};
+  var filters = { "new": true, unknown: true, half: true, known: true };
+  var queue = [];
+  var current = null;
+  var revealed = false;
+  var mode = "setup";      // "setup" | "quiz" | "result"
+  var testLen = 10;        // 5, 10, 20 ou 0 (= tous)
+  var testTotal = 0;
+  var testResults = [];    // [{ idx, level }]
+
+  function defaultChapSel() {
+    var o = {};
+    CHAPTERS.forEach(function (ch) { o[ch.id] = true; });
+    return o;
+  }
+
+  function applyProfile(name) {
+    currentProfile = name;
+    var p = (name && store.profiles[name]) || {};
+    progress = p.progress || {};
+    chapSel = defaultChapSel();
+    if (p.chapSel) {
+      CHAPTERS.forEach(function (ch) {
+        if (typeof p.chapSel[ch.id] === "boolean") chapSel[ch.id] = p.chapSel[ch.id];
+      });
+    }
+    filters = { "new": true, unknown: true, half: true, known: true };
+    if (p.filters) {
+      LEVEL_ORDER.forEach(function (l) {
+        if (typeof p.filters[l] === "boolean") filters[l] = p.filters[l];
+      });
+    }
+    testLen = LEN_CHOICES.indexOf(p.testLen) !== -1 ? p.testLen : 10;
+    mode = "setup";
+    queue = [];
+    testTotal = 0;
+    testResults = [];
+    current = null;
+    revealed = false;
+  }
+
+  function load() {
+    try { localStorage.setItem(LEGACY_FLAG, "1"); } catch (e) {}
+    try {
+      var raw = localStorage.getItem(PROFILE_KEY);
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (parsed && parsed.profiles) store.profiles = parsed.profiles;
+        if (parsed && PROFILES.indexOf(parsed.current) !== -1) store.current = parsed.current;
+      }
+    } catch (e) { /* démarrage à vide */ }
+    applyProfile(store.current);
+  }
+
+  function save() {
+    if (currentProfile) {
+      store.profiles[currentProfile] = { progress: progress, chapSel: chapSel, filters: filters, testLen: testLen };
+    }
+    store.current = currentProfile;
+    try {
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(store));
+    } catch (e) { /* stockage indisponible */ }
+  }
+
+  // Progression enregistrée avant l'arrivée des profils
+  function readLegacy() {
+    try {
+      if (localStorage.getItem(LEGACY_FLAG)) return null;
+      var out = { progress: {}, chapSel: null, filters: null };
+      var raw = localStorage.getItem("hanzi-quiz-data-v2");
+      if (raw) {
+        var p = JSON.parse(raw);
+        if (p && p.progress) out.progress = p.progress;
+        if (p && p.chapSel) out.chapSel = p.chapSel;
+        if (p && p.filters) out.filters = p.filters;
+      } else {
+        var old = localStorage.getItem("hanzi-quiz-data-v1");
+        if (old) {
+          var o = JSON.parse(old);
+          if (o && Array.isArray(o.list)) {
+            o.list.forEach(function (item) {
+              if (item && item.char && item.level && byChar[item.char]) out.progress[item.char] = item.level;
+            });
+          }
+        }
+      }
+      return Object.keys(out.progress).length ? out : null;
+    } catch (e) { return null; }
+  }
+
+  function markLegacyHandled() {
+    try { localStorage.setItem(LEGACY_FLAG, "1"); } catch (e) {}
+  }
+
+  function claimLegacy() {
+    var lg = readLegacy();
+    if (!lg || !currentProfile) return;
+    progress = lg.progress;
+    if (lg.chapSel) {
+      CHAPTERS.forEach(function (ch) {
+        if (typeof lg.chapSel[ch.id] === "boolean") chapSel[ch.id] = lg.chapSel[ch.id];
+      });
+    }
+    if (lg.filters) {
+      LEVEL_ORDER.forEach(function (l) {
+        if (typeof lg.filters[l] === "boolean") filters[l] = lg.filters[l];
+      });
+    }
+    markLegacyHandled();
+    save();
+    renderAll();
+  }
+
+  function selectProfile(name) {
+    save();
+    applyProfile(name);
+    save();
+    renderAll();
+  }
+
+  function renderProfiles() {
+    var row = document.getElementById("profileRow");
+    row.innerHTML = "";
+    PROFILES.forEach(function (name) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "profile-btn" + (name === currentProfile ? " active" : "");
+      b.textContent = name;
+      b.addEventListener("click", function () { selectProfile(name); });
+      row.appendChild(b);
+    });
+
+    var box = document.getElementById("legacyBox");
+    box.innerHTML = "";
+    if (currentProfile && Object.keys(progress).length === 0) {
+      var lg = readLegacy();
+      if (lg) {
+        var n = Object.keys(lg.progress).length;
+        box.className = "legacy-box";
+        var txt = document.createElement("div");
+        txt.textContent = tr("legacy")(n);
+        var btns = document.createElement("div");
+        btns.className = "btn-row";
+        var take = document.createElement("button");
+        take.type = "button";
+        take.className = "btn small";
+        take.textContent = tr("legacyTake")(currentProfile);
+        take.addEventListener("click", claimLegacy);
+        var skip = document.createElement("button");
+        skip.type = "button";
+        skip.className = "btn secondary small";
+        skip.textContent = tr("legacySkip");
+        skip.addEventListener("click", function () { markLegacyHandled(); renderProfiles(); });
+        btns.appendChild(take);
+        btns.appendChild(skip);
+        box.appendChild(txt);
+        box.appendChild(btns);
+        return;
+      }
+    }
+    box.className = "";
+  }
+
+
+  /* ---------- Progression (globale + par chapitre) ---------- */
+  function segBar(c, total) {
+    var bar = document.createElement("div");
+    bar.className = "team-bar";
+    ["known", "half", "unknown"].forEach(function (lv) {
+      var seg = document.createElement("span");
+      seg.style.width = (total ? c[lv] / total * 100 : 0) + "%";
+      seg.style.background = LEVEL_COLORS[lv];
+      bar.appendChild(seg);
+    });
+    return bar;
+  }
+  function countItems(items) {
+    var c = { known: 0, half: 0, unknown: 0, "new": 0 };
+    items.forEach(function (it) { c[levelOf(it)]++; });
+    return c;
+  }
+  function renderTeam() {
+    var box = document.getElementById("teamBox");
+    if (!box) return;
+    box.innerHTML = "";
+    if (!currentProfile) return;
+    var gc = countItems(ALL), total = ALL.length;
+    var tested = total - gc["new"];
+    var pct = total ? Math.round(gc.known / total * 100) : 0;
+
+    var big = document.createElement("div");
+    big.className = "prog-global";
+    var head = document.createElement("div");
+    head.className = "prog-head";
+    var bigNum = document.createElement("span");
+    bigNum.className = "prog-pct";
+    bigNum.textContent = pct + " %";
+    var cap = document.createElement("span");
+    cap.className = "prog-cap";
+    cap.textContent = tr("mastered") + " · " + gc.known + " / " + total;
+    head.appendChild(bigNum); head.appendChild(cap);
+    big.appendChild(head);
+    var gb = segBar(gc, total);
+    gb.className += " big";
+    big.appendChild(gb);
+    var legend = document.createElement("div");
+    legend.className = "prog-legend";
+    [["known", gc.known], ["half", gc.half], ["unknown", gc.unknown], ["new", gc["new"]]].forEach(function (x) {
+      var sp = document.createElement("span");
+      var dot = document.createElement("span");
+      dot.className = "level-dot lv-" + x[0];
+      sp.appendChild(dot);
+      sp.appendChild(document.createTextNode(" " + levelLabel(x[0]) + " : " + x[1]));
+      legend.appendChild(sp);
+    });
+    big.appendChild(legend);
+    var seen = document.createElement("div");
+    seen.className = "prog-cap";
+    seen.textContent = tr("seen")(tested, total);
+    big.appendChild(seen);
+    box.appendChild(big);
+
+    var sub = document.createElement("div");
+    sub.className = "prog-sub";
+    sub.textContent = tr("byChapter");
+    box.appendChild(sub);
+    CHAPTERS.forEach(function (ch) {
+      var items = ch.items.map(function (it) { return byChar[it[0]]; });
+      var c = countItems(items), n = items.length;
+      var row = document.createElement("div");
+      row.className = "chap-prog";
+      var top = document.createElement("div");
+      top.className = "chap-top";
+      var t = document.createElement("span");
+      t.textContent = chTitle(ch).split(" — ")[0];
+      t.title = chTitle(ch);
+      var r = document.createElement("span");
+      r.className = "team-num";
+      r.textContent = c.known + " / " + n + " · " + (n ? Math.round(c.known / n * 100) : 0) + " %";
+      top.appendChild(t); top.appendChild(r);
+      row.appendChild(top);
+      row.appendChild(segBar(c, n));
+      var det = document.createElement("div");
+      det.className = "chap-det";
+      det.textContent = "✓" + c.known + "  〜" + c.half + "  ✗" + c.unknown + "  · " + tr("untested") + " " + c["new"];
+      row.appendChild(det);
+      box.appendChild(row);
+    });
+  }
+
+  function renderAll() {
+    applyStaticText();
+    renderProfiles();
+    document.getElementById("panelBody").style.display = currentProfile ? "" : "none";
+    renderPanel();
+    renderStage();
+    renderTeam();
+  }
+
+  function levelOf(item) { return progress[item.char] || "new"; }
+
+  function inSelectedChapter(item) {
+    return item.chapters.some(function (id) { return chapSel[id]; });
+  }
+
+  function activeItems() { return ALL.filter(inSelectedChapter); }
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function poolIndices() {
+    var idx = [];
+    ALL.forEach(function (item, i) {
+      if (inSelectedChapter(item) && filters[levelOf(item)]) idx.push(i);
+    });
+    return idx;
+  }
+
+  function tally() {
+    var c = { unknown: 0, half: 0, known: 0 };
+    testResults.forEach(function (r) { c[r.level]++; });
+    return c;
+  }
+
+  /* ---------- Panneau ---------- */
+  function renderList() {
+    var ul = document.getElementById("charList");
+    ul.innerHTML = "";
+    var items = activeItems();
+    if (items.length === 0) {
+      var li = document.createElement("li");
+      li.className = "empty-note";
+      li.style.border = "none";
+      li.style.background = "transparent";
+      li.textContent = tr("noChap");
+      ul.appendChild(li);
+    } else {
+      items.forEach(function (item) {
+        var li = document.createElement("li");
+        var dot = document.createElement("span");
+        dot.className = "level-dot lv-" + levelOf(item);
+        dot.title = levelLabel(levelOf(item));
+        var c = document.createElement("span");
+        c.className = "cl-char";
+        c.textContent = item.char;
+        var m = document.createElement("span");
+        m.className = "cl-meta";
+        m.textContent = item.pinyin + " · " + meaningOf(item);
+        li.appendChild(dot);
+        li.appendChild(c);
+        li.appendChild(m);
+        ul.appendChild(li);
+      });
+    }
+    document.getElementById("totalCount").textContent = tr("chars")(items.length);
+  }
+
+  function renderPanel() {
+    renderList();
+  }
+
+  /* ---------- Préparation du test ---------- */
+  function renderChapters() {
+    var box = document.getElementById("chapterRows");
+    if (!box) return;
+    box.innerHTML = "";
+    CHAPTERS.forEach(function (ch) {
+      var row = document.createElement("div");
+      row.className = "overview-row";
+      var label = document.createElement("label");
+      var cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = !!chapSel[ch.id];
+      cb.addEventListener("change", function () {
+        chapSel[ch.id] = cb.checked;
+        save();
+        renderPanel();
+        renderOverview();
+        updateSetupSummary();
+      });
+      var text = document.createElement("span");
+      text.textContent = chTitle(ch);
+      label.appendChild(cb);
+      label.appendChild(text);
+      var count = document.createElement("span");
+      count.className = "ov-count";
+      count.textContent = ch.items.length;
+      row.appendChild(label);
+      row.appendChild(count);
+      box.appendChild(row);
+    });
+  }
+
+  function renderOverview() {
+    var bar = document.getElementById("overviewBar");
+    var rows = document.getElementById("overviewRows");
+    if (!bar || !rows) return;
+    var items = activeItems();
+    var counts = { "new": 0, unknown: 0, half: 0, known: 0 };
+    items.forEach(function (it) { counts[levelOf(it)]++; });
+    var total = items.length;
+
+    bar.innerHTML = "";
+    rows.innerHTML = "";
+
+    LEVEL_ORDER.forEach(function (level) {
+      var seg = document.createElement("span");
+      seg.style.width = (total > 0 ? counts[level] / total * 100 : 0) + "%";
+      seg.style.background = LEVEL_COLORS[level];
+      bar.appendChild(seg);
+
+      var row = document.createElement("div");
+      row.className = "overview-row";
+      var label = document.createElement("label");
+      var cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = filters[level];
+      cb.addEventListener("change", function () {
+        filters[level] = cb.checked;
+        save();
+        updateSetupSummary();
+      });
+      var dot = document.createElement("span");
+      dot.className = "level-dot lv-" + level;
+      var text = document.createElement("span");
+      text.textContent = levelLabel(level);
+      label.appendChild(cb);
+      label.appendChild(dot);
+      label.appendChild(text);
+      var count = document.createElement("span");
+      count.className = "ov-count";
+      count.textContent = counts[level];
+      row.appendChild(label);
+      row.appendChild(count);
+      rows.appendChild(row);
+    });
+  }
+
+  function renderLengthButtons() {
+    var row = document.getElementById("lenRow");
+    if (!row) return;
+    row.innerHTML = "";
+    LEN_CHOICES.map(function (n) { return [n, n === 0 ? tr("lenAll") : n + " " + tr("lenWord")]; }).forEach(function (o) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "len-btn" + (testLen === o[0] ? " active" : "");
+      b.textContent = o[1];
+      b.addEventListener("click", function () {
+        testLen = o[0];
+        save();
+        renderLengthButtons();
+        updateSetupSummary();
+      });
+      row.appendChild(b);
+    });
+  }
+
+  function updateSetupSummary() {
+    var sum = document.getElementById("launchSummary");
+    var btn = document.getElementById("launchBtn");
+    if (!sum || !btn) return;
+    var anyChapter = CHAPTERS.some(function (ch) { return chapSel[ch.id]; });
+    var anyLevel = LEVEL_ORDER.some(function (l) { return filters[l]; });
+    var pool = poolIndices().length;
+    btn.disabled = true;
+    if (!anyChapter) { sum.textContent = tr("needChap"); return; }
+    if (!anyLevel) { sum.textContent = tr("needLevel"); return; }
+    if (pool === 0) { sum.textContent = tr("needPool"); return; }
+    var n = testLen > 0 ? Math.min(testLen, pool) : pool;
+    sum.textContent = tr("summary")(pool, n);
+    btn.disabled = false;
+  }
+
+  function renderSetup() {
+    var stage = document.getElementById("stage");
+    stage.className = "stage setup";
+    stage.innerHTML =
+      '<h3>' + tr("setupTitle")(currentProfile) + '</h3>' +
+      '<p class="sub">' + tr("setupSub") + '</p>' +
+      '<div class="setup-grid">' +
+        '<div class="step">' +
+          '<div class="step-title"><span class="step-num">1</span>' + tr("step1") + '</div>' +
+          '<div id="chapterRows"></div>' +
+          '<div class="btn-row">' +
+            '<button class="btn secondary small" id="chapAll" type="button">' + tr("all") + '</button>' +
+            '<button class="btn secondary small" id="chapNone" type="button">' + tr("none") + '</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="step">' +
+          '<div class="step-title"><span class="step-num">2</span>' + tr("step2") + '</div>' +
+          '<div class="overview-bar" id="overviewBar"></div>' +
+          '<div id="overviewRows"></div>' +
+          '<p class="overview-hint">' + tr("ovHint") + '</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="step">' +
+        '<div class="step-title"><span class="step-num">3</span>' + tr("step3") + '</div>' +
+        '<div class="len-row" id="lenRow"></div>' +
+      '</div>' +
+      '<div class="launch-row">' +
+        '<button class="btn big" id="launchBtn" type="button">' + tr("launch") + '</button>' +
+        '<span class="launch-summary" id="launchSummary"></span>' +
+      '</div>';
+
+    document.getElementById("chapAll").addEventListener("click", function () {
+      CHAPTERS.forEach(function (ch) { chapSel[ch.id] = true; });
+      save(); renderChapters(); renderPanel(); renderOverview(); updateSetupSummary();
+    });
+    document.getElementById("chapNone").addEventListener("click", function () {
+      CHAPTERS.forEach(function (ch) { chapSel[ch.id] = false; });
+      save(); renderChapters(); renderPanel(); renderOverview(); updateSetupSummary();
+    });
+    document.getElementById("launchBtn").addEventListener("click", function () { startTest(); });
+
+    renderChapters();
+    renderOverview();
+    renderLengthButtons();
+    updateSetupSummary();
+  }
+
+  function startTest(indices) {
+    var pool = indices || poolIndices();
+    if (!pool.length) return;
+    var picked = shuffle(pool);
+    if (!indices && testLen > 0 && picked.length > testLen) picked = picked.slice(0, testLen);
+    queue = picked;
+    testTotal = picked.length;
+    testResults = [];
+    current = null;
+    revealed = false;
+    mode = "quiz";
+    renderStage();
+  }
+
+  /* ---------- Quiz ---------- */
+  function emptyMessage(glyph, text) {
+    var stage = document.getElementById("stage");
+    stage.className = "stage";
+    stage.innerHTML =
+      '<div class="stage-empty"><div class="seal">' + glyph + '</div><p>' + text + '</p></div>';
+    current = null;
+  }
+
+  function renderResult() {
+    var stage = document.getElementById("stage");
+    stage.className = "stage setup";
+    var c = tally();
+    var missed = testResults.filter(function (r) { return r.level !== "known"; });
+
+    stage.innerHTML =
+      '<h3>' + tr("done") + '</h3>' +
+      '<p class="sub">' + tr("tested")(testTotal) + '</p>' +
+      '<div class="result-tally">' +
+        '<span style="color:var(--accent-jade)">✓ ' + c.known + '</span>' +
+        '<span style="color:var(--accent-gold)">〜 ' + c.half + '</span>' +
+        '<span style="color:var(--accent-seal)">✗ ' + c.unknown + '</span>' +
+      '</div>' +
+      '<div class="overview-bar" id="resultBar"></div>' +
+      '<div id="resultBody"></div>' +
+      '<div class="launch-row" id="resultActions"></div>';
+
+    var bar = document.getElementById("resultBar");
+    ["known", "half", "unknown"].forEach(function (lv) {
+      var seg = document.createElement("span");
+      seg.style.width = (testTotal > 0 ? c[lv] / testTotal * 100 : 0) + "%";
+      seg.style.background = LEVEL_COLORS[lv];
+      bar.appendChild(seg);
+    });
+
+    var body = document.getElementById("resultBody");
+    if (missed.length === 0) {
+      var ok = document.createElement("p");
+      ok.className = "sub";
+      ok.textContent = tr("allKnown");
+      body.appendChild(ok);
+    } else {
+      var title = document.createElement("div");
+      title.className = "step-title";
+      title.textContent = tr("review");
+      body.appendChild(title);
+      var ul = document.createElement("ul");
+      ul.className = "result-list";
+      missed.forEach(function (r) {
+        var item = ALL[r.idx];
+        var li = document.createElement("li");
+        var dot = document.createElement("span");
+        dot.className = "level-dot lv-" + r.level;
+        dot.title = levelLabel(r.level);
+        var ch = document.createElement("span");
+        ch.className = "cl-char";
+        ch.textContent = item.char;
+        var m = document.createElement("span");
+        m.className = "cl-meta";
+        m.textContent = item.pinyin + " · " + meaningOf(item);
+        li.appendChild(dot);
+        li.appendChild(ch);
+        li.appendChild(m);
+        ul.appendChild(li);
+      });
+      body.appendChild(ul);
+    }
+
+    var actions = document.getElementById("resultActions");
+    var newBtn = document.createElement("button");
+    newBtn.type = "button";
+    newBtn.className = "btn big";
+    newBtn.textContent = tr("newTest");
+    newBtn.addEventListener("click", function () {
+      mode = "setup";
+      renderStage();
+    });
+    actions.appendChild(newBtn);
+
+    if (missed.length > 0) {
+      var retry = document.createElement("button");
+      retry.type = "button";
+      retry.className = "btn big outline-seal";
+      retry.textContent = tr("retry");
+      retry.addEventListener("click", function () {
+        startTest(missed.map(function (r) { return r.idx; }));
+      });
+      actions.appendChild(retry);
+    }
+  }
+
+  function renderStage() {
+    var stage = document.getElementById("stage");
+    resetBtn.disabled = (mode === "quiz");
+
+    if (!currentProfile) { emptyMessage("字", tr("noProfile")); return; }
+
+    if (mode === "setup") { renderSetup(); return; }
+    if (mode === "result") { renderResult(); return; }
+
+    // mode === "quiz"
+    if (current === null) {
+      if (queue.length === 0) { mode = "result"; renderResult(); return; }
+      current = queue.shift();
+    }
+    stage.className = "stage" + (justRevealed ? " just-revealed" : "");
+    justRevealed = false;
+
+    var item = ALL[current];
+    var c = tally();
+
+    stage.innerHTML =
+      '<div class="card-index">' + currentProfile + ' · ' + (testResults.length + 1) + ' / ' + testTotal + '</div>' +
+      '<div class="score-badge"><span class="ok">✓ ' + c.known + '</span><span class="half">〜 ' + c.half + '</span><span class="ko">✗ ' + c.unknown + '</span></div>' +
+      '<div class="hanzi-display">' + item.char + '</div>' +
+      '<div class="answer-block">' +
+        (revealed
+          ? '<div class="answer-revealed"><div class="pinyin">' + item.pinyin + '</div><div class="meaning">' + meaningOf(item) + '</div></div>'
+          : '<div class="answer-hidden">' + tr("hidden") + '</div>') +
+      '</div>' +
+      '<div class="stage-actions" id="stageActions"></div>' +
+      '<div class="kbd-hint">' + tr("kbdHint") + '</div><div class="stop-row"><button class="btn secondary small" id="stopTest" type="button">' + tr("stop") + '</button></div>';
+
+    document.getElementById("stopTest").addEventListener("click", function () {
+      mode = "setup";
+      queue = [];
+      current = null;
+      revealed = false;
+      renderStage();
+    });
+
+    var actions = document.getElementById("stageActions");
+    function addBtn(cls, text, fn, key) {
+      var b = document.createElement("button");
+      b.className = "btn big " + cls;
+      b.type = "button";
+      b.textContent = text;
+      if (key) { var k = document.createElement("kbd"); k.textContent = key; b.appendChild(k); }
+      b.addEventListener("click", fn);
+      actions.appendChild(b);
+    }
+    if (!revealed) {
+      addBtn("", tr("show"), function () { revealed = true; justRevealed = true; renderStage(); }, "␣");
+    } else {
+      addBtn("outline-seal", tr("bUnknown"), function () { answer("unknown"); }, "←");
+      addBtn("outline-gold", tr("bHalf"), function () { answer("half"); }, "↓");
+      addBtn("jade", tr("bKnown"), function () { answer("known"); }, "→");
+    }
+  }
+
+  var locked = false;
+  var justRevealed = false;
+  function celebrate(stage) {
+    var chk = document.createElement("div");
+    chk.className = "fx-check";
+    chk.textContent = "✓";
+    stage.appendChild(chk);
+    var cols = ["#5a8a5a", "#c9a227", "#b5452f", "#8fb88f", "#e0c36a"];
+    for (var n = 0; n < 16; n++) {
+      var sp = document.createElement("span");
+      sp.className = "fx-spark";
+      var ang = (Math.PI * 2 * n) / 16 + Math.random() * 0.3;
+      var d = 90 + Math.random() * 70;
+      sp.style.setProperty("--dx", Math.cos(ang) * d + "px");
+      sp.style.setProperty("--dy", Math.sin(ang) * d + "px");
+      sp.style.background = cols[n % cols.length];
+      stage.appendChild(sp);
+    }
+  }
+
+  function answer(level) {
+    if (locked || current === null) return;
+    var item = ALL[current];
+    progress[item.char] = level;
+    testResults.push({ idx: current, level: level });
+    save();
+    renderTeam();
+    renderPanel();
+    var idx = current;
+    locked = true;
+    var stage = document.getElementById("stage");
+    stage.classList.add("fx-" + level);
+    if (level === "known") celebrate(stage);
+    setTimeout(function () {
+      locked = false;
+      current = null;
+      revealed = false;
+      renderStage();
+    }, level === "known" ? 430 : 290);
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (mode !== "quiz" || !currentProfile || e.ctrlKey || e.metaKey || e.altKey) return;
+    var k = e.key;
+    if (k !== " " && k !== "ArrowLeft" && k !== "ArrowDown" && k !== "ArrowRight") return;
+    e.preventDefault();
+    if (e.repeat || locked || current === null) return;
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    if (!revealed) {
+      if (k === " ") { revealed = true; justRevealed = true; renderStage(); }
+      return;
+    }
+    if (k === "ArrowLeft") answer("unknown");
+    else if (k === "ArrowDown") answer("half");
+    else if (k === "ArrowRight") answer("known");
+  });
+  document.addEventListener("keyup", function (e) {
+    if (mode === "quiz" && e.key === " ") e.preventDefault();
+  });
+
+  /* ---------- Contrôles ---------- */
+  var resetBtn = document.getElementById("resetProgress");
+  var resetTimer = null;
+  resetBtn.addEventListener("click", function () {
+    if (resetBtn.getAttribute("data-armed") !== "1") {
+      resetBtn.setAttribute("data-armed", "1");
+      resetBtn.textContent = tr("confirm");
+      resetTimer = setTimeout(function () {
+        resetBtn.removeAttribute("data-armed");
+        resetBtn.textContent = tr("reset");
+      }, 3000);
+      return;
+    }
+    clearTimeout(resetTimer);
+    resetBtn.removeAttribute("data-armed");
+    resetBtn.textContent = tr("reset");
+    progress = {};
+    save();
+    renderTeam();
+    renderPanel();
+    renderStage();
+  });
+
+  var themeBtn = document.getElementById("themeToggle");
+  function applyTheme(t) {
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    else document.documentElement.removeAttribute("data-theme");
+    refreshThemeText();
+  }
+  function refreshThemeText() {
+    themeBtn.textContent = (document.documentElement.getAttribute("data-theme") === "dark") ? tr("light") : tr("dark");
+  }
+  themeBtn.addEventListener("click", function () {
+    var cur = document.documentElement.getAttribute("data-theme");
+    applyTheme(cur === "dark" ? "light" : "dark");
+    try { localStorage.setItem("hanzi-quiz-theme", document.documentElement.getAttribute("data-theme") || ""); } catch (e) {}
+  });
+  try {
+    var savedTheme = localStorage.getItem("hanzi-quiz-theme");
+    applyTheme(savedTheme || null);
+  } catch (e) { applyTheme(null); }
+
+  load();
+  renderAll();
+})();
+</script>
+</body>
+</html>
