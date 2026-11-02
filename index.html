@@ -6,17 +6,21 @@
 <title>Quiz de caractères chinois</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Ma+Shan+Zheng&family=Work+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
 
+    --font-ui: "Work Sans", "Noto Sans KR", -apple-system, sans-serif;
+    --font-zh: "Noto Serif SC", serif;
+    --zh-w: 700;
     --bg: #EDE6D6;
     --bg-elevated: #F8F4EA;
     --ink: #2B2A28;
     --ink-soft: #6b665c;
+    --primary: var(--accent-seal);
     --accent-seal: #A63D2F;
     --accent-seal-soft: rgba(166,61,47,0.12);
     --accent-gold: #9C7A2E;
@@ -56,7 +60,7 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: "Work Sans", -apple-system, sans-serif;
+    font-family: var(--font-ui);
     min-height: 100%;
     line-height: 1.5;
   }
@@ -77,10 +81,10 @@
   }
   .brand { display: flex; align-items: baseline; gap: 14px; }
   .brand-glyph {
-    font-family: "Noto Serif SC", serif;
+    font-family: var(--font-zh);
     font-size: 2.6rem;
     font-weight: 700;
-    color: var(--accent-seal);
+    color: var(--primary);
     line-height: 1;
   }
   .brand-text h1 { margin: 0; font-size: 1.3rem; font-weight: 600; }
@@ -123,6 +127,7 @@
     border-radius: 6px;
     padding: 20px;
   }
+  .head-btns { display: flex; gap: 8px; flex-wrap: wrap; }
   .profile-row { display: flex; flex-wrap: wrap; gap: 6px; }
   .profile-btn {
     font-family: inherit;
@@ -135,7 +140,7 @@
     cursor: pointer;
   }
   .profile-btn:hover { border-color: var(--ink-soft); }
-  .profile-btn.active { background: var(--accent-seal); border-color: var(--accent-seal); color: #F8F4EA; }
+  .profile-btn.active { background: var(--primary); border-color: var(--primary); color: #F8F4EA; }
   .legacy-box {
     margin-top: 12px;
     padding: 10px 12px;
@@ -153,8 +158,8 @@
     font-weight: 500;
     padding: 9px 16px;
     border-radius: 4px;
-    border: 1px solid var(--accent-seal);
-    background: var(--accent-seal);
+    border: 1px solid var(--primary);
+    background: var(--primary);
     color: #F8F4EA;
     cursor: pointer;
   }
@@ -163,7 +168,7 @@
   .btn.secondary:hover { border-color: var(--ink-soft); }
   .btn.small { padding: 4px 10px; font-size: 0.76rem; }
   button:focus-visible, input:focus-visible {
-    outline: 2px solid var(--accent-seal);
+    outline: 2px solid var(--primary);
     outline-offset: 1px;
   }
   .btn-row { display: flex; gap: 8px; margin-top: 10px; }
@@ -179,7 +184,7 @@
   .overview-row label { flex: 1; display: flex; align-items: center; gap: 8px; cursor: pointer; }
   .overview-row input[type="checkbox"] {
     width: 15px; height: 15px;
-    accent-color: var(--accent-seal);
+    accent-color: var(--primary);
     cursor: pointer;
   }
   .overview-row .ov-count {
@@ -225,9 +230,9 @@
     font-size: 0.82rem;
   }
   .char-list .cl-char {
-    font-family: "Noto Serif SC", serif;
+    font-family: var(--font-zh);
     font-size: 1.15rem;
-    color: var(--accent-seal);
+    color: var(--primary);
     min-width: 26px;
   }
   .char-list .cl-meta { flex: 1; color: var(--ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -254,7 +259,7 @@
     text-align: center;
   }
   .stage-empty { color: var(--ink-soft); max-width: 320px; }
-  .stage-empty .seal { font-family: "Noto Serif SC", serif; font-size: 3rem; color: var(--accent-seal); opacity: 0.5; margin-bottom: 12px; }
+  .stage-empty .seal { font-family: var(--font-zh); font-size: 3rem; color: var(--accent-seal); opacity: 0.5; margin-bottom: 12px; }
   .card-index { position: absolute; top: 18px; left: 22px; font-size: 0.78rem; color: var(--ink-soft); }
   .score-badge { position: absolute; top: 18px; right: 22px; font-size: 0.78rem; color: var(--ink-soft); display: flex; gap: 10px; }
   .score-badge span.ok { color: var(--accent-jade); }
@@ -262,14 +267,18 @@
   .score-badge span.ko { color: var(--accent-seal); }
 
   .hanzi-display {
-    font-family: "Noto Serif SC", serif;
-    font-weight: 700;
+    font-family: var(--font-zh);
+    font-weight: var(--zh-w);
     font-size: clamp(4.5rem, 14vw, 7.5rem);
     line-height: 1.1;
     color: var(--ink);
     margin-bottom: 30px;
     word-break: keep-all;
   }
+  .stage.read .hanzi-display { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.55; margin-bottom: 26px; padding: 0 6px; word-break: normal; }
+  .stage.read .answer-block { min-height: 110px; }
+  .stage.read .pinyin { font-size: 1.05rem; font-weight: 500; line-height: 1.45; }
+  .stage.read .meaning { font-size: 1.05rem; margin-top: 6px; }
   .answer-block { min-height: 74px; margin-bottom: 22px; }
   .answer-hidden { color: var(--ink-soft); font-size: 0.88rem; }
   .answer-revealed { opacity: 0; animation: settle 0.35s ease forwards; }
@@ -288,6 +297,115 @@
   .hint { font-size: 0.78rem; color: var(--ink-soft); margin-top: 18px; }
 
   /* ---------- Préparation / résultats du test ---------- */
+
+  /* palettes */
+  :root[data-palette="papier"][data-theme="light"] { --bg:#F3F3F1; --bg-elevated:#FFFFFF; --ink:#232323; --ink-soft:#6a6a6a; --border:rgba(0,0,0,0.14); }
+  :root[data-palette="papier"][data-theme="dark"] { --bg:#121212; --bg-elevated:#1d1d1d; --ink:#EEEEEE; --ink-soft:#a8a8a8; --border:rgba(255,255,255,0.15); }
+  :root[data-palette="bambou"][data-theme="light"] { --bg:#E3EADB; --bg-elevated:#F3F7EE; --ink:#24301E; --ink-soft:#5c6a53; --border:rgba(36,48,30,0.16); }
+  :root[data-palette="bambou"][data-theme="dark"] { --bg:#131A12; --bg-elevated:#1C251A; --ink:#E2EADB; --ink-soft:#a5b39e; --border:rgba(226,234,219,0.16); }
+  :root[data-palette="ocean"][data-theme="light"] { --bg:#DCE5EB; --bg-elevated:#EEF3F6; --ink:#1C2932; --ink-soft:#55646E; --border:rgba(28,41,50,0.16); }
+  :root[data-palette="ocean"][data-theme="dark"] { --bg:#0F1720; --bg-elevated:#17222C; --ink:#DCE7EE; --ink-soft:#9EAFBB; --border:rgba(220,231,238,0.16); }
+
+  /* thèmes à fond noir (toujours en mode sombre) */
+  :root[data-palette^="noir"][data-theme="dark"] { --bg:#000000; --bg-elevated:#0C0C0C; --ink:#ECECEC; --ink-soft:#9A9A9A; --border:rgba(255,255,255,0.14); }
+  :root[data-palette="noir-bleu"][data-theme="dark"] { --bg:#02050B; --bg-elevated:#0A111C; --primary:#4F8FE0; --border:rgba(160,190,230,0.18); }
+  :root[data-palette="noir-or"][data-theme="dark"] { --bg:#050402; --bg-elevated:#12100A; --primary:#D4AF5A; --border:rgba(212,175,90,0.2); }
+  :root[data-palette="noir-jade"][data-theme="dark"] { --bg:#010503; --bg-elevated:#09120D; --primary:#5FB58A; --border:rgba(120,200,160,0.18); }
+  :root[data-palette="noir-or"][data-theme="dark"] .btn, :root[data-palette="noir-or"][data-theme="dark"] .tab-btn.active, :root[data-palette="noir-or"][data-theme="dark"] .len-btn.active, :root[data-palette="noir-or"][data-theme="dark"] .step-num { color: #1a1405; }
+  :root[data-palette="noir-bleu"][data-theme="dark"] .btn, :root[data-palette="noir-bleu"][data-theme="dark"] .tab-btn.active, :root[data-palette="noir-bleu"][data-theme="dark"] .len-btn.active, :root[data-palette="noir-bleu"][data-theme="dark"] .step-num { color: #04101f; }
+  :root[data-palette="noir-jade"][data-theme="dark"] .btn, :root[data-palette="noir-jade"][data-theme="dark"] .tab-btn.active, :root[data-palette="noir-jade"][data-theme="dark"] .len-btn.active, :root[data-palette="noir-jade"][data-theme="dark"] .step-num { color: #03150c; }
+  .set-note { font-size: .78rem; color: var(--ink-soft); margin-top: 6px; }
+  body { transition: background .3s, color .3s; }
+
+  /* réglages */
+  .set-btn { gap: 6px; }
+  .set-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: flex-start; justify-content: center; padding: 6vh 14px 14px; z-index: 50; overflow-y: auto; }
+  .set-card { width: 100%; max-width: 520px; background: var(--bg-elevated); color: var(--ink); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px 20px; box-shadow: 0 18px 50px rgba(0,0,0,0.28); }
+  .set-card h3 { margin: 0 0 14px; font-size: 1.15rem; }
+  .set-row { margin: 0 0 16px; }
+  .set-row .lbl { font-size: .74rem; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 7px; }
+  .set-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .set-opts .len-btn { padding: 6px 14px; font-size: .86rem; }
+  .sw { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--border); cursor: pointer; padding: 0; transition: transform .15s; position: relative; overflow: hidden; }
+  .sw:hover { transform: scale(1.1); }
+  .sw.active { border-color: var(--primary); box-shadow: 0 0 0 2px var(--bg-elevated), 0 0 0 4px var(--primary); }
+  .sw i { position: absolute; right: 0; bottom: 0; width: 50%; height: 50%; }
+  .set-preview { display: flex; align-items: baseline; gap: 16px; padding: 12px 14px; border: 1px dashed var(--border); border-radius: 10px; margin-bottom: 16px; }
+  .set-preview .big { font-family: var(--font-zh); font-weight: var(--zh-w); font-size: 2.4rem; color: var(--primary); line-height: 1; }
+  .set-foot { display: flex; justify-content: flex-end; }
+  html[data-size="sm"] { font-size: 14.5px; } html[data-size="lg"] { font-size: 18px; }
+
+  /* animations */
+  @keyframes popIn { 0% { transform: scale(.94); } 55% { transform: scale(1.04); } 100% { transform: scale(1); } }
+  @keyframes okPop { 0% { transform: scale(1); } 45% { transform: scale(1.06); } 100% { transform: scale(1); } }
+  @keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes cardIn { from { opacity: 0; transform: translateY(14px) scale(.97); } to { opacity: 1; transform: none; } }
+  @keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .btn, .len-btn, .tab-btn, .theme-btn { transition: transform .12s, box-shadow .18s, background .18s, border-color .18s, color .18s, opacity .18s; }
+  .btn:not(:disabled):hover, .len-btn:hover, .tab-btn:hover, .theme-btn:hover { transform: translateY(-1px); }
+  .btn:not(:disabled):active, .len-btn:active, .tab-btn:active, .theme-btn:active, .exo-cell:active { transform: scale(.96); }
+  .btn.big:not(:disabled):hover { box-shadow: 0 6px 16px rgba(0,0,0,0.16); }
+  .overview-bar span, .wbar span, .team-bar span { transform-origin: left center; animation: barGrow .6s cubic-bezier(.2,.7,.2,1) both; }
+  .exo-cell.pop { animation: popIn .22s ease-out; }
+  .exo-cell.ok { animation: okPop .5s ease-out both; animation-delay: var(--d, 0ms); }
+  .exo-cell.ko { animation: fxShake .5s ease-out both; animation-delay: var(--d, 0ms); }
+  .exo-choices .exo-cell { animation: fxRise .28s ease-out both; animation-delay: calc(var(--i, 0) * 28ms); }
+  .exo-prompt { animation: fxReveal .3s ease-out both; }
+  .exo-score { animation: popIn .5s ease-out both; transform-origin: left center; }
+  .exo-recap li { animation: fxRise .35s ease-out both; animation-delay: calc(var(--i, 0) * 55ms + 150ms); }
+  .set-overlay { animation: overlayIn .18s ease-out; }
+  .set-card { animation: cardIn .26s cubic-bezier(.2,.8,.3,1); }
+  .stats-table tbody tr { animation: fxRise .3s ease-out both; animation-delay: calc(var(--i, 0) * 12ms); }
+  html[data-anim="off"] *, html[data-anim="off"] *::before, html[data-anim="off"] *::after { animation: none !important; transition: none !important; }
+  @media (prefers-reduced-motion: reduce) { .overview-bar span, .wbar span, .team-bar span, .exo-cell, .exo-prompt, .exo-score, .exo-recap li, .set-overlay, .set-card, .stats-table tbody tr { animation: none !important; } }
+  .tabs { display: flex; gap: 8px; margin: 0 0 16px; }
+  .tab-btn { font-family: inherit; font-size: .95rem; padding: 8px 20px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--ink); cursor: pointer; }
+  .tab-btn:hover { border-color: var(--ink-soft); }
+  .tab-btn.active { background: var(--primary); border-color: var(--primary); color: #F8F4EA; }
+  .stats-view { background: var(--card, var(--panel, transparent)); }
+  .stats-box { border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; background: var(--surface, transparent); }
+  .stats-box h3 { margin: 0 0 4px; }
+  .stats-sum { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 14px 0 18px; }
+  .stats-sum b { display: block; font-size: 1.5rem; }
+  .stats-sum span { color: var(--ink-soft); font-size: .85rem; }
+  .stats-chap { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); margin: 20px 0 6px; }
+  .stats-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  .stats-table th { text-align: right; font-weight: 500; color: var(--ink-soft); font-size: .78rem; padding: 4px 8px; }
+  .stats-table th:first-child, .stats-table td:first-child { text-align: left; }
+  .stats-table td { padding: 7px 8px; border-top: 1px solid var(--border); text-align: right; font-variant-numeric: tabular-nums; }
+  .stats-table .zh3 { font-family: var(--font-zh); font-size: 1.25rem; margin-right: 8px; }
+  .stats-table .sm { color: var(--ink-soft); font-size: .82rem; }
+  .stats-table .c-k { color: var(--accent-jade); } .stats-table .c-h { color: var(--accent-gold); } .stats-table .c-u { color: var(--accent-seal); }
+  .wbar { display: flex; width: 110px; height: 9px; border-radius: 5px; overflow: hidden; background: var(--border); margin-left: auto; }
+  .wbar span { display: block; height: 100%; }
+  .stats-table td.bar-cell { width: 150px; }
+  .stats-table .pc { display: block; font-size: .72rem; color: var(--ink-soft); margin-top: 3px; }
+  .stats-table .zero { opacity: .35; }
+  .exo { width: 100%; text-align: left; }
+  .exo h3 { margin: 0 0 4px; }
+  .exo-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; margin: 16px 0; }
+  .exo-col { display: flex; flex-direction: column; gap: 8px; }
+  .exo-cell { font-family: inherit; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; border-radius: 10px; border: 2px solid var(--border); background: transparent; color: var(--ink); cursor: pointer; min-height: 52px; transition: border-color .12s, background .12s, transform .12s; }
+  .exo-cell:hover { border-color: var(--ink-soft); }
+  .exo-cell.sel { border-color: var(--accent-gold); transform: scale(1.02); }
+  .exo-cell.linked { border-color: var(--pc); background: color-mix(in srgb, var(--pc) 16%, transparent); }
+  .exo-cell.ok { border-color: var(--accent-jade); background: color-mix(in srgb, var(--accent-jade) 18%, transparent); }
+  .exo-cell.ko { border-color: var(--accent-seal); background: color-mix(in srgb, var(--accent-seal) 14%, transparent); }
+  .exo-cell.zh { font-family: var(--font-zh); font-size: 1.6rem; justify-content: center; }
+  .exo-cell.py { font-size: 1.05rem; justify-content: center; }
+  .exo-cell .exo-fix { font-size: .8rem; color: var(--ink-soft); }
+  .exo-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--pc); color: #fff; font-size: .75rem; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+  .exo-prompt { font-family: var(--font-zh); font-size: clamp(2.4rem, 9vw, 3.6rem); text-align: center; margin: 14px 0 6px; letter-spacing: .1em; }
+  .exo-prompt .blank { display: inline-block; min-width: 1.1em; border-bottom: 3px solid var(--accent-gold); color: var(--accent-gold); }
+  .exo-choices { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 16px 0; }
+  .exo-choices .exo-cell { padding: 10px 0; font-size: 1.7rem; }
+  .exo-prog { text-align: center; color: var(--ink-soft); font-size: .9rem; }
+  .exo-recap { list-style: none; padding: 0; margin: 10px 0; display: flex; flex-direction: column; gap: 6px; }
+  .exo-recap li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border); flex-wrap: wrap; }
+  .exo-recap .zh2 { font-family: var(--font-zh); font-size: 1.4rem; }
+  .exo-cell.zh.sent { font-size: 1.05rem; justify-content: space-between; text-align: left; line-height: 1.5; }
+  .exo-cell.py.wd { font-family: var(--font-zh); font-size: 1.4rem; }
+  .exo-score { font-size: 1.3rem; margin: 6px 0; }
   .stage.setup { align-items: stretch; justify-content: flex-start; text-align: left; padding: 28px 28px 32px; }
   .setup h3 { margin: 0 0 4px; font-size: 1.15rem; font-weight: 600; }
   .setup .sub { color: var(--ink-soft); font-size: 0.86rem; margin: 0 0 22px; }
@@ -295,18 +413,18 @@
   @media (max-width: 760px) { .setup-grid { grid-template-columns: 1fr; gap: 0; } }
   .step { margin-bottom: 22px; }
   .step-title { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.03em; color: var(--ink-soft); margin-bottom: 10px; }
-  .step-num { width: 20px; height: 20px; border-radius: 50%; background: var(--accent-seal); color: #F8F4EA; display: inline-flex; align-items: center; justify-content: center; font-size: 0.72rem; flex-shrink: 0; }
+  .step-num { width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: #F8F4EA; display: inline-flex; align-items: center; justify-content: center; font-size: 0.72rem; flex-shrink: 0; }
   .len-row { display: flex; gap: 8px; flex-wrap: wrap; }
   .len-btn { font-family: inherit; font-size: 0.9rem; padding: 8px 18px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--ink); cursor: pointer; }
   .len-btn:hover { border-color: var(--ink-soft); }
-  .len-btn.active { background: var(--accent-seal); border-color: var(--accent-seal); color: #F8F4EA; }
+  .len-btn.active { background: var(--primary); border-color: var(--primary); color: #F8F4EA; }
   .launch-row { display: flex; align-items: center; gap: 12px 16px; flex-wrap: wrap; margin-top: 6px; }
   .launch-summary { font-size: 0.86rem; color: var(--ink-soft); }
   .btn:disabled { opacity: 0.45; cursor: not-allowed; filter: none; }
   .stop-row { margin-top: 26px; }
   .result-list { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-direction: column; gap: 6px; max-height: 260px; overflow-y: auto; }
   .result-list li { display: flex; align-items: center; gap: 10px; padding: 7px 9px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg); font-size: 0.84rem; }
-  .result-list .cl-char { font-family: "Noto Serif SC", serif; font-size: 1.15rem; color: var(--accent-seal); min-width: 26px; }
+  .result-list .cl-char { font-family: var(--font-zh); font-size: 1.15rem; color: var(--primary); min-width: 26px; }
   .result-list .cl-meta { flex: 1; color: var(--ink-soft); }
   .result-tally { display: flex; gap: 16px; font-size: 0.9rem; margin: 0 0 12px; }
   .team-row { display: grid; grid-template-columns: 70px 1fr auto; align-items: center; gap: 8px; margin: 7px 0; font-size: 0.8rem; }
@@ -364,16 +482,16 @@
         <p id="appSub">Prépare un test : chapitres, mots à inclure, longueur</p>
       </div>
     </div>
-    <button class="theme-btn" id="themeToggle" type="button">Mode sombre</button>
+    <div class="head-btns"><button class="theme-btn set-btn" id="settingsBtn" type="button">⚙ Paramètres</button></div>
   </header>
 
-  <div class="layout">
+  <div class="tabs"><button class="tab-btn active" id="tabTest" type="button">Tests</button><button class="tab-btn" id="tabStats" type="button">Statistiques</button></div>
+
+  <div class="stats-view" id="statsView" style="display:none"></div>
+
+  <div class="layout" id="mainLayout">
 
     <div class="panel">
-      <h2 class="section-title" id="tProfile">PROFIL</h2>
-      <div class="profile-row" id="profileRow"></div>
-      <div id="legacyBox"></div>
-      <hr class="divider">
       <h2 class="section-title" id="tTeam">MA PROGRESSION</h2>
       <div id="teamBox"></div>
       
@@ -518,6 +636,18 @@
       ["桌子","zhuōzi","table, bureau"],["书包","shūbāo","cartable"],["宿舍","sùshè","dortoir"],
       ["儿","ér","suffixe -r (érhua), enfant"],["没","méi","ne pas avoir, ne pas"],
       ["银","yín","argent (métal)"],["饭","fàn","repas, riz cuit"],["谢","xiè","remercier"]
+    ]},
+    { id: "chap8", title: "Chapitre 8 — 今天几号", items: [
+      ["今天","jīntiān","aujourd'hui"],["星期","xīngqī","semaine"],["的","de","particule de possession / de l'attribut"],["生日","shēngrì","anniversaire"],["以后","yǐhòu","après, ensuite"],["准备","zhǔnbèi","avoir l'intention de, prévoir"],["吃","chī","manger"],["对","duì","juste, correct, vrai"],["号","hào","jour du mois, numéro"],["怎么样","zěnmeyàng","comment ? qu'en dis-tu ?"],["祝","zhù","souhaiter, féliciter"],["快乐","kuàilè","heureux, joyeux"],["礼物","lǐwù","cadeau"],["支","zhī","classificateur (objets longs et fins)"],["笔","bǐ","stylo, crayon, pinceau"],["啊","a","particule d'accord, interjection"],["时间","shíjiān","temps, moment"],["问题","wèntí","question, problème"],["中文","Zhōngwén","chinois (langue écrite)"],["明天","míngtiān","demain"],["昨天","zuótiān","hier"],["报纸","bàozhǐ","journal"],["杂志","zázhì","magazine, revue"],["又","yòu","encore, de nouveau"],["专","zhuān","spécial"]
+    ]},
+    { id: "chap9", title: "Chapitre 9 — 你今天有什么安排", items: [
+      ["每天","měitiān","chaque jour"],["点","diǎn","heure (h)"],["半","bàn","demi, et demi"],["起床","qǐchuáng","se lever"],["先","xiān","d'abord, avant"],["洗澡","xǐzǎo","prendre un bain, une douche"],["然后","ránhòu","ensuite, après cela"],["早饭","zǎofàn","petit-déjeuner"],["差","chà","manquer, moins (l'heure)"],["刻","kè","quart d'heure"],["教室","jiàoshì","salle de classe"],["开始","kāishǐ","commencer"],["下午","xiàwǔ","après-midi"],["常常","chángcháng","souvent, fréquemment"],["晚上","wǎnshang","soir, nuit"],["有时候","yǒushíhou","parfois"],["电视","diànshì","télévision"],["上网","shàng wǎng","aller sur Internet"],["现在","xiànzài","maintenant"],["事","shì","affaire, chose à faire"],["开","kāi","ouvrir"],["门","mén","porte"],["关","guān","fermer"],["安排","ānpái","programme, organisation"],["朋友","péngyou","ami"],["见面","jiànmiàn","se voir, se rencontrer"],["电影","diànyǐng","film"],["再见","zàijiàn","au revoir"],["喝","hē","boire"],["游泳","yóuyǒng","nager"],["跑步","pǎobù","courir, faire du jogging"],["睡觉","shuìjiào","dormir"],["打球","dǎqiú","jouer au ballon"]
+    ]},
+    { id: "chap10", title: "Chapitre 10 — 这个星期天你忙不忙", items: [
+      ["城市","chéngshì","ville"],["公园","gōngyuán","parc"],["水","shuǐ","eau"],["树","shù","arbre"],["花","huā","fleur"],["风景","fēngjǐng","paysage"],["非常","fēicháng","très, extrêmement"],["漂亮","piàoliang","beau, joli"],["空气","kōngqì","air"],["新鲜","xīnxiān","frais"],["多","duō","nombreux, beaucoup"],["爬山","pá shān","faire de l'alpinisme, grimper une montagne"],["呼吸","hūxī","respirer"],["忙","máng","occupé"],["听说","tīngshuō","entendre dire"],["出发","chūfā","partir, se mettre en route"],["找","zhǎo","chercher"],["大家","dàjiā","tout le monde"],["累","lèi","fatigué"],["觉得","juéde","penser, trouver, se sentir"],["休息","xiūxi","se reposer"],["一下","yíxià","un peu, une fois (action brève)"],["茶","chá","thé"],["一点儿","yìdiǎnr","un peu"]
+    ]},
+    { id: "chap11", title: "Chapitre 11 — 我在学校食堂吃饭", items: [
+      ["同屋","tóngwū","camarade de chambre"],["汽车","qìchē","voiture, automobile"],["公司","gōngsī","entreprise, société"],["从","cóng","de, depuis"],["到","dào","jusqu'à, arriver à"],["上班","shàng bān","aller travailler, être au travail"],["周末","zhōumò","week-end"],["平时","píngshí","d'habitude, en temps normal"],["学校","xuéxiào","école"],["食堂","shítáng","cantine"],["时候","shíhou","moment, temps"],["菜","cài","plat, légume"],["聊天儿","liáo tiānr","bavarder"],["晚饭","wǎnfàn","dîner"],["号码","hàomǎ","numéro"],["不用","búyòng","pas besoin de"],["干","gàn","faire"],["画","huà","dessiner, peindre"],["喜欢","xǐhuan","aimer"],["一般","yìbān","en général, ordinaire"],["听","tīng","écouter"],["音乐","yīnyuè","musique"],["东西","dōngxi","chose, objet"],["收拾","shōushi","ranger, mettre en ordre"],["房间","fángjiān","chambre, pièce"],["北京","Běijīng","Pékin"],["上海","Shànghǎi","Shanghai"],["南京","Nánjīng","Nankin"],["电话","diànhuà","téléphone"]
     ]}
   ];
 
@@ -566,14 +696,17 @@
 
 
   /* ---------- Langue (russe pour Dana, français pour les autres) ---------- */
-  var RU_MEANING = {"你": "ты", "好": "хорошо, хороший", "您": "вы (вежливо, ед. ч.)", "老师": "учитель, преподаватель", "人": "человек", "十": "десять", "零": "ноль", "一": "один", "二": "два", "五": "пять", "八": "восемь", "上课": "начинать урок", "下课": "заканчивать урок", "早上": "утро, рано утром", "是": "быть, являться (глагол)", "哪": "какой, который", "国": "страна", "我": "я", "呢": "вопросительная частица (а … ?)", "他": "он", "美国": "США", "韩国": "Южная Корея", "日本": "Япония", "三": "три", "四": "четыре", "中国": "Китай", "德国": "Германия", "英国": "Великобритания", "印度": "Индия", "意大利": "Италия", "法国": "Франция", "泰国": "Таиланд", "口": "рот; счётное слово для членов семьи", "日": "солнце, день", "山": "гора", "六": "шесть", "么": "суффикс (напр. 什么)", "请": "пожалуйста, просить", "问": "спрашивать", "叫": "называться, звать", "什么": "что, какой", "名字": "имя", "姓": "иметь фамилию", "认识": "знать (кого-то), знакомиться", "很": "очень", "高兴": "рад, довольный", "也": "тоже, также", "贵姓": "ваша фамилия (вежливо)", "她": "она", "七": "семь", "九": "девять", "买": "покупать", "小": "маленький", "子": "сын, ребёнок", "月": "луна, месяц", "留学生": "иностранный студент", "学习": "учиться, изучать", "们": "суффикс множественного числа", "一起": "вместе", "说": "говорить", "汉语": "китайский язык", "吗": "вопросительная частица (да/нет)", "不": "не, нет", "谁": "кто", "同学": "одноклассник, однокурсник", "西班牙语": "испанский язык", "习": "упражняться, учиться", "衣": "одежда", "语": "язык, речь", "女": "женщина, женский", "家": "семья, дом", "有": "иметь, есть", "爸爸": "папа", "妈妈": "мама", "哥哥": "старший брат", "和": "и", "职员": "служащий, сотрудник", "都": "все, всё", "大学生": "студент университета", "几": "сколько (небольшое число)", "做": "делать", "工作": "работа, профессия", "律师": "адвокат, юрист", "医生": "врач", "班": "класс, группа", "多少": "сколько (большое число)", "个": "общее счётное слово", "学生": "ученик, студент", "两": "два (перед счётным словом)", "这": "этот, это", "百": "сто", "姐姐": "старшая сестра", "妹妹": "младшая сестра", "弟弟": "младший брат", "工人": "рабочий", "农民": "крестьянин", "护士": "медсестра, медбрат", "警察": "полицейский", "心": "сердце", "生": "рождаться, жизнь", "品": "изделие, товар", "想": "хотеть, думать", "电子": "электрон, электронный", "词典": "словарь", "电脑": "компьютер", "部": "счётное слово (книги, фильмы, машины)", "块": "юань (в разговорной речи)", "钱": "деньги", "台": "счётное слово (приборы, машины)", "千": "тысяча", "一共": "всего, в общей сложности", "需要": "нуждаться, требоваться", "营业员": "продавец, работник магазина", "要": "хотеть, нужно", "面包": "хлеб", "种": "вид, сорт", "谢谢": "спасибо", "不客气": "не за что", "客气": "вежливый, любезный", "香蕉": "банан", "斤": "цзинь (китайский фунт, 500 г)", "苹果": "яблоко", "再": "снова, ещё раз", "毛": "мао (1/10 юаня)", "元": "юань", "角": "цзяо (1/10 юаня)", "分": "фэнь (1/100 юаня)", "万": "десять тысяч", "书": "книга", "手机": "мобильный телефон", "咖啡": "кофе", "牛奶": "молоко", "啤酒": "пиво", "矿泉水": "минеральная вода", "可乐": "кола", "草莓": "клубника", "西瓜": "арбуз", "橘子": "апельсин, мандарин", "本": "счётное слово (книги)", "杯": "чашка, стакан", "袋": "пакет, мешочек", "盒": "коробка", "瓶": "бутылка", "公斤": "килограмм", "马": "лошадь", "风": "ветер", "意": "смысл, мысль", "教学": "преподавать, обучение", "楼": "многоэтажное здание", "在": "находиться, быть в", "图书馆": "библиотека", "边": "сторона", "运动场": "спортивная площадка, стадион", "体育馆": "спортзал", "饭馆": "ресторан", "还": "ещё, кроме того", "超市": "супермаркет", "去": "идти, ехать", "银行": "банк", "知道": "знать", "跟": "с", "吧": "частица предложения/побуждения", "太": "слишком, очень", "了": "модальная частица", "卫生间": "туалет", "对不起": "извините, прости", "没关系": "ничего страшного", "商店": "магазин", "地方": "место", "看": "смотреть, видеть", "那儿": "там", "就": "именно, как раз", "东": "восток", "西": "запад", "南": "юг", "北": "север", "上": "верх, наверху", "下": "низ, внизу", "前": "впереди, перед", "后": "сзади, после", "里": "внутри, в", "外": "снаружи", "左": "левый, слева", "右": "правый, справа", "旁": "рядом, сбоку", "中间": "середина", "对面": "напротив", "书店": "книжный магазин", "邮局": "почта", "桌子": "стол", "书包": "школьный рюкзак, портфель", "宿舍": "общежитие", "儿": "суффикс -р (эрхуа), ребёнок", "没": "не иметь, не", "银": "серебро", "饭": "еда, варёный рис"};
+  var RU_MEANING = {"你": "ты", "好": "хорошо, хороший", "您": "вы (вежливо, ед. ч.)", "老师": "учитель, преподаватель", "人": "человек", "十": "десять", "零": "ноль", "一": "один", "二": "два", "五": "пять", "八": "восемь", "上课": "начинать урок", "下课": "заканчивать урок", "早上": "утро, рано утром", "是": "быть, являться (глагол)", "哪": "какой, который", "国": "страна", "我": "я", "呢": "вопросительная частица (а … ?)", "他": "он", "美国": "США", "韩国": "Южная Корея", "日本": "Япония", "三": "три", "四": "четыре", "中国": "Китай", "德国": "Германия", "英国": "Великобритания", "印度": "Индия", "意大利": "Италия", "法国": "Франция", "泰国": "Таиланд", "口": "рот; счётное слово для членов семьи", "日": "солнце, день", "山": "гора", "六": "шесть", "么": "суффикс (напр. 什么)", "请": "пожалуйста, просить", "问": "спрашивать", "叫": "называться, звать", "什么": "что, какой", "名字": "имя", "姓": "иметь фамилию", "认识": "знать (кого-то), знакомиться", "很": "очень", "高兴": "рад, довольный", "也": "тоже, также", "贵姓": "ваша фамилия (вежливо)", "她": "она", "七": "семь", "九": "девять", "买": "покупать", "小": "маленький", "子": "сын, ребёнок", "月": "луна, месяц", "留学生": "иностранный студент", "学习": "учиться, изучать", "们": "суффикс множественного числа", "一起": "вместе", "说": "говорить", "汉语": "китайский язык", "吗": "вопросительная частица (да/нет)", "不": "не, нет", "谁": "кто", "同学": "одноклассник, однокурсник", "西班牙语": "испанский язык", "习": "упражняться, учиться", "衣": "одежда", "语": "язык, речь", "女": "женщина, женский", "家": "семья, дом", "有": "иметь, есть", "爸爸": "папа", "妈妈": "мама", "哥哥": "старший брат", "和": "и", "职员": "служащий, сотрудник", "都": "все, всё", "大学生": "студент университета", "几": "сколько (небольшое число)", "做": "делать", "工作": "работа, профессия", "律师": "адвокат, юрист", "医生": "врач", "班": "класс, группа", "多少": "сколько (большое число)", "个": "общее счётное слово", "学生": "ученик, студент", "两": "два (перед счётным словом)", "这": "этот, это", "百": "сто", "姐姐": "старшая сестра", "妹妹": "младшая сестра", "弟弟": "младший брат", "工人": "рабочий", "农民": "крестьянин", "护士": "медсестра, медбрат", "警察": "полицейский", "心": "сердце", "生": "рождаться, жизнь", "品": "изделие, товар", "想": "хотеть, думать", "电子": "электрон, электронный", "词典": "словарь", "电脑": "компьютер", "部": "счётное слово (книги, фильмы, машины)", "块": "юань (в разговорной речи)", "钱": "деньги", "台": "счётное слово (приборы, машины)", "千": "тысяча", "一共": "всего, в общей сложности", "需要": "нуждаться, требоваться", "营业员": "продавец, работник магазина", "要": "хотеть, нужно", "面包": "хлеб", "种": "вид, сорт", "谢谢": "спасибо", "不客气": "не за что", "客气": "вежливый, любезный", "香蕉": "банан", "斤": "цзинь (китайский фунт, 500 г)", "苹果": "яблоко", "再": "снова, ещё раз", "毛": "мао (1/10 юаня)", "元": "юань", "角": "цзяо (1/10 юаня)", "分": "фэнь (1/100 юаня)", "万": "десять тысяч", "书": "книга", "手机": "мобильный телефон", "咖啡": "кофе", "牛奶": "молоко", "啤酒": "пиво", "矿泉水": "минеральная вода", "可乐": "кола", "草莓": "клубника", "西瓜": "арбуз", "橘子": "апельсин, мандарин", "本": "счётное слово (книги)", "杯": "чашка, стакан", "袋": "пакет, мешочек", "盒": "коробка", "瓶": "бутылка", "公斤": "килограмм", "马": "лошадь", "风": "ветер", "意": "смысл, мысль", "教学": "преподавать, обучение", "楼": "многоэтажное здание", "在": "находиться, быть в", "图书馆": "библиотека", "边": "сторона", "运动场": "спортивная площадка, стадион", "体育馆": "спортзал", "饭馆": "ресторан", "还": "ещё, кроме того", "超市": "супермаркет", "去": "идти, ехать", "银行": "банк", "知道": "знать", "跟": "с", "吧": "частица предложения/побуждения", "太": "слишком, очень", "了": "модальная частица", "卫生间": "туалет", "对不起": "извините, прости", "没关系": "ничего страшного", "商店": "магазин", "地方": "место", "看": "смотреть, видеть", "那儿": "там", "就": "именно, как раз", "东": "восток", "西": "запад", "南": "юг", "北": "север", "上": "верх, наверху", "下": "низ, внизу", "前": "впереди, перед", "后": "сзади, после", "里": "внутри, в", "外": "снаружи", "左": "левый, слева", "右": "правый, справа", "旁": "рядом, сбоку", "中间": "середина", "对面": "напротив", "书店": "книжный магазин", "邮局": "почта", "桌子": "стол", "书包": "школьный рюкзак, портфель", "宿舍": "общежитие", "儿": "суффикс -р (эрхуа), ребёнок", "没": "не иметь, не", "银": "серебро", "饭": "еда, варёный рис", "今天": "сегодня", "星期": "неделя", "的": "частица принадлежности / определения", "生日": "день рождения", "以后": "после, потом", "准备": "собираться, планировать", "吃": "есть, кушать", "对": "верно, правильно", "号": "число (дата), номер", "怎么样": "как? как насчёт…?", "祝": "желать, поздравлять", "快乐": "счастливый, весёлый", "礼物": "подарок", "支": "счётное слово (длинные тонкие предметы)", "笔": "ручка, карандаш, кисть", "啊": "междометие согласия", "时间": "время", "问题": "вопрос, проблема", "中文": "китайский язык (письменный)", "明天": "завтра", "昨天": "вчера", "报纸": "газета", "杂志": "журнал", "又": "опять, снова", "专": "особый, специальный", "每天": "каждый день", "点": "час (о времени)", "半": "половина", "起床": "вставать (с постели)", "先": "сначала", "洗澡": "принимать ванну, душ", "然后": "затем, потом", "早饭": "завтрак", "差": "не хватать, без (о времени)", "刻": "четверть часа", "教室": "класс, аудитория", "开始": "начинать(ся)", "下午": "после полудня", "常常": "часто", "晚上": "вечер, ночь", "有时候": "иногда", "电视": "телевизор", "上网": "выходить в интернет", "现在": "сейчас", "事": "дело", "开": "открывать", "门": "дверь", "关": "закрывать", "安排": "план, распорядок", "朋友": "друг", "见面": "встречаться", "电影": "фильм", "再见": "до свидания", "喝": "пить", "游泳": "плавать", "跑步": "бегать", "睡觉": "спать", "打球": "играть в мяч", "城市": "город", "公园": "парк", "水": "вода", "树": "дерево", "花": "цветок", "风景": "пейзаж", "非常": "очень, чрезвычайно", "漂亮": "красивый", "空气": "воздух", "新鲜": "свежий", "多": "много", "爬山": "ходить в горы, подниматься в гору", "呼吸": "дышать", "忙": "занятый", "听说": "слышать (о чём-то), говорят", "出发": "отправляться", "找": "искать", "大家": "все", "累": "уставший", "觉得": "думать, чувствовать", "休息": "отдыхать", "一下": "немного, разок (о коротком действии)", "茶": "чай", "一点儿": "немного", "同屋": "сосед по комнате", "汽车": "автомобиль", "公司": "компания", "从": "от, с", "到": "до, прибывать", "上班": "идти на работу, быть на работе", "周末": "выходные", "平时": "обычно, в обычное время", "学校": "школа, учебное заведение", "食堂": "столовая", "时候": "время, момент", "菜": "блюдо, овощи", "聊天儿": "болтать, беседовать", "晚饭": "ужин", "号码": "номер", "不用": "не нужно", "干": "делать", "画": "рисовать", "喜欢": "нравиться, любить", "一般": "обычно, обычный", "听": "слушать", "音乐": "музыка", "东西": "вещь", "收拾": "убирать, приводить в порядок", "房间": "комната", "北京": "Пекин", "上海": "Шанхай", "南京": "Нанкин", "电话": "телефон"};
+  var WM = {"en": {"你": "you", "好": "good, well", "您": "you (polite, singular)", "老师": "teacher", "人": "person", "十": "ten", "零": "zero", "一": "one", "二": "two", "五": "five", "八": "eight", "上课": "class begins", "下课": "class is over", "早上": "morning, early morning", "是": "to be (verb)", "哪": "which", "国": "country", "我": "I / me", "呢": "question particle (and …?)", "他": "he / him", "美国": "United States", "韩国": "South Korea", "日本": "Japan", "三": "three", "四": "four", "中国": "China", "德国": "Germany", "英国": "United Kingdom", "印度": "India", "意大利": "Italy", "法国": "France", "泰国": "Thailand", "口": "mouth; measure word for family members", "日": "sun, day", "山": "mountain", "六": "six", "么": "suffix (e.g. 什么)", "请": "please, to ask someone to", "问": "to ask", "叫": "to be called, to call", "什么": "what", "名字": "name, first name", "姓": "to have the surname", "认识": "to know, to get acquainted", "很": "very", "高兴": "glad, happy", "也": "also, too", "贵姓": "your surname (polite)", "她": "she / her", "七": "seven", "九": "nine", "买": "to buy", "小": "small", "子": "son, child", "月": "moon, month", "留学生": "international student", "学习": "to study, to learn", "们": "plural suffix", "一起": "together", "说": "to speak, to say", "汉语": "Chinese (language)", "吗": "yes/no question particle", "不": "not, no", "谁": "who", "同学": "classmate", "西班牙语": "Spanish (language)", "习": "to practice, to study", "衣": "clothes", "语": "language", "女": "woman, female", "家": "family, home", "有": "to have, there is", "爸爸": "dad", "妈妈": "mom", "哥哥": "older brother", "和": "and", "职员": "office worker", "都": "all, both", "大学生": "university student", "几": "how many (small number)", "做": "to do, to make", "工作": "work, job", "律师": "lawyer", "医生": "doctor", "班": "class, group", "多少": "how many / how much (large number)", "个": "general measure word", "学生": "student, pupil", "两": "two (before a measure word)", "这": "this", "百": "hundred", "姐姐": "older sister", "妹妹": "younger sister", "弟弟": "younger brother", "工人": "worker", "农民": "farmer", "护士": "nurse", "警察": "police officer", "心": "heart", "生": "to be born, life", "品": "item, product", "想": "to want, to feel like", "电子": "electron, electronic", "词典": "dictionary", "电脑": "computer", "部": "measure word (books, films, machines)", "块": "yuan (spoken)", "钱": "money", "台": "measure word (appliances, machines)", "千": "thousand", "一共": "in total", "需要": "to need", "营业员": "shop assistant, salesperson", "要": "to want, to need", "面包": "bread", "种": "kind, type", "谢谢": "thank you", "不客气": "you're welcome", "客气": "polite, courteous", "香蕉": "banana", "斤": "jin (Chinese pound, 500 g)", "苹果": "apple", "再": "again, once more", "毛": "mao (1/10 yuan)", "元": "yuan", "角": "jiao (1/10 yuan)", "分": "fen (1/100 yuan)", "万": "ten thousand", "书": "book", "手机": "mobile phone", "咖啡": "coffee", "牛奶": "milk", "啤酒": "beer", "矿泉水": "mineral water", "可乐": "cola", "草莓": "strawberry", "西瓜": "watermelon", "橘子": "orange, mandarin", "本": "measure word (books)", "杯": "cup, glass", "袋": "bag, pouch", "盒": "box", "瓶": "bottle", "公斤": "kilogram", "马": "horse", "风": "wind", "意": "meaning, idea", "教学": "to teach, teaching", "楼": "multi-story building", "在": "to be located at, to be in", "图书馆": "library", "边": "side", "运动场": "sports field", "体育馆": "gym", "饭馆": "restaurant", "还": "also, in addition", "超市": "supermarket", "去": "to go", "银行": "bank", "知道": "to know", "跟": "with", "吧": "suggestion particle", "太": "too, really", "了": "modal particle", "卫生间": "restroom", "对不起": "sorry, excuse me", "没关系": "it doesn't matter", "商店": "shop, store", "地方": "place", "看": "to look, to see", "那儿": "over there", "就": "exactly, precisely", "东": "east", "西": "west", "南": "south", "北": "north", "上": "up, on top", "下": "down, below", "前": "front, in front", "后": "back, behind", "里": "inside, in", "外": "outside", "左": "left", "右": "right", "旁": "beside, next to", "中间": "middle", "对面": "opposite, across", "书店": "bookstore", "邮局": "post office", "桌子": "table, desk", "书包": "school bag", "宿舍": "dormitory", "儿": "suffix -r (erhua), child", "没": "not to have, not", "银": "silver (metal)", "饭": "meal, cooked rice", "今天": "today", "星期": "week", "的": "possessive / attributive particle", "生日": "birthday", "以后": "after, afterwards", "准备": "to plan to, to prepare", "吃": "to eat", "对": "right, correct, true", "号": "day of the month, number", "怎么样": "how about it? what do you think?", "祝": "to wish, to congratulate", "快乐": "happy, joyful", "礼物": "gift", "支": "measure word (long thin objects)", "笔": "pen, pencil, brush", "啊": "particle of agreement, interjection", "时间": "time, moment", "问题": "question, problem", "中文": "Chinese (written language)", "明天": "tomorrow", "昨天": "yesterday", "报纸": "newspaper", "杂志": "magazine", "又": "again", "专": "special", "每天": "every day", "点": "o'clock", "半": "half, half past", "起床": "to get up", "先": "first, before", "洗澡": "to take a bath or shower", "然后": "then, after that", "早饭": "breakfast", "差": "to lack, to be short of (time)", "刻": "quarter of an hour", "教室": "classroom", "开始": "to start, to begin", "下午": "afternoon", "常常": "often, frequently", "晚上": "evening, night", "有时候": "sometimes", "电视": "television", "上网": "to go online", "现在": "now", "事": "matter, thing to do", "开": "to open", "门": "door", "关": "to close", "安排": "schedule, arrangement", "朋友": "friend", "见面": "to meet, to see each other", "电影": "movie", "再见": "goodbye", "喝": "to drink", "游泳": "to swim", "跑步": "to run, to jog", "睡觉": "to sleep", "打球": "to play ball", "城市": "city", "公园": "park", "水": "water", "树": "tree", "花": "flower", "风景": "scenery", "非常": "very, extremely", "漂亮": "beautiful, pretty", "空气": "air", "新鲜": "fresh", "多": "many, a lot", "爬山": "to hike, to climb a mountain", "呼吸": "to breathe", "忙": "busy", "听说": "to hear that, it is said", "出发": "to set off, to depart", "找": "to look for", "大家": "everyone", "累": "tired", "觉得": "to think, to feel", "休息": "to rest", "一下": "a bit, once (short action)", "茶": "tea", "一点儿": "a little", "同屋": "roommate", "汽车": "car, automobile", "公司": "company", "从": "from, since", "到": "until, to arrive at", "上班": "to go to work, to be at work", "周末": "weekend", "平时": "usually, normally", "学校": "school", "食堂": "canteen", "时候": "time, moment", "菜": "dish, vegetable", "聊天儿": "to chat", "晚饭": "dinner", "号码": "number", "不用": "no need to", "干": "to do", "画": "to draw, to paint", "喜欢": "to like", "一般": "generally, ordinary", "听": "to listen", "音乐": "music", "东西": "thing, object", "收拾": "to tidy up", "房间": "room", "北京": "Beijing", "上海": "Shanghai", "南京": "Nanjing", "电话": "telephone"}, "ko": {"你": "너, 당신", "好": "좋다, 잘", "您": "당신 (존칭, 단수)", "老师": "선생님", "人": "사람", "十": "십, 열", "零": "영, 0", "一": "일, 하나", "二": "이, 둘", "五": "오, 다섯", "八": "팔, 여덟", "上课": "수업을 시작하다", "下课": "수업이 끝나다", "早上": "아침, 이른 아침", "是": "이다 (동사)", "哪": "어느, 어떤", "国": "나라", "我": "나", "呢": "의문 어기조사 (…는요?)", "他": "그, 그 사람", "美国": "미국", "韩国": "한국", "日本": "일본", "三": "삼, 셋", "四": "사, 넷", "中国": "중국", "德国": "독일", "英国": "영국", "印度": "인도", "意大利": "이탈리아", "法国": "프랑스", "泰国": "태국", "口": "입; 가족 구성원을 세는 단위", "日": "해, 날", "山": "산", "六": "육, 여섯", "么": "접미사 (예: 什么)", "请": "~해 주세요, 청하다", "问": "묻다", "叫": "~라고 부르다, 이름이 ~이다", "什么": "무엇, 무슨", "名字": "이름", "姓": "성이 ~이다", "认识": "알다, 알게 되다", "很": "매우, 아주", "高兴": "기쁘다, 즐겁다", "也": "~도, 또한", "贵姓": "성함 (존칭)", "她": "그녀", "七": "칠, 일곱", "九": "구, 아홉", "买": "사다", "小": "작다", "子": "아들, 아이", "月": "달, 월", "留学生": "유학생", "学习": "공부하다, 배우다", "们": "복수 접미사", "一起": "함께, 같이", "说": "말하다", "汉语": "중국어", "吗": "예/아니오 의문 조사", "不": "~않다, 아니다", "谁": "누구", "同学": "반 친구, 동기", "西班牙语": "스페인어", "习": "익히다, 공부하다", "衣": "옷", "语": "언어, 말", "女": "여자, 여성의", "家": "가족, 집", "有": "있다, 가지고 있다", "爸爸": "아빠", "妈妈": "엄마", "哥哥": "형, 오빠", "和": "~와/과", "职员": "사무직원", "都": "모두, 다", "大学生": "대학생", "几": "몇 (작은 수)", "做": "하다, 만들다", "工作": "일, 직업", "律师": "변호사", "医生": "의사", "班": "반, 그룹", "多少": "얼마, 몇 (큰 수)", "个": "일반 양사 (개)", "学生": "학생", "两": "둘 (양사 앞)", "这": "이, 이것", "百": "백", "姐姐": "누나, 언니", "妹妹": "여동생", "弟弟": "남동생", "工人": "노동자", "农民": "농민", "护士": "간호사", "警察": "경찰", "心": "마음, 심장", "生": "태어나다, 삶", "品": "물품, 제품", "想": "~하고 싶다, 생각하다", "电子": "전자, 전자의", "词典": "사전", "电脑": "컴퓨터", "部": "양사 (책, 영화, 기계)", "块": "위안 (구어)", "钱": "돈", "台": "양사 (기기, 기계)", "千": "천", "一共": "모두, 합쳐서", "需要": "필요하다", "营业员": "점원, 판매원", "要": "원하다, 필요하다", "面包": "빵", "种": "종류", "谢谢": "감사합니다", "不客气": "천만에요", "客气": "예의 바르다, 사양하다", "香蕉": "바나나", "斤": "근 (중국의 무게 단위, 500g)", "苹果": "사과", "再": "다시, 또", "毛": "마오 (1/10 위안)", "元": "위안", "角": "자오 (1/10 위안)", "分": "펀 (1/100 위안)", "万": "만", "书": "책", "手机": "휴대전화", "咖啡": "커피", "牛奶": "우유", "啤酒": "맥주", "矿泉水": "생수", "可乐": "콜라", "草莓": "딸기", "西瓜": "수박", "橘子": "귤, 오렌지", "本": "양사 (책)", "杯": "잔, 컵", "袋": "봉지", "盒": "상자, 갑", "瓶": "병", "公斤": "킬로그램", "马": "말 (동물)", "风": "바람", "意": "뜻, 생각", "教学": "가르치다, 수업", "楼": "층이 있는 건물", "在": "~에 있다", "图书馆": "도서관", "边": "쪽, 옆", "运动场": "운동장", "体育馆": "체육관", "饭馆": "식당", "还": "또한, 게다가", "超市": "슈퍼마켓", "去": "가다", "银行": "은행", "知道": "알다", "跟": "~와 함께", "吧": "제안·권유 어기조사", "太": "너무, 정말", "了": "어기조사", "卫生间": "화장실", "对不起": "죄송합니다, 실례합니다", "没关系": "괜찮습니다", "商店": "상점, 가게", "地方": "곳, 장소", "看": "보다", "那儿": "저기, 거기", "就": "바로, 곧", "东": "동쪽", "西": "서쪽", "南": "남쪽", "北": "북쪽", "上": "위", "下": "아래", "前": "앞", "后": "뒤", "里": "안, 속", "外": "밖", "左": "왼쪽", "右": "오른쪽", "旁": "옆", "中间": "가운데, 중간", "对面": "맞은편", "书店": "서점", "邮局": "우체국", "桌子": "탁자, 책상", "书包": "책가방", "宿舍": "기숙사", "儿": "접미사 -r (얼화), 아이", "没": "없다, ~않았다", "银": "은 (금속)", "饭": "밥, 식사", "今天": "오늘", "星期": "주, 요일", "的": "소유·수식 조사 (~의)", "生日": "생일", "以后": "~한 후, 이후", "准备": "~할 계획이다, 준비하다", "吃": "먹다", "对": "맞다, 옳다", "号": "일 (날짜), 번호", "怎么样": "어때요? 어떻게 생각해요?", "祝": "기원하다, 축하하다", "快乐": "즐겁다, 행복하다", "礼物": "선물", "支": "양사 (길고 가는 물건)", "笔": "펜, 연필, 붓", "啊": "동의·감탄 어기조사", "时间": "시간", "问题": "질문, 문제", "中文": "중국어 (문어)", "明天": "내일", "昨天": "어제", "报纸": "신문", "杂志": "잡지", "又": "또, 다시", "专": "전문, 특별한", "每天": "매일", "点": "시 (시각)", "半": "반, 30분", "起床": "일어나다, 기상하다", "先": "먼저, 우선", "洗澡": "목욕하다, 샤워하다", "然后": "그런 다음, 그 후", "早饭": "아침 식사", "差": "모자라다, ~전 (시각)", "刻": "15분", "教室": "교실", "开始": "시작하다", "下午": "오후", "常常": "자주, 늘", "晚上": "저녁, 밤", "有时候": "가끔, 때때로", "电视": "텔레비전", "上网": "인터넷을 하다", "现在": "지금", "事": "일, 용무", "开": "열다", "门": "문", "关": "닫다", "安排": "일정, 계획", "朋友": "친구", "见面": "만나다", "电影": "영화", "再见": "안녕히 가세요, 또 봐요", "喝": "마시다", "游泳": "수영하다", "跑步": "달리다, 조깅하다", "睡觉": "자다", "打球": "공놀이를 하다", "城市": "도시", "公园": "공원", "水": "물", "树": "나무", "花": "꽃", "风景": "경치", "非常": "매우, 대단히", "漂亮": "예쁘다, 아름답다", "空气": "공기", "新鲜": "신선하다", "多": "많다", "爬山": "등산하다", "呼吸": "숨 쉬다, 호흡하다", "忙": "바쁘다", "听说": "듣자 하니, ~라고 하다", "出发": "출발하다", "找": "찾다", "大家": "여러분, 모두", "累": "피곤하다", "觉得": "~라고 생각하다, 느끼다", "休息": "쉬다", "一下": "좀, 한번 (짧은 동작)", "茶": "차", "一点儿": "조금", "同屋": "룸메이트", "汽车": "자동차", "公司": "회사", "从": "~부터", "到": "~까지, 도착하다", "上班": "출근하다, 근무하다", "周末": "주말", "平时": "평소", "学校": "학교", "食堂": "구내식당", "时候": "때, 시간", "菜": "요리, 채소", "聊天儿": "수다 떨다, 이야기하다", "晚饭": "저녁 식사", "号码": "번호", "不用": "~할 필요 없다", "干": "하다", "画": "그리다", "喜欢": "좋아하다", "一般": "보통, 일반적인", "听": "듣다", "音乐": "음악", "东西": "물건", "收拾": "정리하다", "房间": "방", "北京": "베이징", "上海": "상하이", "南京": "난징", "电话": "전화"}, "es": {"你": "tú", "好": "bien, bueno", "您": "usted (cortés, singular)", "老师": "profesor/a", "人": "persona", "十": "diez", "零": "cero", "一": "uno", "二": "dos", "五": "cinco", "八": "ocho", "上课": "empieza la clase", "下课": "termina la clase", "早上": "mañana, temprano por la mañana", "是": "ser (verbo)", "哪": "cuál", "国": "país", "我": "yo", "呢": "partícula interrogativa (¿y …?)", "他": "él", "美国": "Estados Unidos", "韩国": "Corea del Sur", "日本": "Japón", "三": "tres", "四": "cuatro", "中国": "China", "德国": "Alemania", "英国": "Reino Unido", "印度": "India", "意大利": "Italia", "法国": "Francia", "泰国": "Tailandia", "口": "boca; clasificador de miembros de la familia", "日": "sol, día", "山": "montaña", "六": "seis", "么": "sufijo (p. ej. 什么)", "请": "por favor, pedir a alguien que", "问": "preguntar", "叫": "llamarse, llamar", "什么": "qué", "名字": "nombre", "姓": "tener como apellido", "认识": "conocer, entablar conocimiento", "很": "muy", "高兴": "contento, alegre", "也": "también", "贵姓": "su apellido (cortés)", "她": "ella", "七": "siete", "九": "nueve", "买": "comprar", "小": "pequeño", "子": "hijo, niño", "月": "luna, mes", "留学生": "estudiante extranjero", "学习": "estudiar, aprender", "们": "sufijo de plural", "一起": "juntos", "说": "hablar, decir", "汉语": "chino (idioma)", "吗": "partícula de pregunta sí/no", "不": "no", "谁": "quién", "同学": "compañero de clase", "西班牙语": "español (idioma)", "习": "practicar, estudiar", "衣": "ropa", "语": "lengua, idioma", "女": "mujer, femenino", "家": "familia, casa", "有": "tener, haber", "爸爸": "papá", "妈妈": "mamá", "哥哥": "hermano mayor", "和": "y", "职员": "empleado de oficina", "都": "todos, todo", "大学生": "estudiante universitario", "几": "cuántos (número pequeño)", "做": "hacer", "工作": "trabajo, profesión", "律师": "abogado", "医生": "médico", "班": "clase, grupo", "多少": "cuántos / cuánto (número grande)", "个": "clasificador general", "学生": "alumno, estudiante", "两": "dos (ante un clasificador)", "这": "este, esto", "百": "cien", "姐姐": "hermana mayor", "妹妹": "hermana menor", "弟弟": "hermano menor", "工人": "obrero", "农民": "campesino", "护士": "enfermero/a", "警察": "policía", "心": "corazón", "生": "nacer, vida", "品": "artículo, producto", "想": "querer, tener ganas de", "电子": "electrón, electrónico", "词典": "diccionario", "电脑": "ordenador", "部": "clasificador (libros, películas, máquinas)", "块": "yuan (en lengua hablada)", "钱": "dinero", "台": "clasificador (aparatos, máquinas)", "千": "mil", "一共": "en total", "需要": "necesitar", "营业员": "dependiente, vendedor", "要": "querer, necesitar", "面包": "pan", "种": "clase, tipo", "谢谢": "gracias", "不客气": "de nada", "客气": "cortés, amable", "香蕉": "plátano", "斤": "jin (libra china, 500 g)", "苹果": "manzana", "再": "otra vez, de nuevo", "毛": "mao (1/10 de yuan)", "元": "yuan", "角": "jiao (1/10 de yuan)", "分": "fen (1/100 de yuan)", "万": "diez mil", "书": "libro", "手机": "teléfono móvil", "咖啡": "café", "牛奶": "leche", "啤酒": "cerveza", "矿泉水": "agua mineral", "可乐": "cola", "草莓": "fresa", "西瓜": "sandía", "橘子": "naranja, mandarina", "本": "clasificador (libros)", "杯": "taza, vaso", "袋": "bolsa", "盒": "caja", "瓶": "botella", "公斤": "kilogramo", "马": "caballo", "风": "viento", "意": "sentido, idea", "教学": "enseñar, enseñanza", "楼": "edificio de varias plantas", "在": "estar situado en, encontrarse", "图书馆": "biblioteca", "边": "lado", "运动场": "campo deportivo", "体育馆": "gimnasio", "饭馆": "restaurante", "还": "además, también", "超市": "supermercado", "去": "ir", "银行": "banco", "知道": "saber", "跟": "con", "吧": "partícula de sugerencia", "太": "demasiado, muy", "了": "partícula modal", "卫生间": "baño, aseos", "对不起": "lo siento, perdón", "没关系": "no pasa nada", "商店": "tienda", "地方": "lugar", "看": "mirar, ver", "那儿": "allí", "就": "justamente, precisamente", "东": "este", "西": "oeste", "南": "sur", "北": "norte", "上": "arriba, encima", "下": "abajo, debajo", "前": "delante", "后": "detrás", "里": "dentro, interior", "外": "fuera, exterior", "左": "izquierda", "右": "derecha", "旁": "al lado", "中间": "medio", "对面": "enfrente", "书店": "librería", "邮局": "oficina de correos", "桌子": "mesa, escritorio", "书包": "mochila escolar", "宿舍": "residencia, dormitorio", "儿": "sufijo -r (erhua), niño", "没": "no tener, no", "银": "plata (metal)", "饭": "comida, arroz cocido", "今天": "hoy", "星期": "semana", "的": "partícula de posesión / atributiva", "生日": "cumpleaños", "以后": "después, luego", "准备": "tener la intención de, prever", "吃": "comer", "对": "correcto, cierto", "号": "día del mes, número", "怎么样": "¿qué tal? ¿qué te parece?", "祝": "desear, felicitar", "快乐": "feliz, alegre", "礼物": "regalo", "支": "clasificador (objetos largos y finos)", "笔": "bolígrafo, lápiz, pincel", "啊": "partícula de acuerdo, interjección", "时间": "tiempo, momento", "问题": "pregunta, problema", "中文": "chino (lengua escrita)", "明天": "mañana", "昨天": "ayer", "报纸": "periódico", "杂志": "revista", "又": "otra vez, de nuevo", "专": "especial", "每天": "cada día", "点": "hora (en punto)", "半": "medio, y media", "起床": "levantarse", "先": "primero, antes", "洗澡": "bañarse, ducharse", "然后": "luego, después de eso", "早饭": "desayuno", "差": "faltar, menos (la hora)", "刻": "cuarto de hora", "教室": "aula", "开始": "empezar, comenzar", "下午": "tarde", "常常": "a menudo, con frecuencia", "晚上": "tarde-noche, noche", "有时候": "a veces", "电视": "televisión", "上网": "conectarse a Internet", "现在": "ahora", "事": "asunto, cosa que hacer", "开": "abrir", "门": "puerta", "关": "cerrar", "安排": "programa, organización", "朋友": "amigo", "见面": "verse, encontrarse", "电影": "película", "再见": "adiós", "喝": "beber", "游泳": "nadar", "跑步": "correr, hacer jogging", "睡觉": "dormir", "打球": "jugar a la pelota", "城市": "ciudad", "公园": "parque", "水": "agua", "树": "árbol", "花": "flor", "风景": "paisaje", "非常": "muy, extremadamente", "漂亮": "bonito, hermoso", "空气": "aire", "新鲜": "fresco", "多": "muchos, mucho", "爬山": "hacer senderismo, subir una montaña", "呼吸": "respirar", "忙": "ocupado", "听说": "oír decir, dicen que", "出发": "partir, ponerse en camino", "找": "buscar", "大家": "todos, todo el mundo", "累": "cansado", "觉得": "pensar, opinar, sentirse", "休息": "descansar", "一下": "un poco, una vez (acción breve)", "茶": "té", "一点儿": "un poco", "同屋": "compañero de cuarto", "汽车": "coche, automóvil", "公司": "empresa, compañía", "从": "de, desde", "到": "hasta, llegar a", "上班": "ir a trabajar, estar en el trabajo", "周末": "fin de semana", "平时": "normalmente, de ordinario", "学校": "escuela", "食堂": "comedor, cantina", "时候": "momento, tiempo", "菜": "plato, verdura", "聊天儿": "charlar", "晚饭": "cena", "号码": "número", "不用": "no hace falta", "干": "hacer", "画": "dibujar, pintar", "喜欢": "gustar, querer", "一般": "en general, normal", "听": "escuchar", "音乐": "música", "东西": "cosa, objeto", "收拾": "ordenar, recoger", "房间": "habitación, cuarto", "北京": "Pekín", "上海": "Shanghái", "南京": "Nankín", "电话": "teléfono"}, "tk": {"你": "sen", "好": "gowy, ýagşy", "您": "siz (hormatly, ýekelik)", "老师": "mugallym", "人": "adam", "十": "on", "零": "nol", "一": "bir", "二": "iki", "五": "bäş", "八": "sekiz", "上课": "sapak başlanýar", "下课": "sapak gutarýar", "早上": "irden, daň ertir", "是": "bolmak (işlik)", "哪": "haýsy", "国": "ýurt", "我": "men", "呢": "soragly ýükleme (… nähili?)", "他": "ol", "美国": "Amerikanyň Birleşen Ştatlary", "韩国": "Günorta Koreýa", "日本": "Ýaponiýa", "三": "üç", "四": "dört", "中国": "Hytaý", "德国": "Germaniýa", "英国": "Beýik Britaniýa", "印度": "Hindistan", "意大利": "Italiýa", "法国": "Fransiýa", "泰国": "Taýland", "口": "agyz; maşgala agzalaryny sanamak sözi", "日": "Gün, gün", "山": "dag", "六": "alty", "么": "goşulma (meselem 什么)", "请": "haýyş, ... haýyş etmek", "问": "soramak", "叫": "atlanmak, çagyrmak", "什么": "näme", "名字": "at", "姓": "familiýasy bolmak", "认识": "tanamak, tanyş bolmak", "很": "örän", "高兴": "şat, begenýän", "也": "hem, -da/-de", "贵姓": "familiýaňyz (hormatly)", "她": "ol (aýal)", "七": "ýedi", "九": "dokuz", "买": "satyn almak", "小": "kiçi", "子": "ogul, çaga", "月": "aý", "留学生": "daşary ýurtly talyp", "学习": "okamak, öwrenmek", "们": "köplük goşulmasy", "一起": "bile", "说": "aýtmak, gürlemek", "汉语": "hytaý dili", "吗": "hawa/ýok soragynyň ýükleme sözi", "不": "ýok, -ma/-me", "谁": "kim", "同学": "synpdaş", "西班牙语": "ispan dili", "习": "gönükmek, öwrenmek", "衣": "eşik", "语": "dil", "女": "aýal, gyz", "家": "maşgala, öý", "有": "bolmak, bar", "爸爸": "kaka", "妈妈": "eje", "哥哥": "uly dogan (agtyk)", "和": "we", "职员": "kontor işgäri", "都": "hemmesi", "大学生": "uniwersitet talyby", "几": "näçe (az san)", "做": "etmek, ýasamak", "工作": "iş, hünär", "律师": "aklawçy", "医生": "lukman", "班": "synp, topar", "多少": "näçe (köp san)", "个": "umumy sanamak sözi", "学生": "okuwçy, talyp", "两": "iki (sanamak sözüniň öňünde)", "这": "bu", "百": "ýüz", "姐姐": "uly gyz dogan", "妹妹": "kiçi gyz dogan", "弟弟": "kiçi dogan", "工人": "işçi", "农民": "daýhan", "护士": "şepagat uýasy", "警察": "polisiýa işgäri", "心": "ýürek", "生": "dogulmak, ömür", "品": "önüm, haryt", "想": "islemek, höwesi bolmak", "电子": "elektron", "词典": "sözlük", "电脑": "kompýuter", "部": "sanamak sözi (kitap, film, maşyn)", "块": "ýuan (gepleşikde)", "钱": "pul", "台": "sanamak sözi (enjam, maşyn)", "千": "müň", "一共": "jemi", "需要": "gerek bolmak", "营业员": "satyjy", "要": "islemek, gerek", "面包": "çörek", "种": "görnüş, sort", "谢谢": "sag boluň", "不客气": "hiç zat däl", "客气": "edepli, mylaýym", "香蕉": "banan", "斤": "szin (hytaý funty, 500 g)", "苹果": "alma", "再": "ýene", "毛": "mao (ýuanyň 1/10)", "元": "ýuan", "角": "szyao (ýuanyň 1/10)", "分": "fen (ýuanyň 1/100)", "万": "on müň", "书": "kitap", "手机": "jübi telefony", "咖啡": "kofe", "牛奶": "süýt", "啤酒": "piwo", "矿泉水": "mineral suw", "可乐": "kola", "草莓": "çiýelek", "西瓜": "garpyz", "橘子": "mandarin, apelsin", "本": "sanamak sözi (kitaplar)", "杯": "käse, stakan", "袋": "paket", "盒": "gutu", "瓶": "çüýşe", "公斤": "kilogram", "马": "at", "风": "ýel", "意": "many, pikir", "教学": "öwretmek, okuw", "楼": "köp gatly bina", "在": "ýerleşmek, -da/-de bolmak", "图书馆": "kitaphana", "边": "tarap", "运动场": "sport meýdançasy", "体育馆": "sport zaly", "饭馆": "restoran", "还": "ýene, şeýle hem", "超市": "supermarket", "去": "gitmek", "银行": "bank", "知道": "bilmek", "跟": "bilen", "吧": "teklip ýüklemesi", "太": "gaty, aşa", "了": "modal ýükleme", "卫生间": "hajathana", "对不起": "bagyşlaň", "没关系": "zyýany ýok", "商店": "dükan", "地方": "ýer", "看": "seretmek, görmek", "那儿": "şol ýerde", "就": "hut, dogrusy", "东": "gündogar", "西": "günbatar", "南": "günorta", "北": "demirgazyk", "上": "ýokary, üst", "下": "aşak, aşagy", "前": "öň", "后": "yz, ard", "里": "içi", "外": "daşy", "左": "çep", "右": "sag", "旁": "ýanynda", "中间": "orta", "对面": "garşysynda", "书店": "kitap dükany", "邮局": "poçta", "桌子": "stol", "书包": "portfel", "宿舍": "ýatakhana", "儿": "-r goşulmasy (erhua), çaga", "没": "ýok, däl", "银": "kümüş", "饭": "nahar, bişen tüwi", "今天": "şu gün", "星期": "hepde", "的": "degişlilik / kesgitleýji ýükleme", "生日": "doglan gün", "以后": "soň, soňra", "准备": "meýilleşmek, taýýarlanmak", "吃": "iýmek", "对": "dogry", "号": "aýyň güni, nomer", "怎么样": "nähili? sen näme diýýärsiň?", "祝": "arzuw etmek, gutlamak", "快乐": "şatlykly, begençli", "礼物": "sowgat", "支": "sanamak sözi (uzyn inçe zatlar)", "笔": "ruçka, galam", "啊": "razylyk ýüklemesi, ýüzlenme", "时间": "wagt", "问题": "sorag, mesele", "中文": "hytaý dili (ýazuw)", "明天": "ertir", "昨天": "düýn", "报纸": "gazet", "杂志": "žurnal", "又": "ýene", "专": "aýratyn", "每天": "her gün", "点": "sagat (wagt)", "半": "ýarym", "起床": "ýatakdan turmak", "先": "ilki", "洗澡": "ýuwunmak, duş almak", "然后": "soňra", "早饭": "ertirlik", "差": "ýetmezlik, ... galdy (wagt)", "刻": "çärek sagat", "教室": "klas otagy", "开始": "başlamak", "下午": "günortan soň", "常常": "köplenç", "晚上": "agşam, gije", "有时候": "käwagt", "电视": "telewizor", "上网": "internete girmek", "现在": "indi", "事": "iş, zat", "开": "açmak", "门": "gapy", "关": "ýapmak", "安排": "meýilnama, tertip", "朋友": "dost", "见面": "duşuşmak", "电影": "film", "再见": "sag bol", "喝": "içmek", "游泳": "ýüzmek", "跑步": "ylgamak", "睡觉": "ýatmak", "打球": "top oýnamak", "城市": "şäher", "公园": "seýilgäh", "水": "suw", "树": "agaç", "花": "gül", "风景": "tebigat, landşaft", "非常": "örän", "漂亮": "owadan", "空气": "howa", "新鲜": "täze, arassa", "多": "köp", "爬山": "dagy ýöremek, dyrmaşmak", "呼吸": "dem almak", "忙": "meşgul", "听说": "eşitmek, diýýärler", "出发": "ugramak", "找": "gözlemek", "大家": "hemmeler", "累": "ýadamak", "觉得": "pikir etmek, duýmak", "休息": "dynç almak", "一下": "bir salym (gysga hereket)", "茶": "çaý", "一点儿": "biraz", "同屋": "otagdaş", "汽车": "awtoulag", "公司": "kompaniýa", "从": "-dan/-den", "到": "çenli, ýetmek", "上班": "işe gitmek, işde bolmak", "周末": "dynç günleri", "平时": "adatça", "学校": "mekdep", "食堂": "stolowaýa", "时候": "wagt, pursat", "菜": "tagam, gök önüm", "聊天儿": "gürrüň etmek", "晚饭": "agşamlyk", "号码": "nomer", "不用": "gerek däl", "干": "etmek", "画": "çekmek, suratlandyrmak", "喜欢": "halamak, ýaratmak", "一般": "adatça, ortaça", "听": "diňlemek", "音乐": "saz", "东西": "zat", "收拾": "ýygnamak, tertibe salmak", "房间": "otag", "北京": "Pekin", "上海": "Şanhaý", "南京": "Nankin", "电话": "telefon"}};
+  var SENT_TR = {"en": ["Hello!", "Hello! (polite form)", "Good morning!", "Which country are you from?", "I'm American. And you?", "I'm Korean (from South Korea).", "And him?", "He is Japanese.", "Hello! Excuse me, what's your name?", "My name is Linna. And you?", "My name is Yamada Yu; my family name is Yamada.", "Nice to meet you.", "Nice to meet you too.", "Teacher, what is your family name?", "My family name is Li.", "Hello, Teacher Li!", "Hello! What's your name?", "My name is Martin.", "Linna is a French exchange student; she studies Chinese.", "A-Ming is a Thai exchange student; he also studies Chinese.", "They attend classes together and speak Chinese together.", "Hello! I'm Chinese, my name is Zhu Yun. What's your name?", "My name is Linna.", "I'm French.", "What do you study?", "I study Chinese. And you?", "I study English.", "Do you study French?", "I don't study French.", "Linna, who is he?", "He is my classmate.", "Which country is he from?", "He is Thai.", "Does he study Chinese too?", "He studies Chinese too.", "My name is Linna, I'm a French exchange student.", "There are four people in my family: Dad, Mom, my older brother and me.", "My dad is an office worker, my mom is a teacher, and my brother and I are both university students.", "How many people are there in your family?", "There are three people in my family.", "Who is in your family?", "In my family there are Dad, Mom and me.", "What do your father and mother do for a living?", "My father is a lawyer and my mother is a doctor.", "Linna, how many students are there in your class?", "Sixteen.", "How many French people are there in your class?", "There are two French people in our class.", "Are there any Koreans in your class?", "Yes, there are.", "How many Koreans are there?", "There are four Koreans.", "Martin wants to buy an electronic dictionary and a computer.", "An electronic dictionary costs 780 yuan and a computer costs 5,900 yuan; he needs 6,680 yuan in total.", "Hello! Excuse me, what would you like?", "I'd like a loaf of bread.", "Which kind would you like?", "I'd like this kind. How much is it each?", "This kind is 4.5 yuan each.", "I'll take two.", "That's 9 yuan in total.", "Thank you!", "You're welcome!", "Excuse me, how much are the bananas per jin (500 g)?", "1.8 yuan per jin.", "And the apples?", "3.5 yuan per jin. How much would you like?", "I'll buy 4 jin of bananas (2 kg) and 3 jin of apples (1.5 kg). How much is it altogether?", "17.7 yuan in total.", "This is Teaching Building 1, we are here.", "The library is north of Teaching Building 1; the sports field and the gym are west of it.", "This is the international students' building, south of the sports field; to its west there is a restaurant and also a supermarket.", "Yamada, where are you going?", "I'm going to the supermarket.", "Where is the Bank of China? Do you know?", "Yes, it's east of the supermarket. I'll go with you.", "Great!", "Excuse me, where is the restroom?", "Sorry, I don't know.", "It's okay. Excuse me, do you know where there is a restroom?", "There is one inside the shop.", "Where is the shop?", "Up ahead. Look, it's right over there.", "You're welcome.", "Today is September 28, Tuesday, Linna's birthday.", "After class, her classmates plan to take her out for a meal together.", "Linna, today is your birthday, right?", "My birthday? What's the date today?", "Today is September 28.", "Yes, yes, today is my birthday.", "We're inviting you to a meal, how about it?", "Great! Thank you all!", "Linna, happy birthday! This is our gift.", "Thank you. What kind of gift is it?", "A Chinese book and a pen.", "My birthday is on October 10; come to my place, all of you, how about it?", "Sure! What day of the week is October 10?", "Sunday.", "I have time, no problem.", "I'm an international student. Every day I get up at 6:30, then first I take a shower and then have breakfast.", "I go to the classroom for class at a quarter to eight.", "Every day our classes start at 8 and end at 11:30.", "In the afternoon I often go to the library to read.", "In the evening I study Chinese, and sometimes I watch TV or go online.", "What time is it now?", "1:40. Do you have something to do?", "I'm going to the library at 2 to read.", "What book are you reading?", "I'm reading an English book.", "What time does the library open every day?", "It opens at 8 in the morning.", "What time does it close?", "It closes at 8 in the evening.", "Great, I'll go tomorrow too.", "Yamada, it's Cui Hao. What are your plans today?", "At 9 in the morning I'm meeting a Chinese friend; in the afternoon I have time. Do you have something on?", "I'd like to invite you to see a Chinese movie.", "Sure. What time does the movie start?", "It starts at 2:30 in the afternoon. Let's leave at 2:15.", "OK. Goodbye!", "In the west of this city there is a park called Xishan Park.", "There are mountains, water, trees and flowers; the scenery is very beautiful and the air is very fresh.", "Every day many people go there to hike, enjoy the scenery and breathe the fresh air.", "This Sunday we are also going hiking.", "Are you busy this Sunday?", "I'm not busy.", "We're going hiking on Sunday, are you coming?", "Where are you going hiking?", "To Xishan.", "I hear Xishan is very beautiful; I'd like to go with you too.", "Great. We leave at 8 in the morning.", "I'll come and find you at 7:30.", "Is everyone tired?", "I feel tired too, let's rest a little.", "My roommate is Chinese; he works in a car company.", "He is busy every day: from 8 in the morning to 5 in the afternoon he is at the company, and sometimes he goes to work on weekends too.", "Usually I eat at the school canteen; he doesn't eat at home either.", "When we rest, we cook at home.", "I cook Korean food, he cooks Chinese food, and we eat and chat together.", "Hello! Excuse me, who are you looking for?", "Hello! I'm Yamada, Cui Hao's classmate. Is Cui Hao in?", "He's not here. Right now he's having dinner at a friend's place.", "What is his mobile number, do you know?", "Yes, the number is: 13261231948.", "Thank you!", "You're welcome.", "Today is Friday, what are you all doing this weekend?", "When I have nothing to do, I go online in my dorm.", "I study drawing at a school.", "Do you study traditional Chinese painting?", "Yes, I like Chinese painting. What do you do on weekends?", "Generally I read at home, listen to music, and sometimes I go to the supermarket to shop.", "My roommate and I tidy up the room together, and eat and chat together."], "ko": ["안녕하세요!", "안녕하세요! (존댓말)", "좋은 아침이에요!", "어느 나라 사람이에요?", "저는 미국 사람이에요. 당신은요?", "저는 한국 사람이에요.", "그는요?", "그는 일본 사람이에요.", "안녕하세요! 실례지만 이름이 뭐예요?", "저는 린나예요. 당신은요?", "저는 야마다 유예요. 성은 야마다예요.", "만나서 반갑습니다.", "저도 만나서 정말 반갑습니다.", "선생님, 성함이 어떻게 되세요?", "저는 이 씨예요.", "이 선생님, 안녕하세요!", "안녕하세요! 이름이 뭐예요?", "저는 마르탱이에요.", "린나는 프랑스 유학생이고 중국어를 공부해요.", "아밍은 태국 유학생이고 그도 중국어를 공부해요.", "그들은 함께 수업을 듣고 함께 중국어로 말해요.", "안녕하세요! 저는 중국 사람이고 주윈이라고 해요. 이름이 뭐예요?", "저는 린나예요.", "저는 프랑스 사람이에요.", "무엇을 공부해요?", "저는 중국어를 공부해요. 당신은요?", "저는 영어를 공부해요.", "프랑스어를 공부해요?", "저는 프랑스어를 공부하지 않아요.", "린나, 그는 누구예요?", "그는 제 반 친구예요.", "그는 어느 나라 사람이에요?", "그는 태국 사람이에요.", "그도 중국어를 공부해요?", "그도 중국어를 공부해요.", "저는 린나이고 프랑스 유학생이에요.", "우리 가족은 네 명이에요: 아빠, 엄마, 오빠와 저예요.", "우리 아빠는 사무직원이고, 엄마는 선생님이며, 오빠와 저는 둘 다 대학생이에요.", "당신 가족은 몇 명이에요?", "우리 가족은 세 명이에요.", "가족이 어떻게 되세요?", "우리 가족은 아빠, 엄마와 저예요.", "아빠와 엄마는 무슨 일을 하세요?", "아빠는 변호사이고 엄마는 의사예요.", "린나, 너희 반에는 학생이 몇 명 있어?", "열여섯 명이에요.", "너희 반에는 프랑스 사람이 몇 명 있어?", "우리 반에는 프랑스 사람이 두 명 있어요.", "너희 반에 한국 사람이 있어?", "네, 있어요.", "한국 사람이 몇 명 있어?", "한국 사람이 네 명 있어요.", "마르탱은 전자사전과 컴퓨터를 사고 싶어 해요.", "전자사전 한 대에 780위안, 컴퓨터 한 대에 5,900위안이라서 모두 6,680위안이 필요해요.", "안녕하세요! 실례지만 무엇이 필요하세요?", "빵 하나 주세요.", "어떤 종류를 원하세요?", "이걸로 주세요. 이건 하나에 얼마예요?", "이건 하나에 4.5위안이에요.", "두 개 주세요.", "모두 9위안이에요.", "감사합니다!", "천만에요!", "실례지만, 바나나는 한 근에 얼마예요?", "한 근에 1.8위안이에요.", "사과는요?", "한 근에 3.5위안이에요. 얼마나 사시겠어요?", "바나나 네 근(2kg)과 사과 세 근(1.5kg)을 살게요. 모두 얼마예요?", "모두 17.7위안이에요.", "여기는 제1강의동이고, 우리는 여기에 있어요.", "도서관은 제1강의동 북쪽에 있고, 운동장과 체육관은 제1강의동 서쪽에 있어요.", "여기는 유학생 기숙사예요. 운동장 남쪽에 있고, 서쪽에는 식당 하나와 슈퍼마켓도 있어요.", "야마다, 어디 가요?", "저는 슈퍼마켓에 가요.", "중국은행이 어디에 있어요? 알아요?", "알아요, 슈퍼마켓 동쪽에 있어요. 제가 같이 갈게요.", "정말 잘됐네요!", "실례지만, 화장실이 어디에 있어요?", "죄송해요, 저는 몰라요.", "괜찮아요. 실례지만, 화장실이 어디에 있는지 아세요?", "가게 안에 있어요.", "가게가 어디에 있어요?", "앞쪽에 있어요. 보세요, 바로 저기예요.", "천만에요.", "오늘은 9월 28일 화요일이고 린나의 생일이에요.", "수업이 끝난 후에 친구들은 함께 그녀에게 밥을 사 주려고 해요.", "린나, 오늘 네 생일 맞지?", "내 생일? 오늘 며칠이야?", "오늘은 9월 28일이야.", "맞아, 맞아, 오늘이 내 생일이야.", "우리가 밥 살게, 어때?", "너무 좋아! 고마워, 모두!", "린나, 생일 축하해! 이건 우리의 선물이야.", "고마워. 무슨 선물이야?", "중국어 책 한 권과 펜 한 자루야.", "10월 10일이 내 생일이야. 다들 우리 집에 와, 어때?", "좋아! 10월 10일은 무슨 요일이야?", "일요일이야.", "시간 있어, 문제없어.", "저는 유학생이에요. 저는 매일 6시 반에 일어나고, 일어난 후 먼저 샤워를 한 다음 아침을 먹어요.", "저는 8시 15분 전에 교실에 수업하러 가요.", "우리는 매일 8시에 수업을 시작해서 11시 반에 끝나요.", "오후에는 자주 도서관에 가서 책을 읽어요.", "저녁에는 중국어를 공부하고, 가끔 텔레비전을 보거나 인터넷을 해요.", "지금 몇 시예요?", "1시 40분이에요. 무슨 일 있어요?", "저는 2시에 도서관에 가서 책을 읽어요.", "무슨 책을 읽어요?", "저는 영어 책을 읽어요.", "도서관은 매일 몇 시에 문을 열어요?", "아침 8시에 문을 열어요.", "몇 시에 문을 닫아요?", "저녁 8시에 문을 닫아요.", "좋아요, 내일 저도 갈게요.", "야마다, 나 추이하오야. 오늘 무슨 계획 있어?", "오전 9시에 중국 친구와 만나고, 오후에는 시간이 있어. 너는 무슨 일 있어?", "너를 초대해서 중국 영화를 보고 싶어.", "좋아. 영화는 몇 시에 시작해?", "오후 2시 반에 시작해. 우리 2시 15분에 가자.", "좋아. 안녕!", "이 도시 서쪽에는 시산공원이라는 공원이 있어요.", "그곳에는 산도 있고, 물도 있고, 나무도 있고, 꽃도 있어서 경치가 아주 아름답고 공기도 아주 신선해요.", "매일 많은 사람이 그곳에 가서 등산을 하고, 경치를 보고, 신선한 공기를 마셔요.", "이번 일요일에 우리도 등산하러 가요.", "이번 일요일에 바빠요?", "바쁘지 않아요.", "일요일에 우리 등산하러 가는데, 갈래요?", "어디로 등산하러 가요?", "시산에 가요.", "시산이 아주 아름답다고 들었어요. 저도 같이 가고 싶어요.", "좋아요. 우리는 아침 8시에 출발해요.", "7시 반에 당신을 데리러 갈게요.", "다들 피곤해요?", "저도 피곤해요. 우리 좀 쉬어요.", "제 룸메이트는 중국 사람이고 자동차 회사에서 일해요.", "그는 매일 아주 바빠요. 아침 8시부터 오후 5시까지 회사에서 일하고, 가끔 주말에도 출근해요.", "평소에 저는 학교 식당에서 밥을 먹고, 그도 집에서 밥을 먹지 않아요.", "쉴 때는 우리가 집에서 요리를 해요.", "저는 한국 음식을 만들고, 그는 중국 음식을 만들며, 우리는 함께 밥을 먹고 이야기해요.", "안녕하세요! 실례지만 누구를 찾으세요?", "안녕하세요! 저는 추이하오의 반 친구 야마다예요. 추이하오 있어요?", "없어요. 지금 친구 집에서 저녁을 먹고 있어요.", "그의 휴대전화 번호가 뭔지 아세요?", "알아요, 번호는 13261231948이에요.", "감사합니다!", "별말씀을요.", "오늘은 금요일인데, 다들 주말에 뭐 해요?", "할 일이 없을 때는 기숙사에서 인터넷을 해요.", "저는 한 학교에서 그림을 배워요.", "중국화를 배워요?", "네, 저는 중국화를 좋아해요. 다들 주말에 뭐 해요?", "저는 보통 집에서 책을 읽고 음악을 들으며, 가끔 슈퍼마켓에 가서 물건을 사요.", "저는 룸메이트와 함께 방을 정리하고, 함께 밥을 먹고 이야기해요."], "es": ["¡Hola!", "¡Hola! (forma cortés)", "¡Buenos días!", "¿De qué país eres?", "Soy estadounidense. ¿Y tú?", "Soy coreano (de Corea del Sur).", "¿Y él?", "Él es japonés.", "¡Hola! Perdona, ¿cómo te llamas?", "Me llamo Linna. ¿Y tú?", "Me llamo Yamada Yu, mi apellido es Yamada.", "Encantado de conocerte.", "Yo también estoy encantado de conocerte.", "Profesor, ¿cuál es su apellido?", "Mi apellido es Li.", "¡Hola, profesor Li!", "¡Hola! ¿Cómo te llamas?", "Me llamo Martín.", "Linna es una estudiante francesa; estudia chino.", "A-Ming es un estudiante tailandés; también estudia chino.", "Van juntos a clase y hablan chino juntos.", "¡Hola! Soy chino, me llamo Zhu Yun, ¿y tú cómo te llamas?", "Me llamo Linna.", "Soy francesa.", "¿Qué estudias?", "Estudio chino. ¿Y tú?", "Estudio inglés.", "¿Estudias francés?", "No estudio francés.", "Linna, ¿quién es él?", "Es mi compañero de clase.", "¿De qué país es?", "Es tailandés.", "¿Él también estudia chino?", "Él también estudia chino.", "Me llamo Linna, soy una estudiante francesa.", "Mi familia tiene cuatro miembros: papá, mamá, mi hermano mayor y yo.", "Mi padre es empleado de oficina, mi madre es profesora, y mi hermano y yo somos estudiantes universitarios.", "¿Cuántas personas hay en tu familia?", "Hay tres personas en mi familia.", "¿Quiénes hay en tu familia?", "En mi familia hay papá, mamá y yo.", "¿A qué se dedican tu padre y tu madre?", "Mi padre es abogado y mi madre es médica.", "Linna, ¿cuántos alumnos hay en vuestra clase?", "Dieciséis.", "¿Cuántos franceses hay en vuestra clase?", "En nuestra clase hay dos franceses.", "¿Hay coreanos en vuestra clase?", "Sí, hay.", "¿Cuántos coreanos hay?", "Hay cuatro coreanos.", "Martín quiere comprar un diccionario electrónico y un ordenador.", "Un diccionario electrónico cuesta 780 yuanes y un ordenador 5 900 yuanes; necesita 6 680 yuanes en total.", "¡Hola! Perdone, ¿qué desea?", "Quisiera un pan.", "¿Cuál quiere?", "Quiero este. ¿Cuánto cuesta cada uno?", "Este cuesta 4,5 yuanes cada uno.", "Quiero dos.", "Son 9 yuanes en total.", "¡Gracias!", "¡De nada!", "Perdone, ¿cuánto cuesta el medio kilo de plátanos?", "1,8 yuanes el medio kilo.", "¿Y las manzanas?", "3,5 yuanes el medio kilo. ¿Cuánto quiere?", "Compro 2 kg de plátanos (4 jin) y 1,5 kg de manzanas (3 jin). ¿Cuánto es en total?", "17,7 yuanes en total.", "Este es el edificio docente n.º 1, estamos aquí.", "La biblioteca está al norte del edificio docente n.º 1; el campo deportivo y el gimnasio están al oeste.", "Este es el edificio de los estudiantes extranjeros, al sur del campo deportivo; al oeste hay un restaurante y también un supermercado.", "Yamada, ¿adónde vas?", "Voy al supermercado.", "¿Dónde está el Banco de China? ¿Lo sabes?", "Sí, está al este del supermercado. Voy contigo.", "¡Genial!", "Perdone, ¿dónde hay un baño?", "Lo siento, no lo sé.", "No pasa nada. Perdone, ¿sabe dónde hay un baño?", "Dentro de la tienda hay uno.", "¿Dónde está la tienda?", "Allí delante. Mira, es justo ahí.", "De nada.", "Hoy es 28 de septiembre, martes, el cumpleaños de Linna.", "Después de clase, sus compañeros piensan invitarla a comer todos juntos.", "Linna, hoy es tu cumpleaños, ¿verdad?", "¿Mi cumpleaños? ¿A cuántos estamos hoy?", "Hoy es 28 de septiembre.", "Sí, sí, hoy es mi cumpleaños.", "Te invitamos a comer, ¿qué te parece?", "¡Genial! ¡Gracias a todos!", "Linna, ¡feliz cumpleaños! Este es nuestro regalo.", "Gracias. ¿Qué regalo es?", "Un libro de chino y un bolígrafo.", "El 10 de octubre es mi cumpleaños, venid todos a mi casa, ¿qué os parece?", "¡Claro! ¿Qué día de la semana es el 10 de octubre?", "Domingo.", "Tengo tiempo, no hay problema.", "Soy estudiante extranjero. Cada día me levanto a las 6:30, y después de levantarme primero me ducho y luego desayuno.", "A las ocho menos cuarto voy al aula para la clase.", "Cada día empezamos las clases a las 8 y terminan a las 11:30.", "Por la tarde voy a menudo a la biblioteca a leer.", "Por la noche estudio chino, y a veces veo la televisión o navego por Internet.", "¿Qué hora es ahora?", "La una y cuarenta. ¿Tienes algo que hacer?", "A las dos voy a la biblioteca a leer.", "¿Qué libro lees?", "Leo un libro en inglés.", "¿A qué hora abre la biblioteca cada día?", "Abre a las ocho de la mañana.", "¿A qué hora cierra?", "Cierra a las ocho de la noche.", "Genial, mañana yo también iré.", "Yamada, soy Cui Hao. ¿Qué planes tienes hoy?", "A las 9 de la mañana quedo con un amigo chino; por la tarde tengo tiempo, ¿y tú tienes algo que hacer?", "Quiero invitarte a ver una película china.", "Claro. ¿A qué hora empieza la película?", "Empieza a las 2:30 de la tarde. Vayamos a las 2:15.", "Vale. ¡Adiós!", "Al oeste de esta ciudad hay un parque que se llama parque Xishan.", "Allí hay montañas, agua, árboles y flores; el paisaje es muy bonito y el aire muy fresco.", "Cada día mucha gente va allí a hacer senderismo, contemplar el paisaje y respirar aire fresco.", "Este domingo nosotros también vamos a hacer senderismo.", "¿Estás ocupado este domingo?", "No estoy ocupado.", "El domingo vamos a hacer senderismo, ¿vienes?", "¿Adónde vais a hacer senderismo?", "A Xishan.", "Dicen que Xishan es muy bonito, yo también quiero ir con vosotros.", "Genial. Salimos a las 8 de la mañana.", "Iré a buscarte a las 7:30.", "¿Estáis todos cansados?", "Yo también me siento cansado, descansemos un poco.", "Mi compañero de cuarto es chino, trabaja en una empresa de automóviles.", "Está ocupado todos los días: de ocho de la mañana a cinco de la tarde está en la empresa, y a veces también va a trabajar los fines de semana.", "Normalmente yo como en la cantina de la escuela; él tampoco come en casa.", "Cuando descansamos, cocinamos en casa.", "Yo hago comida coreana, él hace comida china, y comemos y charlamos juntos.", "¡Hola! Perdone, ¿a quién busca?", "¡Hola! Soy Yamada, compañero de clase de Cui Hao. ¿Está Cui Hao?", "No está. Ahora está cenando en casa de un amigo.", "¿Cuál es su número de móvil? ¿Lo sabes?", "Sí, el número es: 13261231948.", "¡Gracias!", "No hay de qué.", "Hoy es viernes, ¿qué hacéis todos este fin de semana?", "Cuando no tengo nada que hacer, me conecto a Internet en mi residencia.", "Estudio dibujo en una escuela.", "¿Estudias pintura tradicional china?", "Sí, me gusta la pintura china. ¿Y vosotros qué hacéis el fin de semana?", "En general leo en casa, escucho música, y a veces también voy al supermercado a comprar.", "Mi compañero de cuarto y yo ordenamos la habitación juntos, y comemos y charlamos juntos."], "tk": ["Salam!", "Salam! (hormatly görnüş)", "Ertiriň haýyrly bolsun!", "Sen haýsy ýurtdan?", "Men amerikaly. Sen bolsa?", "Men koreý (Günorta Koreýadan).", "Ol bolsa?", "Ol ýaponiýaly.", "Salam! Bagyşlaň, adyňyz näme?", "Meniň adym Linna. Seniňki?", "Meniň adym Ýamada Ýu, familiýam Ýamada.", "Tanyş bolanyma şat.", "Men hem sen bilen tanyş bolanyma örän şat.", "Mugallym, familiýaňyz näme?", "Meniň familiýam Li.", "Salam, Li mugallym!", "Salam! Adyň näme?", "Meniň adym Martin.", "Linna fransuz talyby, ol hytaý dilini öwrenýär.", "A-Min taýlandly talyp, ol hem hytaý dilini öwrenýär.", "Olar bile sapaga gatnaýarlar we bile hytaýça gürleýärler.", "Salam! Men hytaýly, adym Çžu Ýun, seniň adyň näme?", "Meniň adym Linna.", "Men fransuz.", "Sen näme öwrenýärsiň?", "Men hytaý dilini öwrenýärin. Sen bolsa?", "Men iňlis dilini öwrenýärin.", "Sen fransuz dilini öwrenýärmiň?", "Men fransuz dilini öwrenemok.", "Linna, ol kim?", "Ol meniň synpdaşym.", "Ol haýsy ýurtdan?", "Ol taýlandly.", "Ol hem hytaý dilini öwrenýärmi?", "Ol hem hytaý dilini öwrenýär.", "Meniň adym Linna, men fransuz talyby.", "Meniň maşgalamda dört adam bar: kaka, eje, uly doganym we men.", "Kakam kontor işgäri, ejem mugallym, doganym bilen men ikimiz uniwersitet talyby.", "Seniň maşgalaňda näçe adam bar?", "Meniň maşgalamda üç adam bar.", "Maşgalaňda kimler bar?", "Meniň maşgalamda kaka, eje we men bar.", "Kakaň bilen ejeň näme iş edýärler?", "Kakam aklawçy, ejem bolsa lukman.", "Linna, siziň synpyňyzda näçe okuwçy bar?", "On alty.", "Siziň synpyňyzda näçe fransuz bar?", "Biziň synpymyzda iki fransuz bar.", "Siziň synpyňyzda koreýler barmy?", "Hawa, bar.", "Näçe koreý bar?", "Dört koreý bar.", "Martin elektron sözlük we kompýuter satyn almak isleýär.", "Elektron sözlük 780 ýuan, kompýuter 5 900 ýuan; jemi 6 680 ýuan gerek.", "Salam! Bagyşlaň, näme isleýärsiňiz?", "Maňa bir çörek gerek.", "Haýsy görnüşini isleýärsiňiz?", "Men şuny isleýärin, munuň biri näçe?", "Munuň biri 4,5 ýuan.", "Men iki sany alaryn.", "Jemi 9 ýuan.", "Sag boluň!", "Hiç zat däl!", "Bagyşlaň, bananyň szini näçe?", "Szini 1,8 ýuan.", "Alma bolsa?", "Szini 3,5 ýuan. Näçe alarsyňyz?", "Men 4 szin banan (2 kg) we ýene 3 szin alma (1,5 kg) alýaryn. Jemi näçe?", "Jemi 17,7 ýuan.", "Bu 1-nji okuw binasy, biz şu ýerde.", "Kitaphana 1-nji okuw binasynyň demirgazygynda, sport meýdançasy bilen sport zaly günbatarynda.", "Bu daşary ýurtly talyplaryň binasy, ol sport meýdançasynyň günortasynda; günbatarynda bir restoran we ýene bir supermarket bar.", "Ýamada, sen nirä barýarsyň?", "Men supermarkete barýaryn.", "Hytaý Banky nirede? Sen bilýärsiňmi?", "Bilýärin, supermarketiň gündogarynda. Men seniň bilen bile bararyn.", "Gaty gowy!", "Bagyşlaň, hajathana nirede?", "Bagyşlaň, men bilemok.", "Zyýany ýok. Bagyşlaň, hajathananyň nirededigini bilýärsiňizmi?", "Dükanyň içinde bar.", "Dükan nirede?", "Öňünde. Seret, ine, şol ýerde.", "Hiç zat däl.", "Şu gün 28-nji sentýabr, sişenbe, Linnanyň doglan güni.", "Sapakdan soň synpdaşlary ony bile naharlatmak isleýärler.", "Linna, şu gün seniň doglan günüň, şeýlemi?", "Meniň doglan günümmi? Şu gün aýyň näçesi?", "Şu gün 28-nji sentýabr.", "Hawa, hawa, şu gün meniň doglan günüm.", "Biz seni naharlatmak isleýäris, nähili?", "Gaty gowy! Hemmäňize sag bolsun!", "Linna, doglan günüň gutly bolsun! Bu biziň sowgadymyz.", "Sag boluň. Nähili sowgat?", "Bir hytaý kitaby we bir ruçka.", "10-njy oktýabr meniň doglan günüm, hemmäňiz meniň öýüme geliň, nähili?", "Gowy! 10-njy oktýabr hepdäniň haýsy güni?", "Ýekşenbe.", "Wagtym bar, mesele ýok.", "Men daşary ýurtly talyp. Her gün ir sagat altyda ýarymda turýaryn, turandan soň ilki ýuwunýaryn, soň ertirlik edýärin.", "Men sagat sekize çärek galanda klasa sapaga barýaryn.", "Biz her gün sagat sekizde sapaga başlaýarys, on birde ýarymda gutarýar.", "Günortandan soň men köplenç kitaphana kitap okamaga barýaryn.", "Agşam men hytaý dilini öwrenýärin, käwagt telewizor görýärin, internete girýärin.", "Häzir sagat näçe?", "Bir kyrk. Seniň işiň barmy?", "Men sagat ikide kitaphana kitap okamaga barýaryn.", "Sen haýsy kitaby okaýarsyň?", "Men iňlisçe kitap okaýaryn.", "Kitaphana her gün sagat näçede açylýar?", "Ir sagat sekizde açylýar.", "Sagat näçede ýapylýar?", "Agşam sagat sekizde ýapylýar.", "Gaty gowy, ertir men hem barýaryn.", "Ýamada, men Sui Hao. Şu gün näme meýilnamaň bar?", "Ir sagat dokuzda hytaýly dostum bilen duşuşýaryn, günortandan soň wagtym bar, seniň işiň barmy?", "Men seni hytaý filmini görmäge çagyrmak isleýärin.", "Gowy. Film sagat näçede başlanýar?", "Günortandan soň ikiýarymda başlanýar. Geliň, ikiden çärek geçip gideliň.", "Bolýar. Sag bol!", "Bu şäheriň günbatarynda Sişan seýilgähi diýen seýilgäh bar.", "Ol ýerde dag bar, suw bar, agaç bar, gül bar, tebigaty örän owadan, howasy hem örän arassa.", "Her gün köp adam şol ýere dagy ýöremäge, tebigaty synlamaga we arassa howa dem almaga barýar.", "Şu ýekşenbe biz hem dagy ýöremäge barýarys.", "Şu ýekşenbe sen meşgulmy?", "Men meşgul däl.", "Ýekşenbe biz dagy ýöremäge barýarys, sen barýarsyňmy?", "Siz nirä dagy ýöremäge barýarsyňyz?", "Sişana barýarys.", "Sişan örän owadan diýýärler, men hem siz bilen bile gitmek isleýärin.", "Gaty gowy. Biz ir sagat sekizde ugraýarys.", "Men ýedi ýarymda seni almaga gelerin.", "Hemmäňiz ýadadyňyzmy?", "Men hem ýadadym, geliň, birneme dynç alalyň.", "Meniň otagdaşym hytaýly, ol awtoulag kompaniýasynda işleýär.", "Ol her gün örän meşgul: ir sagat sekizden günortandan soň bäşe çenli kompaniýada işleýär, käwagt dynç günleri hem işe gidýär.", "Adatça men mekdebiň stolowaýasynda iýýärin, ol hem öýde iýmeýär.", "Dynç alanymyzda biz öýde nahar bişirýäris.", "Men koreý tagamlaryny, ol hytaý tagamlaryny bişirýär, biz bile iýip gürrüň edýäris.", "Salam! Bagyşlaň, kimi gözleýärsiňiz?", "Salam! Men Sui Haonyň synpdaşy Ýamada. Sui Hao barmy?", "Ol ýok. Häzir ol dostunyň öýünde agşamlyk iýýär.", "Onuň jübi telefonynyň nomerini bilýärsiňmi?", "Bilýärin, nomeri: 13261231948.", "Sag boluň!", "Hiç zat däl.", "Şu gün anna, dynç günleri hemmäňiz näme edýärsiňiz?", "Işim ýok wagtym men ýatakhanada internete girýärin.", "Men bir mekdepde surat çekmegi öwrenýärin.", "Sen hytaý suratkeşligini öwrenýärsiňmi?", "Hawa, men hytaý suratkeşligini halaýaryn. Siz dynç günleri näme edýärsiňiz?", "Men adatça öýde kitap okaýaryn, saz diňleýärin, käwagt supermarkete alyş-çalyş etmäge barýaryn.", "Men otagdaşym bilen bile otagy ýygnaýaryn, bile iýip gürrüň edýäris."]};
+  var XT = {"Noir pur": {"en": "Pure black", "ko": "순수 블랙", "es": "Negro puro", "tk": "Sap gara"}, "Noir & bleu": {"en": "Black & blue", "ko": "블랙 & 블루", "es": "Negro y azul", "tk": "Gara we gök"}, "Noir & or": {"en": "Black & gold", "ko": "블랙 & 골드", "es": "Negro y oro", "tk": "Gara we altyn"}, "Noir & jade": {"en": "Black & jade", "ko": "블랙 & 옥색", "es": "Negro y jade", "tk": "Gara we ýaşyl"}, "Les thèmes noirs utilisent toujours le mode sombre.": {"en": "Black themes always use dark mode.", "ko": "블랙 테마는 항상 어두운 모드를 사용합니다.", "es": "Los temas negros siempre usan el modo oscuro.", "tk": "Gara temalar hemişe garaňky režimi ulanýar."}, "Exercices": {"en": "Exercises", "ko": "연습 문제", "es": "Ejercicios", "tk": "Maşklar"}, "Des exercices comme ceux du contrôle. Aucune progression n'est enregistrée.": {"en": "Exercises like those in the test. No progress is saved.", "ko": "시험과 같은 연습 문제입니다. 진행 상황은 저장되지 않습니다.", "es": "Ejercicios como los del examen. No se guarda ningún progreso.", "tk": "Synagdaky ýaly maşklar. Hiç hili ösüş ýatda saklanmaýar."}, "TYPE D'EXERCICE": {"en": "TYPE OF EXERCISE", "ko": "연습 문제 유형", "es": "TIPO DE EJERCICIO", "tk": "MAŞK GÖRNÜŞI"}, "Relier 10 caractères à leur pinyin": {"en": "Match 10 characters to their pinyin", "ko": "한자 10개와 병음 연결하기", "es": "Relacionar 10 caracteres con su pinyin", "tk": "10 ýeroglifi pinýin bilen birleşdir"}, "Compléter le mot : 5 caractères": {"en": "Complete the word: 5 characters", "ko": "단어 완성하기: 한자 5개", "es": "Completar la palabra: 5 caracteres", "tk": "Sözi tamamla: 5 ýeroglif"}, "Placer 10 mots dans 10 phrases à trous": {"en": "Place 10 words in 10 sentences with blanks", "ko": "빈칸 문장 10개에 단어 10개 넣기", "es": "Colocar 10 palabras en 10 frases con huecos", "tk": "10 sözi boş ýerli 10 sözlemde ýerleşdir"}, "Pas assez de phrases adaptées : choisis plus de chapitres.": {"en": "Not enough suitable sentences: choose more chapters.", "ko": "적합한 문장이 부족합니다. 더 많은 과를 선택하세요.", "es": "No hay suficientes frases adecuadas: elige más capítulos.", "tk": "Ýeterlik laýyk sözlem ýok: has köp bap saýla."}, "Ajoute un caractère pour former un mot": {"en": "Add a character to form a word", "ko": "한자를 하나 더해 단어 만들기", "es": "Añade un carácter para formar una palabra", "tk": "Söz emele getirmek üçin ýeroglif goş"}, "Résultat": {"en": "Result", "ko": "결과", "es": "Resultado", "tk": "Netije"}, "Nouvel exercice": {"en": "New exercise", "ko": "새 연습 문제", "es": "Nuevo ejercicio", "tk": "Täze maşk"}, "Terminer maintenant": {"en": "Finish now", "ko": "지금 끝내기", "es": "Terminar ahora", "tk": "Indi gutar"}, "Quitter": {"en": "Quit", "ko": "나가기", "es": "Salir", "tk": "Çyk"}, "Place chaque mot dans la bonne phrase": {"en": "Place each word in the right sentence", "ko": "각 단어를 알맞은 문장에 넣으세요", "es": "Coloca cada palabra en la frase correcta", "tk": "Her sözi dogry sözleme goý"}, "Relie chaque caractère à son pinyin": {"en": "Match each character to its pinyin", "ko": "각 한자를 병음과 연결하세요", "es": "Relaciona cada carácter con su pinyin", "tk": "Her ýeroglifi öz pinýini bilen birleşdir"}, "Clique sur une phrase puis sur le mot qui va dedans. Clique sur un élément relié pour défaire le lien.": {"en": "Click a sentence, then the word that goes in it. Click a linked item to undo the link.", "ko": "문장을 누른 다음 들어갈 단어를 누르세요. 연결된 항목을 누르면 연결이 취소됩니다.", "es": "Haz clic en una frase y luego en la palabra que va en ella. Haz clic en un elemento enlazado para deshacer el enlace.", "tk": "Sözlemi, soňra oňa laýyk sözi bas. Baglanyşygy bozmak üçin birleşdirilen elementi bas."}, "Clique sur un caractère puis sur son pinyin. Clique sur un élément relié pour défaire le lien.": {"en": "Click a character, then its pinyin. Click a linked item to undo the link.", "ko": "한자를 누른 다음 병음을 누르세요. 연결된 항목을 누르면 연결이 취소됩니다.", "es": "Haz clic en un carácter y luego en su pinyin. Haz clic en un elemento enlazado para deshacer el enlace.", "tk": "Ýeroglifi, soňra onuň pinýinini bas. Baglanyşygy bozmak üçin birleşdirilen elementi bas."}, "Terminer": {"en": "Finish", "ko": "끝내기", "es": "Terminar", "tk": "Gutar"}, "Vérifier": {"en": "Check", "ko": "확인", "es": "Comprobar", "tk": "Barla"}, "pas de réponse": {"en": "no answer", "ko": "답 없음", "es": "sin respuesta", "tk": "jogap ýok"}, "ta réponse : ": {"en": "your answer: ", "ko": "내 답: ", "es": "tu respuesta: ", "tk": "seniň jogabyň: "}, "Statistiques": {"en": "Statistics", "ko": "통계", "es": "Estadísticas", "tk": "Statistika"}, "Comptées à partir de maintenant, pour les tests de mots uniquement.": {"en": "Counted from now on, for word tests only.", "ko": "지금부터 집계하며, 단어 시험만 해당됩니다.", "es": "Se cuentan a partir de ahora, solo para los tests de palabras.", "tk": "Indiden başlap hasaplanýar, diňe söz synaglary üçin."}, "mots testés au moins une fois": {"en": "words tested at least once", "ko": "한 번 이상 시험한 단어", "es": "palabras probadas al menos una vez", "tk": "azyndan bir gezek synag edilen sözler"}, "réponses au total": {"en": "answers in total", "ko": "총 답변 수", "es": "respuestas en total", "tk": "jemi jogaplar"}, "je savais tout": {"en": "I knew it all", "ko": "다 알았음", "es": "lo sabía todo", "tk": "hemmesini bilýärdim"}, "à moitié": {"en": "half", "ko": "반쯤", "es": "a medias", "tk": "ýarym"}, "pas connu": {"en": "not known", "ko": "모름", "es": "no conocida", "tk": "bilmeýän"}, "de réussite complète": {"en": "full success", "ko": "완전 성공률", "es": "éxito completo", "tk": "doly üstünlik"}, "Mot": {"en": "Word", "ko": "단어", "es": "Palabra", "tk": "Söz"}, "Testé": {"en": "Tested", "ko": "횟수", "es": "Probada", "tk": "Synag"}, "Progression": {"en": "Progress", "ko": "진행", "es": "Progreso", "tk": "Ösüş"}, "Dernier": {"en": "Last", "ko": "마지막", "es": "Última", "tk": "Soňky"}, "Réinitialiser les statistiques": {"en": "Reset statistics", "ko": "통계 초기화", "es": "Reiniciar las estadísticas", "tk": "Statistikany täzeden başla"}, "Paramètres": {"en": "Settings", "ko": "설정", "es": "Ajustes", "tk": "Sazlamalar"}, "étudier, apprendre": {"en": "to study, to learn", "ko": "공부하다, 배우다", "es": "estudiar, aprender", "tk": "okamak, öwrenmek"}, "Langue": {"en": "Language", "ko": "언어", "es": "Idioma", "tk": "Dil"}, "Mode": {"en": "Mode", "ko": "모드", "es": "Modo", "tk": "Režim"}, "Auto": {"en": "Auto", "ko": "자동", "es": "Auto", "tk": "Awto"}, "Clair": {"en": "Light", "ko": "밝게", "es": "Claro", "tk": "Açyk"}, "Sombre": {"en": "Dark", "ko": "어둡게", "es": "Oscuro", "tk": "Garaňky"}, "Thème de couleurs": {"en": "Color theme", "ko": "색상 테마", "es": "Tema de colores", "tk": "Reňk temasy"}, "Parchemin": {"en": "Parchment", "ko": "양피지", "es": "Pergamino", "tk": "Perganent"}, "Papier": {"en": "Paper", "ko": "종이", "es": "Papel", "tk": "Kagyz"}, "Bambou": {"en": "Bamboo", "ko": "대나무", "es": "Bambú", "tk": "Bambuk"}, "Océan": {"en": "Ocean", "ko": "바다", "es": "Océano", "tk": "Umman"}, "Police de l'interface": {"en": "Interface font", "ko": "인터페이스 글꼴", "es": "Fuente de la interfaz", "tk": "Interfeýsiň şrifti"}, "Police des caractères chinois": {"en": "Chinese character font", "ko": "한자 글꼴", "es": "Fuente de los caracteres chinos", "tk": "Hytaý ýeroglifleriniň şrifti"}, "宋体 Classique": {"en": "宋体 Classic", "ko": "宋体 고전", "es": "宋体 Clásica", "tk": "宋体 Klassiki"}, "黑体 Moderne": {"en": "黑体 Modern", "ko": "黑体 현대", "es": "黑体 Moderna", "tk": "黑体 Döwrebap"}, "马善政 Pinceau": {"en": "马善政 Brush", "ko": "马善政 붓글씨", "es": "马善政 Pincel", "tk": "马善政 Çotga"}, "Taille du texte": {"en": "Text size", "ko": "글자 크기", "es": "Tamaño del texto", "tk": "Tekstiň ululygy"}, "Petite": {"en": "Small", "ko": "작게", "es": "Pequeño", "tk": "Kiçi"}, "Normale": {"en": "Normal", "ko": "보통", "es": "Normal", "tk": "Adaty"}, "Grande": {"en": "Large", "ko": "크게", "es": "Grande", "tk": "Uly"}, "Animations": {"en": "Animations", "ko": "애니메이션", "es": "Animaciones", "tk": "Animasiýalar"}, "Activées": {"en": "On", "ko": "켜기", "es": "Activadas", "tk": "Açyk"}, "Désactivées": {"en": "Off", "ko": "끄기", "es": "Desactivadas", "tk": "Ýapyk"}, "Fermer": {"en": "Close", "ko": "닫기", "es": "Cerrar", "tk": "Ýap"}, "Tests": {"en": "Tests", "ko": "시험", "es": "Tests", "tk": "Synaglar"}};
   var STR = {
     fr: {
       team: "MA PROGRESSION", mastered: "maîtrisés", byChapter: "PAR CHAPITRE", untested: "non testés",
       seen: function (t, n) { return t + " mots testés sur " + n; },
       appTitle: "Quiz de caractères chinois", appSub: "Prépare un test : chapitres, mots à inclure, longueur",
       profile: "PROFIL", selected: "LES CARACTÈRES SÉLECTIONNÉS",
-      hint: "Pendant le test, révèle la réponse puis indique si tu connaissais le mot. Chaque profil a sa propre progression, sauvegardée dans ce navigateur.",
+      hint: "Pendant le test, révèle la réponse puis indique si tu connaissais le mot. Ta progression est sauvegardée dans ce navigateur, sur cet ordinateur.",
       reset: "Réinitialiser ma progression", confirm: "Confirmer ?",
       dark: "Mode sombre", light: "Mode clair",
       lvNew: "Non testé", lvUnknown: "Pas connu du tout", lvHalf: "À moitié connu", lvKnown: "Bien connu",
@@ -583,18 +716,21 @@
       legacyTake: function (name) { return "La reprendre pour " + name; }, legacySkip: "Ignorer",
       lenWord: "mots", lenAll: "Tous",
       needChap: "Coche au moins un chapitre.", needLevel: "Coche au moins un type de mots à inclure.", needPool: "Aucun mot ne correspond à ta sélection.",
-      summary: function (pool, n) { return pool + (pool > 1 ? " mots disponibles" : " mot disponible") + " · test de " + n + (n > 1 ? " mots" : " mot"); },
-      setupTitle: function (name) { return "Prépare ton test, " + name; },
+      summary: function (pool, n, r) { var w = r ? " phrase" : " mot"; return pool + w + (pool > 1 ? "s disponibles" : " disponible") + " · test de " + n + w + (n > 1 ? "s" : ""); },
+      setupTitle: function () { return "Prépare ton test"; },
       setupSub: "Choisis les chapitres, les mots à inclure et la longueur, puis lance le test.",
       step1: "CHAPITRES", step2: "MOTS À INCLURE", step3: "LONGUEUR DU TEST",
       all: "Tout cocher", none: "Tout décocher",
       ovHint: "Décoche « Bien connu » pour ne pas revoir ce que tu maîtrises déjà, ou « Non testé » pour ne réviser que des mots déjà vus.",
       launch: "Lancer le test",
-      done: "Test terminé", tested: function (n) { return n + (n > 1 ? " mots testés" : " mot testé"); },
-      allKnown: "Tous les mots étaient connus, bravo.", review: "À REVOIR", newTest: "Nouveau test", retry: "Refaire les mots à revoir",
+      done: "Test terminé", tested: function (n, r) { return n + (r ? (n > 1 ? " phrases testées" : " phrase testée") : (n > 1 ? " mots testés" : " mot testé")); },
+      allKnown: "Tout était connu, bravo.", review: "À REVOIR", newTest: "Nouveau test", retry: "Refaire les mots à revoir",
       noProfile: "Qui révise ? Choisis ton profil dans la colonne de gauche.",
       hidden: "Pinyin et sens masqués", stop: "Arrêter le test", show: "Voir la réponse",
+      typeTitle: "TYPE DE TEST", typeWords: "Mots", typeRead: "Lecture (phrases)", typeExo: "Exercice", step2r: "PHRASES À INCLURE", lenSent: "phrases",
       kbdHint: "Espace : voir la réponse · ← pas connu · ↓ à moitié · → je savais tout",
+      next: "Phrase suivante", kbdHintRead: "Espace : voir la réponse · espace ou → : phrase suivante",
+      lockNote: "Un chapitre se débloque quand tu connais 65 % de ses mots (« Je savais tout »).",
       bUnknown: "Pas connu du tout ✗", bHalf: "À moitié 〜", bKnown: "Je savais tout ✓"
     },
     ru: {
@@ -602,7 +738,7 @@
       seen: function (t, n) { return "Проверено слов: " + t + " из " + n; },
       appTitle: "Тест по китайским иероглифам", appSub: "Подготовь тест: главы, слова для включения, длина",
       profile: "ПРОФИЛЬ", selected: "ВЫБРАННЫЕ ИЕРОГЛИФЫ",
-      hint: "Во время теста открой ответ и отметь, знала ли ты слово. У каждого профиля свой прогресс, он сохраняется в этом браузере.",
+      hint: "Во время теста открой ответ и отметь, знал(а) ли ты слово. Твой прогресс сохраняется в этом браузере, на этом компьютере.",
       reset: "Сбросить мой прогресс", confirm: "Подтвердить?",
       dark: "Тёмная тема", light: "Светлая тема",
       lvNew: "Не проверялось", lvUnknown: "Совсем не знаю", lvHalf: "Знаю наполовину", lvKnown: "Хорошо знаю",
@@ -612,54 +748,235 @@
       legacyTake: function (name) { return "Взять для " + name; }, legacySkip: "Пропустить",
       lenWord: "слов", lenAll: "Все",
       needChap: "Выбери хотя бы одну главу.", needLevel: "Выбери хотя бы один тип слов для включения.", needPool: "Нет слов, подходящих под твой выбор.",
-      summary: function (pool, n) { return "Доступно слов: " + pool + " · в тесте: " + n; },
-      setupTitle: function (name) { return "Подготовь тест, " + name; },
+      summary: function (pool, n, r) { return (r ? "Доступно фраз: " : "Доступно слов: ") + pool + " · в тесте: " + n; },
+      setupTitle: function () { return "Подготовь тест"; },
       setupSub: "Выбери главы, слова для включения и длину, затем запусти тест.",
       step1: "ГЛАВЫ", step2: "СЛОВА ДЛЯ ВКЛЮЧЕНИЯ", step3: "ДЛИНА ТЕСТА",
       all: "Выбрать все", none: "Снять все",
       ovHint: "Сними галочку «Хорошо знаю», чтобы не повторять уже выученное, или «Не проверялось», чтобы повторять только уже виденные слова.",
       launch: "Начать тест",
-      done: "Тест завершён", tested: function (n) { return "Проверено слов: " + n; },
-      allKnown: "Все слова были known — отлично!", review: "ПОВТОРИТЬ", newTest: "Новый тест", retry: "Повторить слова для повторения",
+      done: "Тест завершён", tested: function (n, r) { return (r ? "Проверено фраз: " : "Проверено слов: ") + n; },
+      allKnown: "Все слова были известны — отлично!", review: "ПОВТОРИТЬ", newTest: "Новый тест", retry: "Повторить слова для повторения",
       noProfile: "Кто занимается? Выбери свой профиль в левой колонке.",
       hidden: "Пиньинь и значение скрыты", stop: "Остановить тест", show: "Показать ответ",
+      typeTitle: "ТИП ТЕСТА", typeWords: "Слова", typeRead: "Чтение (фразы)", typeExo: "Упражнение", step2r: "ФРАЗЫ ДЛЯ ВКЛЮЧЕНИЯ", lenSent: "фраз",
       kbdHint: "Пробел: показать ответ · ← не знаю · ↓ наполовину · → знала всё",
+      next: "Следующая фраза", kbdHintRead: "Пробел: показать ответ · пробел или →: следующая фраза",
+      lockNote: "Глава открывается, когда ты знаешь 65 % её слов («Знала всё»).",
       bUnknown: "Совсем не знаю ✗", bHalf: "Наполовину 〜", bKnown: "Знала всё ✓"
+    },
+    en: {
+      team: "MY PROGRESS", mastered: "mastered", byChapter: "BY CHAPTER", untested: "untested",
+      seen: function (t, n) { return t + " words tested out of " + n; },
+      appTitle: "Chinese Characters Quiz", appSub: "Set up a test: chapters, words to include, length",
+      profile: "PROFILE", selected: "SELECTED CHARACTERS",
+      hint: "During the test, reveal the answer then say whether you knew the word. Your progress is saved in this browser, on this computer.",
+      reset: "Reset my progress", confirm: "Confirm?",
+      dark: "Dark mode", light: "Light mode",
+      lvNew: "Untested", lvUnknown: "Not known at all", lvHalf: "Half known", lvKnown: "Well known",
+      noChap: "No chapter selected.",
+      chars: function (n) { return n + (n === 1 ? " character" : " characters"); },
+      legacy: function (n) { return n + " characters"; },
+      legacyTake: function (name) { return name; }, legacySkip: "Skip",
+      lenWord: "words", lenAll: "All",
+      needChap: "Select at least one chapter.", needLevel: "Select at least one type of words to include.", needPool: "No word matches your selection.",
+      summary: function (pool, n, r) { var w = r ? " sentence" : " word"; return pool + w + (pool > 1 ? "s" : "") + " available · test of " + n + w + (n > 1 ? "s" : ""); },
+      setupTitle: function () { return "Set up your test"; },
+      setupSub: "Choose the chapters, the words to include and the length, then start the test.",
+      step1: "CHAPTERS", step2: "WORDS TO INCLUDE", step3: "TEST LENGTH",
+      all: "Select all", none: "Deselect all",
+      ovHint: "Untick “Well known” to skip what you already master, or “Untested” to review only words you have already seen.",
+      launch: "Start the test",
+      done: "Test finished", tested: function (n, r) { return n + (r ? (n > 1 ? " sentences tested" : " sentence tested") : (n > 1 ? " words tested" : " word tested")); },
+      allKnown: "You knew everything, well done.", review: "TO REVIEW", newTest: "New test", retry: "Redo the words to review",
+      noProfile: "",
+      hidden: "Pinyin and meaning hidden", stop: "Stop the test", show: "Show the answer",
+      typeTitle: "TEST TYPE", typeWords: "Words", typeRead: "Reading (sentences)", typeExo: "Exercise", step2r: "SENTENCES TO INCLUDE", lenSent: "sentences",
+      kbdHint: "Space: show answer · ← not known · ↓ half · → I knew it all",
+      next: "Next sentence", kbdHintRead: "Space: show answer · space or →: next sentence",
+      lockNote: "A chapter unlocks when you know 65% of its words (“I knew it all”).",
+      bUnknown: "Not known at all ✗", bHalf: "Half 〜", bKnown: "I knew it all ✓"
+    },
+    ko: {
+      team: "나의 진행 상황", mastered: "숙달", byChapter: "과별", untested: "미시험",
+      seen: function (t, n) { return n + "개 중 " + t + "개 단어 시험함"; },
+      appTitle: "중국어 한자 퀴즈", appSub: "시험 준비: 과, 포함할 단어, 길이",
+      profile: "프로필", selected: "선택한 한자",
+      hint: "시험 중에는 답을 확인한 뒤 그 단어를 알았는지 표시하세요. 진행 상황은 이 컴퓨터의 이 브라우저에 저장됩니다.",
+      reset: "내 진행 상황 초기화", confirm: "확인할까요?",
+      dark: "다크 모드", light: "라이트 모드",
+      lvNew: "미시험", lvUnknown: "전혀 모름", lvHalf: "반쯤 앎", lvKnown: "잘 앎",
+      noChap: "선택한 과가 없습니다.",
+      chars: function (n) { return "한자 " + n + "개"; },
+      legacy: function (n) { return n + "자"; },
+      legacyTake: function (name) { return name; }, legacySkip: "건너뛰기",
+      lenWord: "단어", lenAll: "전체",
+      needChap: "과를 하나 이상 선택하세요.", needLevel: "포함할 단어 유형을 하나 이상 선택하세요.", needPool: "선택한 조건에 맞는 단어가 없습니다.",
+      summary: function (pool, n, r) { var w = r ? "문장" : "단어"; return "사용 가능한 " + w + " " + pool + "개 · " + w + " " + n + "개 시험"; },
+      setupTitle: function () { return "시험 준비하기"; },
+      setupSub: "과, 포함할 단어, 길이를 고른 다음 시험을 시작하세요.",
+      step1: "과", step2: "포함할 단어", step3: "시험 길이",
+      all: "모두 선택", none: "모두 해제",
+      ovHint: "이미 아는 단어를 건너뛰려면 «잘 앎»을, 이미 본 단어만 복습하려면 «미시험»을 해제하세요.",
+      launch: "시험 시작",
+      done: "시험 종료", tested: function (n, r) { return (r ? "문장 " : "단어 ") + n + "개 시험함"; },
+      allKnown: "전부 알고 있었어요. 잘했어요!", review: "복습할 단어", newTest: "새 시험", retry: "복습할 단어 다시 하기",
+      noProfile: "",
+      hidden: "병음과 뜻이 숨겨져 있습니다", stop: "시험 중단", show: "정답 보기",
+      typeTitle: "시험 유형", typeWords: "단어", typeRead: "읽기 (문장)", typeExo: "연습 문제", step2r: "포함할 문장", lenSent: "문장",
+      kbdHint: "스페이스: 정답 보기 · ← 모름 · ↓ 반쯤 · → 다 알았음",
+      next: "다음 문장", kbdHintRead: "스페이스: 정답 보기 · 스페이스 또는 →: 다음 문장",
+      lockNote: "과의 단어를 65% 알면 잠금이 해제됩니다 («다 알았음»).",
+      bUnknown: "전혀 모름 ✗", bHalf: "반쯤 〜", bKnown: "다 알았음 ✓"
+    },
+    es: {
+      team: "MI PROGRESO", mastered: "dominadas", byChapter: "POR CAPÍTULO", untested: "sin probar",
+      seen: function (t, n) { return t + " palabras probadas de " + n; },
+      appTitle: "Quiz de caracteres chinos", appSub: "Prepara un test: capítulos, palabras a incluir, duración",
+      profile: "PERFIL", selected: "CARACTERES SELECCIONADOS",
+      hint: "Durante el test, muestra la respuesta y luego indica si conocías la palabra. Tu progreso se guarda en este navegador, en este ordenador.",
+      reset: "Reiniciar mi progreso", confirm: "¿Confirmar?",
+      dark: "Modo oscuro", light: "Modo claro",
+      lvNew: "Sin probar", lvUnknown: "No la conocía", lvHalf: "La conocía a medias", lvKnown: "Bien conocida",
+      noChap: "Ningún capítulo seleccionado.",
+      chars: function (n) { return n + (n === 1 ? " carácter" : " caracteres"); },
+      legacy: function (n) { return n + " caracteres"; },
+      legacyTake: function (name) { return name; }, legacySkip: "Omitir",
+      lenWord: "palabras", lenAll: "Todas",
+      needChap: "Marca al menos un capítulo.", needLevel: "Marca al menos un tipo de palabras a incluir.", needPool: "Ninguna palabra coincide con tu selección.",
+      summary: function (pool, n, r) { var w = r ? "frase" : "palabra"; return pool + " " + w + (pool > 1 ? "s" : "") + " disponible" + (pool > 1 ? "s" : "") + " · test de " + n + " " + w + (n > 1 ? "s" : ""); },
+      setupTitle: function () { return "Prepara tu test"; },
+      setupSub: "Elige los capítulos, las palabras a incluir y la duración, y luego empieza el test.",
+      step1: "CAPÍTULOS", step2: "PALABRAS A INCLUIR", step3: "DURACIÓN DEL TEST",
+      all: "Marcar todo", none: "Desmarcar todo",
+      ovHint: "Desmarca «Bien conocida» para no repasar lo que ya dominas, o «Sin probar» para repasar solo palabras ya vistas.",
+      launch: "Empezar el test",
+      done: "Test terminado", tested: function (n, r) { return n + (r ? (n > 1 ? " frases probadas" : " frase probada") : (n > 1 ? " palabras probadas" : " palabra probada")); },
+      allKnown: "Lo sabías todo, ¡bravo!", review: "PARA REPASAR", newTest: "Nuevo test", retry: "Repetir las palabras a repasar",
+      noProfile: "",
+      hidden: "Pinyin y significado ocultos", stop: "Detener el test", show: "Ver la respuesta",
+      typeTitle: "TIPO DE TEST", typeWords: "Palabras", typeRead: "Lectura (frases)", typeExo: "Ejercicio", step2r: "FRASES A INCLUIR", lenSent: "frases",
+      kbdHint: "Espacio: ver respuesta · ← no la conocía · ↓ a medias · → lo sabía todo",
+      next: "Frase siguiente", kbdHintRead: "Espacio: ver respuesta · espacio o →: frase siguiente",
+      lockNote: "Un capítulo se desbloquea cuando conoces el 65 % de sus palabras («Lo sabía todo»).",
+      bUnknown: "No la conocía ✗", bHalf: "A medias 〜", bKnown: "Lo sabía todo ✓"
+    },
+    tk: {
+      team: "MENIŇ ÖSÜŞIM", mastered: "özleşdirilen", byChapter: "BAP BOÝUNÇA", untested: "synag edilmedik",
+      seen: function (t, n) { return n + " sözüň " + t + " sany synag edildi"; },
+      appTitle: "Hytaý ýeroglifleri viktorinasy", appSub: "Synag taýýarla: baplar, goşuljak sözler, uzynlyk",
+      profile: "PROFIL", selected: "SAÝLANAN ÝEROGLIFLER",
+      hint: "Synag wagtynda jogaby aç, soňra sözi bilýändigiňi belle. Ösüşiň şu kompýuterdäki şu brauzerde saklanýar.",
+      reset: "Ösüşimi täzeden başla", confirm: "Tassykla?",
+      dark: "Garaňky režim", light: "Açyk režim",
+      lvNew: "Synag edilmedik", lvUnknown: "Hiç bilmeýär", lvHalf: "Ýarym bilýär", lvKnown: "Gowy bilýär",
+      noChap: "Hiç bap saýlanmady.",
+      chars: function (n) { return n + " ýeroglif"; },
+      legacy: function (n) { return n + " ýeroglif"; },
+      legacyTake: function (name) { return name; }, legacySkip: "Geç",
+      lenWord: "söz", lenAll: "Hemmesi",
+      needChap: "Azyndan bir bap saýla.", needLevel: "Goşuljak sözleriň azyndan bir görnüşini saýla.", needPool: "Saýlawyňa laýyk söz ýok.",
+      summary: function (pool, n, r) { var w = r ? "sözlem" : "söz"; return pool + " " + w + " elýeterli · " + n + " " + w + "lik synag"; },
+      setupTitle: function () { return "Synagyňy taýýarla"; },
+      setupSub: "Baplary, goşuljak sözleri we uzynlygy saýla, soňra synagy başla.",
+      step1: "BAPLAR", step2: "GOŞULJAK SÖZLER", step3: "SYNAGYŇ UZYNLYGY",
+      all: "Hemmesini belle", none: "Hemmesini aýyr",
+      ovHint: "Eýýäm bilýänleriňi gaýtalamazlyk üçin «Gowy bilýär» belligini aýyr, ýa-da diňe görlen sözleri gaýtalamak üçin «Synag edilmedik» belligini aýyr.",
+      launch: "Synagy başla",
+      done: "Synag gutardy", tested: function (n, r) { return n + (r ? " sözlem synag edildi" : " söz synag edildi"); },
+      allKnown: "Hemmesini bilýärdiň, aferin!", review: "GAÝTALAMAK ÜÇIN", newTest: "Täze synag", retry: "Gaýtalamaly sözleri ýene synag et",
+      noProfile: "",
+      hidden: "Pinýin we many gizlendi", stop: "Synagy duruz", show: "Jogaby görkez",
+      typeTitle: "SYNAG GÖRNÜŞI", typeWords: "Sözler", typeRead: "Okamak (sözlemler)", typeExo: "Maşk", step2r: "GOŞULJAK SÖZLEMLER", lenSent: "sözlem",
+      kbdHint: "Boşluk: jogaby görkez · ← bilmeýär · ↓ ýarym · → hemmesini bilýärdim",
+      next: "Indiki sözlem", kbdHintRead: "Boşluk: jogaby görkez · boşluk ýa-da →: indiki sözlem",
+      lockNote: "Bap onuň sözleriniň 65 %-ini bilenden soň açylýar («Hemmesini bilýärdim»).",
+      bUnknown: "Hiç bilmeýär ✗", bHalf: "Ýarym 〜", bKnown: "Hemmesini bilýärdim ✓"
     }
   };
   STR.ru.allKnown = "Все слова были знакомы — отлично!";
-  function lang() { return currentProfile === "Dana" ? "ru" : "fr"; }
+  var langPref = "fr";
+  try { var nl = (navigator.language || "").slice(0, 2).toLowerCase(); if (["ru", "en", "ko", "es", "tk"].indexOf(nl) !== -1) langPref = nl; } catch (e) {}
+  function lang() { return langPref; }
   function tr(k) { return STR[lang()][k]; }
-  function meaningOf(item) { return (lang() === "ru" && RU_MEANING[item.char]) || item.meaning; }
-  function chTitle(ch) { return lang() === "ru" ? ch.title.replace("Chapitre", "Глава") : ch.title; }
+  function meaningOf(item) {
+    var L = lang();
+    if (L === "ru") return RU_MEANING[item.char] || item.ru || item.meaning;
+    if (L === "fr") return item.meaning;
+    if (item.isSentence) return (item.tr && item.tr[L]) || item.meaning;
+    return (WM[L] && WM[L][item.char]) || item.meaning;
+  }
+  function X(fr, ru) {
+    var L = lang();
+    if (L === "fr") return fr;
+    if (L === "ru") return ru;
+    var t = XT[fr];
+    return (t && t[L]) || fr;
+  }
+  function chTitle(ch) {
+    var L = lang(), t = ch.title;
+    if (L === "ru") return t.replace("Chapitre", "Глава");
+    if (L === "en") return t.replace("Chapitre", "Chapter");
+    if (L === "es") return t.replace("Chapitre", "Capítulo");
+    if (L === "ko") return t.replace(/^Chapitre (\d+)/, "$1과");
+    if (L === "tk") return t.replace("Chapitre", "Bap");
+    return t;
+  }
   function levelLabel(l) { return tr({ "new": "lvNew", unknown: "lvUnknown", half: "lvHalf", known: "lvKnown" }[l]); }
   function applyStaticText() {
     document.documentElement.lang = lang();
     document.getElementById("appTitle").textContent = tr("appTitle");
     document.getElementById("appSub").textContent = tr("appSub");
-    document.getElementById("tProfile").textContent = tr("profile");
+    document.getElementById("settingsBtn").textContent = "⚙ " + X("Paramètres", "Настройки");
     document.getElementById("tSel").textContent = tr("selected");
     document.getElementById("tTeam").textContent = tr("team");
     document.getElementById("hintText").textContent = tr("hint");
+    tabTest.textContent = X("Tests", "Тесты");
+    tabStats.textContent = X("Statistiques", "Статистика");
+    if (view === "stats") renderStats();
     resetBtn.textContent = tr("reset");
     resetBtn.removeAttribute("data-armed");
-    refreshThemeText();
   }
+
+  // Phrases pour le test de lecture : [phrase, pinyin, français, russe]
+  var SENT_DATA = [
+    { id: "chap1", items: [["你好！", "Nǐ hǎo!", "Bonjour !", "Привет! Здравствуй!"], ["您好！", "Nín hǎo!", "Bonjour ! (forme de politesse)", "Здравствуйте! (вежливо)"]] },
+    { id: "chap2", items: [["早上好！", "Zǎoshang hǎo!", "Bonjour ! (le matin)", "Доброе утро!"], ["你是哪国人？", "Nǐ shì nǎ guó rén?", "Tu viens de quel pays ?", "Ты из какой страны?"], ["我是美国人。你呢？", "Wǒ shì Měiguó rén. Nǐ ne?", "Je suis américain. Et toi ?", "Я американец. А ты?"], ["我是韩国人。", "Wǒ shì Hánguó rén.", "Je suis coréen (de Corée du Sud).", "Я кореец (из Южной Кореи)."], ["他呢？", "Tā ne?", "Et lui ?", "А он?"], ["他是日本人。", "Tā shì Rìběn rén.", "Il est japonais.", "Он японец."]] },
+    { id: "chap3", items: [["你好！请问，你叫什么名字？", "Nǐ hǎo! Qǐngwèn, nǐ jiào shénme míngzi?", "Bonjour ! Excuse-moi, comment t'appelles-tu ?", "Здравствуй! Скажи, как тебя зовут?"], ["我叫林娜。你呢？", "Wǒ jiào Línnà. Nǐ ne?", "Je m'appelle Linna. Et toi ?", "Меня зовут Линна. А тебя?"], ["我叫山田佑，姓山田。", "Wǒ jiào Shāntián Yòu, xìng Shāntián.", "Je m'appelle Yamada Yu, mon nom de famille est Yamada.", "Меня зовут Ямада Ю, фамилия — Ямада."], ["认识你很高兴。", "Rènshi nǐ hěn gāoxìng.", "Enchanté de faire ta connaissance.", "Очень рад с тобой познакомиться."], ["认识你我也很高兴。", "Rènshi nǐ wǒ yě hěn gāoxìng.", "Moi aussi, je suis très content de te connaître.", "Я тоже очень рада с тобой познакомиться."], ["老师，您贵姓？", "Lǎoshī, nín guìxìng?", "Professeur, quel est votre nom de famille ?", "Учитель, как ваша фамилия?"], ["我姓李。", "Wǒ xìng Lǐ.", "Mon nom de famille est Li.", "Моя фамилия Ли."], ["李老师，您好！", "Lǐ lǎoshī, nín hǎo!", "Bonjour, professeur Li !", "Здравствуйте, учитель Ли!"], ["你好！你叫什么名字？", "Nǐ hǎo! Nǐ jiào shénme míngzi?", "Bonjour ! Comment t'appelles-tu ?", "Здравствуй! Как тебя зовут?"], ["我叫马丁。", "Wǒ jiào Mǎdīng.", "Je m'appelle Martin.", "Меня зовут Мартин."]] },
+    { id: "chap4", items: [["林娜是法国留学生，她学习汉语。", "Línnà shì Fǎguó liúxuéshēng, tā xuéxí Hànyǔ.", "Linna est une étudiante française, elle étudie le chinois.", "Линна — студентка из Франции, она изучает китайский язык."], ["阿明是泰国留学生，他也学习汉语。", "Āmíng shì Tàiguó liúxuéshēng, tā yě xuéxí Hànyǔ.", "A'ming est un étudiant thaïlandais, il étudie aussi le chinois.", "А-Мин — студент из Таиланда, он тоже изучает китайский язык."], ["他们一起上课，一起说汉语。", "Tāmen yìqǐ shàng kè, yìqǐ shuō Hànyǔ.", "Ils suivent les cours ensemble et parlent chinois ensemble.", "Они вместе ходят на занятия и вместе говорят по-китайски."], ["你好！我是中国人，我叫朱云，你叫什么名字？", "Nǐ hǎo! Wǒ shì Zhōngguó rén, wǒ jiào Zhū Yún, nǐ jiào shénme míngzi?", "Bonjour ! Je suis chinois, je m'appelle Zhu Yun, et toi, comment t'appelles-tu ?", "Здравствуй! Я китаец, меня зовут Чжу Юнь. А как тебя зовут?"], ["我叫林娜。", "Wǒ jiào Línnà.", "Je m'appelle Linna.", "Меня зовут Линна."], ["我是法国人。", "Wǒ shì Fǎguó rén.", "Je suis française.", "Я француженка."], ["你学习什么？", "Nǐ xuéxí shénme?", "Qu'étudies-tu ?", "Что ты изучаешь?"], ["我学习汉语。你呢？", "Wǒ xuéxí Hànyǔ. Nǐ ne?", "J'étudie le chinois. Et toi ?", "Я изучаю китайский. А ты?"], ["我学习英语。", "Wǒ xuéxí Yīngyǔ.", "J'étudie l'anglais.", "Я изучаю английский."], ["你学习法语吗？", "Nǐ xuéxí Fǎyǔ ma?", "Est-ce que tu étudies le français ?", "Ты изучаешь французский?"], ["我不学习法语。", "Wǒ bù xuéxí Fǎyǔ.", "Je n'étudie pas le français.", "Я не изучаю французский."], ["林娜，他是谁？", "Línnà, tā shì shéi?", "Linna, qui est-il ?", "Линна, кто он?"], ["他是我同学。", "Tā shì wǒ tóngxué.", "C'est mon camarade de classe.", "Он мой однокурсник."], ["他是哪国人？", "Tā shì nǎ guó rén?", "De quel pays est-il ?", "Из какой он страны?"], ["他是泰国人。", "Tā shì Tàiguó rén.", "Il est thaïlandais.", "Он таец."], ["他也学习汉语吗？", "Tā yě xuéxí Hànyǔ ma?", "Étudie-t-il aussi le chinois ?", "Он тоже изучает китайский?"], ["他也学习汉语。", "Tā yě xuéxí Hànyǔ.", "Il étudie aussi le chinois.", "Он тоже изучает китайский."]] },
+    { id: "chap5", items: [["我叫林娜，我是法国留学生。", "Wǒ jiào Línnà, wǒ shì Fǎguó liúxuéshēng.", "Je m'appelle Linna, je suis une étudiante française.", "Меня зовут Линна, я студентка из Франции."], ["我家有四口人：爸爸、妈妈、哥哥和我。", "Wǒ jiā yǒu sì kǒu rén: bàba, māma, gēge hé wǒ.", "Il y a quatre personnes dans ma famille : papa, maman, mon grand frère et moi.", "В моей семье четыре человека: папа, мама, старший брат и я."], ["我爸爸是职员，妈妈是老师，哥哥和我都是大学生。", "Wǒ bàba shì zhíyuán, māma shì lǎoshī, gēge hé wǒ dōu shì dàxuéshēng.", "Mon père est employé de bureau, ma mère est professeur, mon frère et moi sommes tous deux étudiants à l'université.", "Мой папа — служащий, мама — учитель, мы с братом оба студенты университета."], ["你家有几口人？", "Nǐ jiā yǒu jǐ kǒu rén?", "Combien de personnes y a-t-il dans ta famille ?", "Сколько человек в твоей семье?"], ["我家有三口人。", "Wǒ jiā yǒu sān kǒu rén.", "Il y a trois personnes dans ma famille.", "В моей семье три человека."], ["你家有什么人？", "Nǐ jiā yǒu shénme rén?", "Qui y a-t-il dans ta famille ?", "Кто есть в твоей семье?"], ["我家有爸爸、妈妈和我。", "Wǒ jiā yǒu bàba, māma hé wǒ.", "Dans ma famille il y a papa, maman et moi.", "В моей семье папа, мама и я."], ["你爸爸、妈妈做什么工作？", "Nǐ bàba, māma zuò shénme gōngzuò?", "Que font ton père et ta mère comme métier ?", "Кем работают твои папа и мама?"], ["我爸爸是律师，妈妈是医生。", "Wǒ bàba shì lǜshī, māma shì yīshēng.", "Mon père est avocat et ma mère est médecin.", "Мой папа — юрист, а мама — врач."], ["林娜，你们班有多少个学生？", "Línnà, nǐmen bān yǒu duōshao ge xuésheng?", "Linna, combien d'élèves y a-t-il dans votre classe ?", "Линна, сколько студентов в вашей группе?"], ["十六个。", "Shíliù ge.", "Seize.", "Шестнадцать."], ["你们班有几个法国人？", "Nǐmen bān yǒu jǐ ge Fǎguó rén?", "Combien de Français y a-t-il dans votre classe ?", "Сколько французов в вашей группе?"], ["我们班有两个法国人。", "Wǒmen bān yǒu liǎng ge Fǎguó rén.", "Dans notre classe il y a deux Français.", "В нашей группе два француза."], ["你们班有韩国人吗？", "Nǐmen bān yǒu Hánguó rén ma?", "Y a-t-il des Coréens dans votre classe ?", "Есть ли в вашей группе корейцы?"], ["有。", "Yǒu.", "Oui, il y en a.", "Есть."], ["有几个韩国人？", "Yǒu jǐ ge Hánguó rén?", "Combien y a-t-il de Coréens ?", "Сколько корейцев?"], ["有四个韩国人。", "Yǒu sì ge Hánguó rén.", "Il y a quatre Coréens.", "Есть четыре корейца."]] },
+    { id: "chap6", items: [["马丁想买电子词典和电脑。", "Mǎdīng xiǎng mǎi diànzǐ cídiǎn hé diànnǎo.", "Martin veut acheter un dictionnaire électronique et un ordinateur.", "Мартин хочет купить электронный словарь и компьютер."], ["一部电子词典七百八十块钱，一台电脑五千九百块钱，一共需要六千六百八十块钱。", "Yí bù diànzǐ cídiǎn qībǎi bāshí kuài qián, yì tái diànnǎo wǔqiān jiǔbǎi kuài qián, yígòng xūyào liùqiān liùbǎi bāshí kuài qián.", "Un dictionnaire électronique coûte 780 yuans, un ordinateur 5 900 yuans ; il faut 6 680 yuans en tout.", "Электронный словарь стоит 780 юаней, компьютер — 5900 юаней, всего нужно 6680 юаней."], ["你好！请问，你要什么？", "Nǐ hǎo! Qǐngwèn, nǐ yào shénme?", "Bonjour ! Excusez-moi, que désirez-vous ?", "Здравствуйте! Скажите, что вам нужно?"], ["我要一个面包。", "Wǒ yào yí ge miànbāo.", "Je voudrais un pain.", "Мне нужен один хлеб."], ["你要哪种？", "Nǐ yào nǎ zhǒng?", "Lequel voulez-vous ?", "Какой именно вам нужен?"], ["我要这种，这种多少钱一个？", "Wǒ yào zhè zhǒng, zhè zhǒng duōshao qián yí ge?", "Je veux celui-ci, combien coûte-t-il l'unité ?", "Мне вот этот. Сколько он стоит за штуку?"], ["这种四块五一个。", "Zhè zhǒng sì kuài wǔ yí ge.", "Celui-ci coûte 4,5 yuans pièce.", "Этот стоит 4,5 юаня за штуку."], ["我要两个。", "Wǒ yào liǎng ge.", "J'en prends deux.", "Я возьму два."], ["一共九块。", "Yígòng jiǔ kuài.", "Cela fait 9 yuans en tout.", "Всего 9 юаней."], ["谢谢！", "Xièxie!", "Merci !", "Спасибо!"], ["不客气！", "Bú kèqi!", "De rien !", "Пожалуйста! Не за что!"], ["请问，香蕉多少钱一斤？", "Qǐngwèn, xiāngjiāo duōshao qián yì jīn?", "Excusez-moi, combien coûte le demi-kilo de bananes ?", "Скажите, сколько стоят бананы за цзинь (500 г)?"], ["一块八一斤。", "Yí kuài bā yì jīn.", "1,8 yuan le demi-kilo.", "1,8 юаня за цзинь."], ["苹果呢？", "Píngguǒ ne?", "Et les pommes ?", "А яблоки?"], ["三块五一斤。您买多少？", "Sān kuài wǔ yì jīn. Nín mǎi duōshao?", "3,5 yuans le demi-kilo. Combien en voulez-vous ?", "3,5 юаня за цзинь. Сколько вам взять?"], ["我买四斤香蕉，再买三斤苹果。一共多少钱？", "Wǒ mǎi sì jīn xiāngjiāo, zài mǎi sān jīn píngguǒ. Yígòng duōshao qián?", "J'achète 2 kg de bananes (4 jin) et 1,5 kg de pommes (3 jin). Combien en tout ?", "Я куплю 4 цзиня бананов и ещё 3 цзиня яблок. Сколько всего?"], ["一共十七块七（毛）。", "Yígòng shíqī kuài qī (máo).", "17,7 yuans en tout.", "Всего 17,7 юаня."]] },
+    { id: "chap7", items: [["这是教学一楼，我们在这儿。", "Zhè shì jiàoxué yī lóu, wǒmen zài zhèr.", "Voici le bâtiment d'enseignement n°1, nous sommes ici.", "Это первый учебный корпус, мы находимся здесь."], ["图书馆在教学一楼北边，运动场和体育馆在教学一楼西边。", "Túshūguǎn zài jiàoxué yī lóu běibian, yùndòngchǎng hé tǐyùguǎn zài jiàoxué yī lóu xībian.", "La bibliothèque est au nord du bâtiment n°1 ; le terrain de sport et le gymnase sont à l'ouest.", "Библиотека находится к северу от первого учебного корпуса, а стадион и спортзал — к западу."], ["这是留学生楼，留学生楼在运动场南边，留学生楼西边有一个饭馆，还有一个超市。", "Zhè shì liúxuéshēng lóu, liúxuéshēng lóu zài yùndòngchǎng nánbian, liúxuéshēng lóu xībian yǒu yí ge fànguǎn, hái yǒu yí ge chāoshì.", "Voici le bâtiment des étudiants étrangers, au sud du terrain de sport ; à l'ouest il y a un restaurant et aussi un supermarché.", "Это общежитие для иностранных студентов, оно к югу от стадиона; к западу от него есть ресторан и ещё супермаркет."], ["山田，你去哪儿？", "Shāntián, nǐ qù nǎr?", "Yamada, où vas-tu ?", "Ямада, ты куда идёшь?"], ["我去超市。", "Wǒ qù chāoshì.", "Je vais au supermarché.", "Я иду в супермаркет."], ["中国银行在哪儿？你知道吗？", "Zhōngguó Yínháng zài nǎr? Nǐ zhīdào ma?", "Où est la Banque de Chine ? Tu le sais ?", "Где находится Банк Китая? Ты знаешь?"], ["知道，在超市东边。我跟你一起去吧。", "Zhīdào, zài chāoshì dōngbian. Wǒ gēn nǐ yìqǐ qù ba.", "Oui, c'est à l'est du supermarché. Je vais y aller avec toi.", "Знаю, к востоку от супермаркета. Давай я пойду с тобой."], ["太好了！", "Tài hǎo le!", "Super !", "Замечательно!"], ["请问，哪儿有卫生间？", "Qǐngwèn, nǎr yǒu wèishēngjiān?", "Excusez-moi, où y a-t-il des toilettes ?", "Скажите, где здесь туалет?"], ["对不起，我不知道。", "Duìbuqǐ, wǒ bù zhīdào.", "Désolé, je ne sais pas.", "Извините, я не знаю."], ["没关系。请问，你知道哪儿有卫生间吗？", "Méi guānxi. Qǐngwèn, nǐ zhīdào nǎr yǒu wèishēngjiān ma?", "Ce n'est pas grave. Excusez-moi, sais-tu où il y a des toilettes ?", "Ничего страшного. Скажите, вы не знаете, где здесь туалет?"], ["商店里边有。", "Shāngdiàn lǐbian yǒu.", "Il y en a dans le magasin.", "В магазине есть."], ["商店在什么地方？", "Shāngdiàn zài shénme dìfang?", "Où se trouve le magasin ?", "Где находится магазин?"], ["在前边。你看，那儿就是。", "Zài qiánbian. Nǐ kàn, nàr jiù shì.", "Devant. Regarde, c'est juste là-bas.", "Впереди. Смотри, вот он там."], ["不客气。", "Bú kèqi.", "De rien.", "Не за что."]] },
+    { id: "chap8", items: [["今天九月二十八日，星期二，是林娜的生日。", "Jīntiān jiǔ yuè èrshíbā rì, xīngqī'èr, shì Línnà de shēngrì.", "Aujourd'hui nous sommes le 28 septembre, mardi, c'est l'anniversaire de Linna.", "Сегодня 28 сентября, вторник — день рождения Линны."], ["下课以后，同学们准备一起请她吃饭。", "Xià kè yǐhòu, tóngxuémen zhǔnbèi yìqǐ qǐng tā chī fàn.", "Après les cours, ses camarades comptent l'inviter ensemble à manger.", "После занятий однокурсники собираются вместе пригласить её поужинать."], ["林娜，今天是你的生日，对吗？", "Línnà, jīntiān shì nǐ de shēngrì, duì ma?", "Linna, aujourd'hui c'est ton anniversaire, n'est-ce pas ?", "Линна, сегодня твой день рождения, верно?"], ["我的生日？今天几号？", "Wǒ de shēngrì? Jīntiān jǐ hào?", "Mon anniversaire ? On est le combien aujourd'hui ?", "Мой день рождения? Какое сегодня число?"], ["今天九月二十八号。", "Jīntiān jiǔ yuè èrshíbā hào.", "Nous sommes le 28 septembre.", "Сегодня 28 сентября."], ["对，对，今天是我的生日。", "Duì, duì, jīntiān shì wǒ de shēngrì.", "Oui, oui, aujourd'hui c'est mon anniversaire.", "Да, да, сегодня мой день рождения."], ["我们请你吃饭，怎么样？", "Wǒmen qǐng nǐ chī fàn, zěnmeyàng?", "Nous t'invitons à manger, qu'en dis-tu ?", "Мы приглашаем тебя поесть, как тебе?"], ["太好了！谢谢你们！", "Tài hǎo le! Xièxie nǐmen!", "Super ! Merci à vous !", "Замечательно! Спасибо вам!"], ["林娜，祝你生日快乐！这是我们的礼物。", "Línnà, zhù nǐ shēngrì kuàilè! Zhè shì wǒmen de lǐwù.", "Linna, joyeux anniversaire ! Voici notre cadeau.", "Линна, с днём рождения! Это наш подарок."], ["谢谢。是什么礼物？", "Xièxie. Shì shénme lǐwù?", "Merci. C'est quel cadeau ?", "Спасибо. Что за подарок?"], ["一本中文书和一支笔。", "Yì běn Zhōngwén shū hé yì zhī bǐ.", "Un livre de chinois et un stylo.", "Книга по-китайски и ручка."], ["十月十号是我的生日，你们都去我家，怎么样？", "Shí yuè shí hào shì wǒ de shēngrì, nǐmen dōu qù wǒ jiā, zěnmeyàng?", "Le 10 octobre c'est mon anniversaire, venez tous chez moi, qu'en dites-vous ?", "10 октября мой день рождения, приходите все ко мне, как вам?"], ["好啊！十月十号星期几？", "Hǎo a! Shí yuè shí hào xīngqī jǐ?", "Bonne idée ! Le 10 octobre, c'est quel jour de la semaine ?", "Хорошо! Какой день недели 10 октября?"], ["星期日。", "Xīngqīrì.", "Dimanche.", "Воскресенье."], ["有时间，没问题。", "Yǒu shíjiān, méi wèntí.", "J'ai le temps, pas de problème.", "Время есть, нет проблем."]] },
+    { id: "chap9", items: [["我是留学生。我每天六点半起床，起床以后先洗澡，然后吃早饭。", "Wǒ shì liúxuéshēng. Wǒ měitiān liù diǎn bàn qǐchuáng, qǐchuáng yǐhòu xiān xǐzǎo, ránhòu chī zǎofàn.", "Je suis étudiant étranger. Chaque jour je me lève à 6 h 30, après quoi je prends d'abord une douche, puis le petit-déjeuner.", "Я иностранный студент. Каждый день я встаю в полседьмого, после этого сначала принимаю душ, а потом завтракаю."], ["我差一刻八点去教室上课。", "Wǒ chà yí kè bā diǎn qù jiàoshì shàng kè.", "Je vais en classe à huit heures moins le quart.", "Без пятнадцати восемь я иду в класс на занятия."], ["我们每天八点开始上课，十一点半下课。", "Wǒmen měitiān bā diǎn kāishǐ shàng kè, shíyī diǎn bàn xià kè.", "Nous commençons les cours à 8 h chaque jour, et ils finissent à 11 h 30.", "Каждый день занятия начинаются в восемь, а заканчиваются в половине двенадцатого."], ["下午我常常去图书馆看书。", "Xiàwǔ wǒ chángcháng qù túshūguǎn kàn shū.", "L'après-midi je vais souvent lire à la bibliothèque.", "После обеда я часто хожу в библиотеку читать."], ["晚上我学习汉语，有时候看电视、上网。", "Wǎnshang wǒ xuéxí Hànyǔ, yǒushíhou kàn diànshì, shàng wǎng.", "Le soir j'étudie le chinois, et parfois je regarde la télévision ou je vais sur Internet.", "Вечером я учу китайский, а иногда смотрю телевизор и сижу в интернете."], ["现在几点？", "Xiànzài jǐ diǎn?", "Quelle heure est-il ?", "Который сейчас час?"], ["一点四十。你有事吗？", "Yī diǎn sìshí. Nǐ yǒu shì ma?", "1 h 40. Tu as quelque chose de prévu ?", "1:40. У тебя есть дела?"], ["我两点去图书馆看书。", "Wǒ liǎng diǎn qù túshūguǎn kàn shū.", "J'irai à la bibliothèque à 2 h pour lire.", "В два часа я пойду в библиотеку читать."], ["你看什么书？", "Nǐ kàn shénme shū?", "Tu lis quel livre ?", "Какую книгу ты читаешь?"], ["我看英文书。", "Wǒ kàn Yīngwén shū.", "Je lis un livre en anglais.", "Я читаю книгу на английском."], ["图书馆每天几点开门？", "Túshūguǎn měitiān jǐ diǎn kāi mén?", "À quelle heure la bibliothèque ouvre-t-elle chaque jour ?", "Во сколько библиотека открывается каждый день?"], ["早上八点开门。", "Zǎoshang bā diǎn kāi mén.", "Elle ouvre à 8 h du matin.", "Открывается в восемь утра."], ["几点关门？", "Jǐ diǎn guān mén?", "À quelle heure ferme-t-elle ?", "Во сколько закрывается?"], ["晚上八点关门。", "Wǎnshang bā diǎn guān mén.", "Elle ferme à 8 h du soir.", "Закрывается в восемь вечера."], ["太好了，明天我也去。", "Tài hǎo le, míngtiān wǒ yě qù.", "Super, j'y vais aussi demain.", "Здорово, завтра я тоже пойду."], ["山田，我是崔浩。你今天有什么安排？", "Shāntián, wǒ shì Cuī Hào. Nǐ jīntiān yǒu shénme ānpái?", "Yamada, c'est Cui Hao. Qu'as-tu de prévu aujourd'hui ?", "Ямада, это Цуй Хао. Какие у тебя планы на сегодня?"], ["上午九点我跟中国朋友见面，下午我有时间，你有什么事？", "Shàngwǔ jiǔ diǎn wǒ gēn Zhōngguó péngyou jiànmiàn, xiàwǔ wǒ yǒu shíjiān, nǐ yǒu shénme shì?", "À 9 h du matin je retrouve un ami chinois, l'après-midi j'ai du temps, et toi, tu as quelque chose ?", "В девять утра я встречаюсь с китайским другом, после обеда у меня есть время. А у тебя есть дела?"], ["我想请你看中国电影。", "Wǒ xiǎng qǐng nǐ kàn Zhōngguó diànyǐng.", "J'aimerais t'inviter à voir un film chinois.", "Я хочу пригласить тебя посмотреть китайский фильм."], ["好啊。电影几点开始？", "Hǎo a. Diànyǐng jǐ diǎn kāishǐ?", "Avec plaisir. À quelle heure commence le film ?", "Хорошо. Во сколько начинается фильм?"], ["下午两点半开始。我们两点一刻去吧。", "Xiàwǔ liǎng diǎn bàn kāishǐ. Wǒmen liǎng diǎn yí kè qù ba.", "Il commence à 14 h 30. Partons à 14 h 15.", "Начало в половине третьего. Давай пойдём в четверть третьего."], ["好。再见！", "Hǎo. Zàijiàn!", "D'accord. Au revoir !", "Хорошо. До свидания!"]] },
+    { id: "chap10", items: [["这个城市西边有一个公园，叫西山公园。", "Zhège chéngshì xībian yǒu yí ge gōngyuán, jiào Xīshān Gōngyuán.", "À l'ouest de cette ville il y a un parc qui s'appelle le parc Xishan.", "К западу от этого города есть парк, который называется Сишань."], ["那里有山，有水，有树，有花，风景非常漂亮，空气也非常新鲜。", "Nàli yǒu shān, yǒu shuǐ, yǒu shù, yǒu huā, fēngjǐng fēicháng piàoliang, kōngqì yě fēicháng xīnxiān.", "Là-bas il y a des montagnes, de l'eau, des arbres, des fleurs ; le paysage est très beau et l'air très frais.", "Там есть горы, вода, деревья и цветы, пейзаж очень красивый, а воздух очень свежий."], ["每天都有很多人去那儿爬山，看风景，呼吸新鲜空气。", "Měitiān dōu yǒu hěn duō rén qù nàr pá shān, kàn fēngjǐng, hūxī xīnxiān kōngqì.", "Chaque jour beaucoup de gens y vont faire de la randonnée, admirer le paysage et respirer l'air frais.", "Каждый день много людей ходит туда в горы, смотрит на пейзажи и дышит свежим воздухом."], ["这个星期天我们也去爬山。", "Zhège xīngqītiān wǒmen yě qù pá shān.", "Ce dimanche nous allons aussi faire de la randonnée.", "В это воскресенье мы тоже пойдём в горы."], ["这个星期天你忙不忙？", "Zhège xīngqītiān nǐ máng bu máng?", "Ce dimanche, es-tu occupé ?", "Ты занят в это воскресенье?"], ["我不忙。", "Wǒ bù máng.", "Je ne suis pas occupé.", "Я не занят."], ["星期天我们去爬山，你去不去？", "Xīngqītiān wǒmen qù pá shān, nǐ qù bu qù?", "Dimanche nous allons faire de la randonnée, tu viens ?", "В воскресенье мы идём в горы, ты пойдёшь?"], ["你们去哪儿爬山？", "Nǐmen qù nǎr pá shān?", "Où allez-vous faire de la randonnée ?", "Куда вы пойдёте в горы?"], ["去西山。", "Qù Xīshān.", "À Xishan.", "На Сишань."], ["听说西山非常漂亮，我也想跟你们一起去。", "Tīngshuō Xīshān fēicháng piàoliang, wǒ yě xiǎng gēn nǐmen yìqǐ qù.", "On dit que Xishan est très beau, je voudrais aussi y aller avec vous.", "Говорят, Сишань очень красивый, я тоже хочу пойти с вами."], ["太好了。我们早上八点出发。", "Tài hǎo le. Wǒmen zǎoshang bā diǎn chūfā.", "Super. Nous partons à 8 h du matin.", "Отлично. Мы выходим в восемь утра."], ["我七点半去找你。", "Wǒ qī diǎn bàn qù zhǎo nǐ.", "Je viendrai te chercher à 7 h 30.", "Я зайду за тобой в половине восьмого."], ["大家累不累？", "Dàjiā lèi bu lèi?", "Êtes-vous fatigués ?", "Вы все устали?"], ["我也觉得很累，我们休息一下吧。", "Wǒ yě juéde hěn lèi, wǒmen xiūxi yíxià ba.", "Moi aussi je me sens fatigué, reposons-nous un peu.", "Я тоже чувствую усталость, давайте немного отдохнём."]] },
+    { id: "chap11", items: [["我的同屋是中国人，他在一家汽车公司工作。", "Wǒ de tóngwū shì Zhōngguó rén, tā zài yì jiā qìchē gōngsī gōngzuò.", "Mon camarade de chambre est chinois, il travaille dans une entreprise automobile.", "Мой сосед по комнате китаец, он работает в автомобильной компании."], ["他每天都很忙，从早上八点到下午五点都在公司上班，有时候周末也去上班。", "Tā měitiān dōu hěn máng, cóng zǎoshang bā diǎn dào xiàwǔ wǔ diǎn dōu zài gōngsī shàng bān, yǒushíhou zhōumò yě qù shàng bān.", "Il est très occupé tous les jours : de huit heures du matin à cinq heures de l'après-midi il est à l'entreprise, et parfois il va aussi travailler le week-end.", "Он очень занят каждый день: с восьми утра до пяти вечера он на работе в компании, а иногда ходит на работу и в выходные."], ["平时我在学校食堂吃饭，他也不在家吃饭。", "Píngshí wǒ zài xuéxiào shítáng chī fàn, tā yě bú zài jiā chī fàn.", "D'habitude je mange à la cantine de l'école ; lui non plus ne mange pas à la maison.", "Обычно я ем в школьной столовой, он тоже не ест дома."], ["休息的时候，我们在家做饭。", "Xiūxi de shíhou, wǒmen zài jiā zuò fàn.", "Quand nous nous reposons, nous cuisinons à la maison.", "Когда мы отдыхаем, мы готовим дома."], ["我做韩国菜，他做中国菜，我们一起吃饭聊天儿。", "Wǒ zuò Hánguó cài, tā zuò Zhōngguó cài, wǒmen yìqǐ chī fàn liáo tiānr.", "Je fais de la cuisine coréenne, il fait de la cuisine chinoise, et nous mangeons et bavardons ensemble.", "Я готовлю корейские блюда, он — китайские, и мы вместе едим и болтаем."], ["你好！请问你找谁？", "Nǐ hǎo! Qǐngwèn nǐ zhǎo shéi?", "Bonjour ! Excusez-moi, qui cherchez-vous ?", "Здравствуйте! Скажите, кого вы ищете?"], ["你好！我是崔浩的同学山田。崔浩在吗？", "Nǐ hǎo! Wǒ shì Cuī Hào de tóngxué Shāntián. Cuī Hào zài ma?", "Bonjour ! Je suis Yamada, un camarade de Cui Hao. Cui Hao est-il là ?", "Здравствуйте! Я Ямада, одноклассник Цуй Хао. Цуй Хао дома?"], ["他不在。现在他在朋友家吃晚饭。", "Tā bú zài. Xiànzài tā zài péngyou jiā chī wǎnfàn.", "Il n'est pas là. En ce moment il dîne chez un ami.", "Его нет. Сейчас он ужинает у друга."], ["他的手机号码是多少，你知道吗？", "Tā de shǒujī hàomǎ shì duōshao, nǐ zhīdào ma?", "Quel est son numéro de portable, le sais-tu ?", "Какой у него номер мобильного, ты знаешь?"], ["知道，号码是：13261231948。", "Zhīdào, hàomǎ shì: yāo sān èr liù yāo èr sān yāo jiǔ sì bā.", "Oui, le numéro est : 13261231948.", "Знаю, номер: 13261231948."], ["谢谢你！", "Xièxie nǐ!", "Merci !", "Спасибо тебе!"], ["不用谢。", "Búyòng xiè.", "Pas de quoi.", "Не за что."], ["今天星期五，周末你们都干什么？", "Jīntiān xīngqīwǔ, zhōumò nǐmen dōu gàn shénme?", "Aujourd'hui c'est vendredi, que faites-vous tous ce week-end ?", "Сегодня пятница, что вы все делаете на выходных?"], ["没事的时候，我在宿舍上网。", "Méi shì de shíhou, wǒ zài sùshè shàng wǎng.", "Quand je n'ai rien à faire, je vais sur Internet dans mon dortoir.", "Когда нет дел, я сижу в интернете в общежитии."], ["我在一个学校学习画画儿。", "Wǒ zài yí ge xuéxiào xuéxí huà huàr.", "J'étudie le dessin dans une école.", "Я учусь рисовать в одной школе."], ["你学习中国画吗？", "Nǐ xuéxí zhōngguóhuà ma?", "Tu étudies la peinture traditionnelle chinoise ?", "Ты изучаешь китайскую живопись?"], ["对，我喜欢中国画。你们周末干什么？", "Duì, wǒ xǐhuan zhōngguóhuà. Nǐmen zhōumò gàn shénme?", "Oui, j'aime la peinture chinoise. Et vous, que faites-vous le week-end ?", "Да, я люблю китайскую живопись. А вы что делаете на выходных?"], ["我一般在家看书、听音乐，有时候也去超市买东西。", "Wǒ yìbān zài jiā kàn shū, tīng yīnyuè, yǒushíhou yě qù chāoshì mǎi dōngxi.", "En général je lis chez moi, j'écoute de la musique, et parfois je vais aussi au supermarché faire des courses.", "Обычно я дома читаю, слушаю музыку, а иногда хожу в супермаркет за покупками."], ["我和我同屋一块儿收拾房间，一块儿吃饭、聊天儿。", "Wǒ hé wǒ tóngwū yíkuàir shōushi fángjiān, yíkuàir chī fàn, liáo tiānr.", "Mon camarade de chambre et moi rangeons la chambre ensemble, mangeons et bavardons ensemble.", "Мы с соседом вместе убираем комнату, вместе едим и болтаем."]] }
+  ];
+  var SENT = [];
+  SENT_DATA.forEach(function (g) {
+    g.items.forEach(function (it) {
+      SENT.push({ char: it[0], pinyin: it[1], meaning: it[2], ru: it[3], chapters: [g.id], isSentence: true });
+    });
+  });
+  SENT.forEach(function (x, i) { x.tr = { en: SENT_TR.en[i], ko: SENT_TR.ko[i], es: SENT_TR.es[i], tk: SENT_TR.tk[i] }; });
 
   var LEN_CHOICES = [5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 0];
   var LEVEL_LABELS = { "new": "Non testé", unknown: "Pas connu du tout", half: "À moitié connu", known: "Bien connu" };
   var LEVEL_ORDER = ["new", "unknown", "half", "known"];
   var LEVEL_COLORS = { "new": "var(--border)", unknown: "var(--accent-seal)", half: "var(--accent-gold)", known: "var(--accent-jade)" };
 
-  var PROFILES = ["Lucas", "Yasmine", "Edward", "Dana", "Arthur"];
-  var PROFILE_KEY = "hanzi-quiz-data-v5";
-  var LEGACY_FLAG = "hanzi-quiz-legacy-handled";
+  var PROFILE_KEY = "hanzi-quiz-data-v6";
+  var OLD_PROFILE_KEY = "hanzi-quiz-data-v5";
 
-  var store = { current: null, profiles: {} };
-  var currentProfile = null;
+  var currentProfile = "me";
+  var store = { data: {} };
 
   var progress = {};       // { caractère: "unknown" | "half" | "known" }
   var chapSel = {};
+  var readSel = {};
+  var stats = {};
+  var view = "test";
+  var testType = "words";   // "words" | "read"
   var filters = { "new": true, unknown: true, half: true, known: true };
   var queue = [];
   var current = null;
@@ -676,15 +993,19 @@
   }
 
   function applyProfile(name) {
-    currentProfile = name;
-    var p = (name && store.profiles[name]) || {};
+    var p = store.data || {};
     progress = p.progress || {};
+    stats = p.stats || {};
     chapSel = defaultChapSel();
     if (p.chapSel) {
       CHAPTERS.forEach(function (ch) {
         if (typeof p.chapSel[ch.id] === "boolean") chapSel[ch.id] = p.chapSel[ch.id];
       });
     }
+    testType = (p.testType === "read" || p.testType === "exo") ? p.testType : "words";
+    readSel = {};
+    SENT_DATA.forEach(function (g) { readSel[g.id] = true; });
+    if (p.readSel) SENT_DATA.forEach(function (g) { if (typeof p.readSel[g.id] === "boolean") readSel[g.id] = p.readSel[g.id]; });
     filters = { "new": true, unknown: true, half: true, known: true };
     if (p.filters) {
       LEVEL_ORDER.forEach(function (l) {
@@ -701,127 +1022,36 @@
   }
 
   function load() {
-    try { localStorage.setItem(LEGACY_FLAG, "1"); } catch (e) {}
+    var data = null;
     try {
       var raw = localStorage.getItem(PROFILE_KEY);
-      if (raw) {
-        var parsed = JSON.parse(raw);
-        if (parsed && parsed.profiles) store.profiles = parsed.profiles;
-        if (parsed && PROFILES.indexOf(parsed.current) !== -1) store.current = parsed.current;
+      if (raw) data = JSON.parse(raw);
+      if (!data) {
+        // reprise de l'ancienne version à profils : on garde le profil le plus avancé de cet appareil
+        var old = JSON.parse(localStorage.getItem(OLD_PROFILE_KEY) || "null");
+        if (old && old.profiles) {
+          var best = null, bestN = -1;
+          Object.keys(old.profiles).forEach(function (k) {
+            var pr = old.profiles[k] || {};
+            var n = Object.keys(pr.progress || {}).length;
+            if (n > bestN) { bestN = n; best = pr; }
+          });
+          if (best && bestN > 0) data = best;
+        }
       }
-    } catch (e) { /* démarrage à vide */ }
-    applyProfile(store.current);
+    } catch (e) { data = null; }
+    store.data = data || {};
+    if (store.data.progress) SENT_DATA.forEach(function (g) { g.items.forEach(function (it) { delete store.data.progress[it[0]]; }); });
+    if (["fr", "ru", "en", "ko", "es", "tk"].indexOf(store.data.lang) !== -1) langPref = store.data.lang;
+    applyProfile();
   }
 
   function save() {
-    if (currentProfile) {
-      store.profiles[currentProfile] = { progress: progress, chapSel: chapSel, filters: filters, testLen: testLen };
-    }
-    store.current = currentProfile;
+    store.data = { stats: stats, progress: progress, chapSel: chapSel, readSel: readSel, testType: testType, filters: filters, testLen: testLen, lang: langPref };
     try {
-      localStorage.setItem(PROFILE_KEY, JSON.stringify(store));
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(store.data));
     } catch (e) { /* stockage indisponible */ }
   }
-
-  // Progression enregistrée avant l'arrivée des profils
-  function readLegacy() {
-    try {
-      if (localStorage.getItem(LEGACY_FLAG)) return null;
-      var out = { progress: {}, chapSel: null, filters: null };
-      var raw = localStorage.getItem("hanzi-quiz-data-v2");
-      if (raw) {
-        var p = JSON.parse(raw);
-        if (p && p.progress) out.progress = p.progress;
-        if (p && p.chapSel) out.chapSel = p.chapSel;
-        if (p && p.filters) out.filters = p.filters;
-      } else {
-        var old = localStorage.getItem("hanzi-quiz-data-v1");
-        if (old) {
-          var o = JSON.parse(old);
-          if (o && Array.isArray(o.list)) {
-            o.list.forEach(function (item) {
-              if (item && item.char && item.level && byChar[item.char]) out.progress[item.char] = item.level;
-            });
-          }
-        }
-      }
-      return Object.keys(out.progress).length ? out : null;
-    } catch (e) { return null; }
-  }
-
-  function markLegacyHandled() {
-    try { localStorage.setItem(LEGACY_FLAG, "1"); } catch (e) {}
-  }
-
-  function claimLegacy() {
-    var lg = readLegacy();
-    if (!lg || !currentProfile) return;
-    progress = lg.progress;
-    if (lg.chapSel) {
-      CHAPTERS.forEach(function (ch) {
-        if (typeof lg.chapSel[ch.id] === "boolean") chapSel[ch.id] = lg.chapSel[ch.id];
-      });
-    }
-    if (lg.filters) {
-      LEVEL_ORDER.forEach(function (l) {
-        if (typeof lg.filters[l] === "boolean") filters[l] = lg.filters[l];
-      });
-    }
-    markLegacyHandled();
-    save();
-    renderAll();
-  }
-
-  function selectProfile(name) {
-    save();
-    applyProfile(name);
-    save();
-    renderAll();
-  }
-
-  function renderProfiles() {
-    var row = document.getElementById("profileRow");
-    row.innerHTML = "";
-    PROFILES.forEach(function (name) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.className = "profile-btn" + (name === currentProfile ? " active" : "");
-      b.textContent = name;
-      b.addEventListener("click", function () { selectProfile(name); });
-      row.appendChild(b);
-    });
-
-    var box = document.getElementById("legacyBox");
-    box.innerHTML = "";
-    if (currentProfile && Object.keys(progress).length === 0) {
-      var lg = readLegacy();
-      if (lg) {
-        var n = Object.keys(lg.progress).length;
-        box.className = "legacy-box";
-        var txt = document.createElement("div");
-        txt.textContent = tr("legacy")(n);
-        var btns = document.createElement("div");
-        btns.className = "btn-row";
-        var take = document.createElement("button");
-        take.type = "button";
-        take.className = "btn small";
-        take.textContent = tr("legacyTake")(currentProfile);
-        take.addEventListener("click", claimLegacy);
-        var skip = document.createElement("button");
-        skip.type = "button";
-        skip.className = "btn secondary small";
-        skip.textContent = tr("legacySkip");
-        skip.addEventListener("click", function () { markLegacyHandled(); renderProfiles(); });
-        btns.appendChild(take);
-        btns.appendChild(skip);
-        box.appendChild(txt);
-        box.appendChild(btns);
-        return;
-      }
-    }
-    box.className = "";
-  }
-
 
   /* ---------- Progression (globale + par chapitre) ---------- */
   function segBar(c, total) {
@@ -911,8 +1141,6 @@
 
   function renderAll() {
     applyStaticText();
-    renderProfiles();
-    document.getElementById("panelBody").style.display = currentProfile ? "" : "none";
     renderPanel();
     renderStage();
     renderTeam();
@@ -920,11 +1148,36 @@
 
   function levelOf(item) { return progress[item.char] || "new"; }
 
+  function bank() { return testType === "read" ? SENT : ALL; }
+  function selMap() { return testType === "read" ? readSel : chapSel; }
+  function chapList() {
+    if (testType !== "read") return CHAPTERS;
+    return CHAPTERS.filter(function (ch) { return SENT.some(function (x) { return x.chapters.indexOf(ch.id) !== -1; }); });
+  }
+  function chapCount(ch) {
+    if (testType !== "read") return ch.items.length;
+    return SENT.filter(function (x) { return x.chapters.indexOf(ch.id) !== -1; }).length;
+  }
+  function activeWords() { return ALL.filter(function (item) { return item.chapters.some(function (id) { return chapSel[id]; }); }); }
+  var UNLOCK = 0.65;
+  function chapMastery(ch) {
+    if (!ch.items.length) return 0;
+    var k = 0;
+    ch.items.forEach(function (it) { if (progress[it[0]] === "known") k++; });
+    return k / ch.items.length;
+  }
+  function chapUnlocked(ch) { return chapMastery(ch) >= UNLOCK; }
+  function chapById(id) { return CHAPTERS.filter(function (c) { return c.id === id; })[0]; }
   function inSelectedChapter(item) {
-    return item.chapters.some(function (id) { return chapSel[id]; });
+    var m = selMap();
+    return item.chapters.some(function (id) {
+      if (!m[id]) return false;
+      if (testType === "read") { var ch = chapById(id); return ch && chapUnlocked(ch); }
+      return true;
+    });
   }
 
-  function activeItems() { return ALL.filter(inSelectedChapter); }
+  function activeItems() { return bank().filter(inSelectedChapter); }
 
   function shuffle(arr) {
     var a = arr.slice();
@@ -937,8 +1190,8 @@
 
   function poolIndices() {
     var idx = [];
-    ALL.forEach(function (item, i) {
-      if (inSelectedChapter(item) && filters[levelOf(item)]) idx.push(i);
+    bank().forEach(function (item, i) {
+      if (inSelectedChapter(item) && (testType === "read" || filters[levelOf(item)])) idx.push(i);
     });
     return idx;
   }
@@ -953,7 +1206,7 @@
   function renderList() {
     var ul = document.getElementById("charList");
     ul.innerHTML = "";
-    var items = activeItems();
+    var items = activeWords();
     if (items.length === 0) {
       var li = document.createElement("li");
       li.className = "empty-note";
@@ -991,27 +1244,30 @@
     var box = document.getElementById("chapterRows");
     if (!box) return;
     box.innerHTML = "";
-    CHAPTERS.forEach(function (ch) {
+    chapList().forEach(function (ch) {
       var row = document.createElement("div");
       row.className = "overview-row";
       var label = document.createElement("label");
       var cb = document.createElement("input");
       cb.type = "checkbox";
-      cb.checked = !!chapSel[ch.id];
+      var locked = testType === "read" && !chapUnlocked(ch);
+      cb.checked = !locked && !!selMap()[ch.id];
+      cb.disabled = locked;
+      if (locked) row.style.opacity = "0.6";
       cb.addEventListener("change", function () {
-        chapSel[ch.id] = cb.checked;
+        selMap()[ch.id] = cb.checked;
         save();
         renderPanel();
         renderOverview();
         updateSetupSummary();
       });
       var text = document.createElement("span");
-      text.textContent = chTitle(ch);
+      text.textContent = (locked ? "🔒 " : "") + chTitle(ch) + (testType === "read" ? " — " + Math.round(chapMastery(ch) * 100) + " % / 65 %" : "");
       label.appendChild(cb);
       label.appendChild(text);
       var count = document.createElement("span");
       count.className = "ov-count";
-      count.textContent = ch.items.length;
+      count.textContent = chapCount(ch);
       row.appendChild(label);
       row.appendChild(count);
       box.appendChild(row);
@@ -1067,7 +1323,7 @@
     var row = document.getElementById("lenRow");
     if (!row) return;
     row.innerHTML = "";
-    LEN_CHOICES.map(function (n) { return [n, n === 0 ? tr("lenAll") : n + " " + tr("lenWord")]; }).forEach(function (o) {
+    LEN_CHOICES.map(function (n) { return [n, n === 0 ? tr("lenAll") : n + " " + (testType === "read" ? tr("lenSent") : tr("lenWord"))]; }).forEach(function (o) {
       var b = document.createElement("button");
       b.type = "button";
       b.className = "len-btn" + (testLen === o[0] ? " active" : "");
@@ -1086,42 +1342,342 @@
     var sum = document.getElementById("launchSummary");
     var btn = document.getElementById("launchBtn");
     if (!sum || !btn) return;
-    var anyChapter = CHAPTERS.some(function (ch) { return chapSel[ch.id]; });
-    var anyLevel = LEVEL_ORDER.some(function (l) { return filters[l]; });
+    var anyChapter = chapList().some(function (ch) { return selMap()[ch.id]; });
+    var anyLevel = testType === "read" || LEVEL_ORDER.some(function (l) { return filters[l]; });
     var pool = poolIndices().length;
     btn.disabled = true;
     if (!anyChapter) { sum.textContent = tr("needChap"); return; }
     if (!anyLevel) { sum.textContent = tr("needLevel"); return; }
     if (pool === 0) { sum.textContent = tr("needPool"); return; }
     var n = testLen > 0 ? Math.min(testLen, pool) : pool;
-    sum.textContent = tr("summary")(pool, n);
+    sum.textContent = tr("summary")(pool, n, testType === "read");
     btn.disabled = false;
   }
 
-  function renderSetup() {
+  function typeButtons() {
+    var tr0 = document.getElementById("typeRow");
+    [["words", tr("typeWords")], ["read", tr("typeRead")], ["exo", tr("typeExo")]].forEach(function (o) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "len-btn" + (testType === o[0] ? " active" : "");
+      b.textContent = o[1];
+      b.addEventListener("click", function () {
+        if (testType === o[0]) return;
+        testType = o[0];
+        save();
+        renderSetup();
+      });
+      tr0.appendChild(b);
+    });
+  }
+
+  /* ---------- Exercices ---------- */
+  var exo = null, exoKind = "link";
+  var PCOL = ["#c0392b", "#2e86c1", "#27ae60", "#d68910", "#8e44ad", "#16a085", "#d81b60", "#6d4c41", "#5d6d7e", "#7cb342"];
+  function renderExoSetup() {
+    var ru = lang() === "ru";
     var stage = document.getElementById("stage");
     stage.className = "stage setup";
     stage.innerHTML =
-      '<h3>' + tr("setupTitle")(currentProfile) + '</h3>' +
+      '<h3>' + (X("Exercices", "Упражнения")) + '</h3>' +
+      '<p class="sub">' + (X("Des exercices comme ceux du contrôle. Aucune progression n'est enregistrée.", "Задания как на контрольной. Прогресс не сохраняется.")) + '</p>' +
+      '<div class="step"><div class="step-title">' + tr("typeTitle") + '</div><div class="len-row" id="typeRow"></div></div>' +
+      '<div class="step"><div class="step-title"><span class="step-num">1</span>' + (X("TYPE D'EXERCICE", "ВИД УПРАЖНЕНИЯ")) + '</div>' +
+        '<div class="len-row" id="kindRow"></div></div>' +
+      '<div class="launch-row"><button class="btn big" id="launchBtn" type="button">' + tr("launch") + '</button><span class="launch-summary" id="launchSummary"></span></div>';
+    typeButtons();
+    var kr = document.getElementById("kindRow");
+    [["link", X("Relier 10 caractères à leur pinyin", "Соединить 10 иероглифов с пиньинем")], ["word", X("Compléter le mot : 5 caractères", "Составить слово: 5 иероглифов")], ["sent", X("Placer 10 mots dans 10 phrases à trous", "Вставить 10 слов в 10 предложений")]].forEach(function (o) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "len-btn" + (exoKind === o[0] ? " active" : ""); b.textContent = o[1];
+      b.addEventListener("click", function () { exoKind = o[0]; renderExoSetup(); });
+      kr.appendChild(b);
+    });
+    document.getElementById("launchBtn").addEventListener("click", startExo);
+  }
+
+  function startExo() {
+    if (exoKind === "word") { startExoWord(); return; }
+    if (exoKind === "sent") { startExoSent(); return; }
+    var cand = shuffle(ALL.filter(function (it) { return it.char.length <= 4; })), seenPy = {}, picked = [];
+    cand.forEach(function (it) {
+      var key = it.pinyin.toLowerCase().replace(/\s+/g, "");
+      if (picked.length < 10 && !seenPy[key]) { seenPy[key] = 1; picked.push(it); }
+    });
+    if (picked.length < 10) return;
+    exo = { items: picked, order: shuffle(picked.map(function (_, i) { return i; })), links: {}, sel: null, checked: false };
+    mode = "exo";
+    renderStage();
+  }
+
+  var SENT_STOP = "的了吗呢吧啊也都很就还又再在是有不没个这那几多和跟从到对太么们子儿上下里外前后左右东西南北边";
+  var SENT_GROUPS = [
+    ["几", "多少", "什么", "谁", "哪", "怎么样", "哪儿", "哪国"],
+    ["今天", "明天", "昨天", "现在", "每天", "平时", "周末", "早上", "上午", "下午", "晚上", "星期", "时候", "有时候", "以后", "时间", "生日", "点", "半", "刻"],
+    ["我", "你", "他", "她", "您", "们", "大家", "同学", "老师", "朋友", "同屋", "学生", "留学生", "大学生", "营业员", "人"],
+    ["美国", "韩国", "日本", "中国", "德国", "英国", "印度", "意大利", "法国", "泰国", "北京", "上海", "南京", "城市"],
+    ["图书馆", "超市", "商店", "银行", "学校", "食堂", "公司", "公园", "教室", "宿舍", "饭馆", "体育馆", "运动场", "书店", "邮局", "房间", "家", "卫生间", "教学", "楼", "地方", "那儿", "这儿"],
+    ["汉语", "英语", "法语", "中文", "英文", "西班牙语", "语", "音乐", "电影", "电视", "书", "报纸", "杂志", "电脑", "手机", "电话", "词典", "电子"],
+    ["苹果", "香蕉", "面包", "咖啡", "牛奶", "啤酒", "茶", "菜", "饭", "早饭", "晚饭", "水", "东西", "礼物", "笔", "桌子", "书包"],
+    ["学习", "看", "吃", "买", "说", "做", "喝", "听", "去", "找", "开", "关", "起床", "洗澡", "上课", "下课", "上班", "上网", "见面", "休息", "爬山", "出发", "聊天儿", "收拾", "准备", "工作", "画", "喜欢", "想", "要", "需要", "知道", "觉得", "叫", "姓", "认识", "请", "问", "开始", "安排", "呼吸"],
+    ["好", "忙", "累", "漂亮", "新鲜", "高兴", "快乐", "客气", "非常", "一般", "常常", "先", "然后", "一起", "一共", "一下", "一点儿"],
+    ["块", "元", "毛", "角", "分", "斤", "公斤", "钱", "百", "千", "万", "本", "杯", "袋", "盒", "瓶", "支", "台", "部", "口", "种", "班"],
+    ["爸爸", "妈妈", "哥哥", "姐姐", "妹妹", "弟弟", "职员", "律师", "医生", "工人", "农民", "护士", "警察"],
+    ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "零", "两", "号码", "名字", "问题", "事"]
+  ];
+  function startExoSent() {
+    var ru = lang() === "ru";
+    var gmap = {};
+    SENT_GROUPS.forEach(function (g, gi) { g.forEach(function (w) { (gmap[w] = gmap[w] || []).push(gi); }); });
+    function sameGroup(a, b) {
+      var A = gmap[a] || [], B = gmap[b] || [];
+      return A.some(function (x) { return B.indexOf(x) !== -1; });
+    }
+    var sents = SENT;
+    var words = ALL.filter(function (w) { return !(w.char.length === 1 && SENT_STOP.indexOf(w.char) !== -1); });
+    var found = null;
+    for (var attempt = 0; attempt < 80 && !found; attempt++) {
+      var S = [], W = [], perCh = {};
+      var cap = attempt < 50 ? 2 : 10;
+      // tirage pondéré : les phrases longues ont plus de chances d'être tirées
+      sents.map(function (st) { return { st: st, k: Math.pow(Math.random(), 1 / Math.pow(Math.min(st.char.length, 40), 1.3)) }; })
+        .sort(function (a, b) { return b.k - a.k; })
+        .forEach(function (o) {
+        var st = o.st;
+        if (S.length >= 10) return;
+        var ch0 = st.chapters[0];
+        if ((perCh[ch0] || 0) >= cap) return;
+        var text = st.char;
+        var opts = shuffle(words.filter(function (w) {
+          if (W.some(function (u) { return u.char === w.char; })) return false;
+          var k = text.indexOf(w.char);
+          if (k === -1 || text.indexOf(w.char, k + 1) !== -1) return false;
+          // le mot ne doit pas être un morceau d'un mot plus long présent dans la phrase (ex. 书 dans 图书馆)
+          for (var vi = 0; vi < ALL.length; vi++) {
+            var v = ALL[vi].char;
+            if (v.length > w.char.length && v.indexOf(w.char) !== -1) {
+              var off = v.indexOf(w.char);
+              if (text.substr(k - off, v.length) === v) return false;
+            }
+          }
+          // must not appear in already chosen sentences, and chosen words must not appear in this sentence
+          if (w.char.length === 1 && S.some(function (o) { return o.char.indexOf(w.char) !== -1; })) return false;
+          if (W.some(function (u) { return (u.char.length === 1 && text.indexOf(u.char) !== -1) || u.char.indexOf(w.char) !== -1 || w.char.indexOf(u.char) !== -1 || sameGroup(u.char, w.char); })) return false;
+          return true;
+        }));
+        // prefer longer words (more meaningful than single particles)
+        var multi = opts.filter(function (w) { return w.char.length > 1; });
+        if (!opts.length) return;
+        S.push(st); W.push(multi.length ? multi[0] : opts[0]); perCh[ch0] = (perCh[ch0] || 0) + 1;
+      });
+      if (S.length === 10) found = { S: S, W: W };
+    }
+    if (!found) { alert(X("Pas assez de phrases adaptées : choisis plus de chapitres.", "Недостаточно подходящих предложений. Выбери больше глав.")); return; }
+    var items = found.S.map(function (st, i) { return { kind: "sent", left: st.char.replace(found.W[i].char, "＿＿"), right: found.W[i].char, py: found.W[i].pinyin, wm: meaningOf(found.W[i]), st: st, full: st.char, pinyin: found.W[i].pinyin }; });
+    exo = { kind: "sent", items: items, order: shuffle(items.map(function (_, i) { return i; })), links: {}, sel: null, checked: false };
+    mode = "exo"; renderStage();
+  }
+
+  function startExoWord() {
+    var WORDS = {}, allChars = {};
+    function two(it) { return it.char.length === 2 && /^[\u4e00-\u9fff]{2}$/.test(it.char); }
+    ALL.forEach(function (it) { if (two(it)) { WORDS[it.char] = it; allChars[it.char[0]] = 1; allChars[it.char[1]] = 1; } });
+    function valid(a, b) { return !!(WORDS[a + b] || WORDS[b + a]); }
+    var chars = Object.keys(allChars);
+    var P = [], W = [];
+    shuffle(Object.keys(WORDS)).forEach(function (k) {
+      if (P.length >= 5) return;
+      var w = WORDS[k], pos = Math.random() < 0.5 ? 0 : 1, pc = w.char[pos];
+      if (P.indexOf(pc) !== -1) return;
+      P.push(pc); W.push({ word: w, pos: pos });
+    });
+    var answers = [], choices = [];
+    W.forEach(function (w, i) {
+      var pc = w.word.char[w.pos], ac = w.word.char[1 - w.pos];
+      var D = shuffle(chars.filter(function (c) { return c !== ac && c !== pc && !valid(pc, c); })).slice(0, 9);
+      answers.push(ac);
+      choices.push(shuffle([ac].concat(D)));
+    });
+    exo = { prompts: W, answers: answers, choices: choices, i: 0, picks: [], kind: "word", done: false };
+    mode = "exo"; renderStage();
+  }
+
+  function renderExoWord() {
+    var ru = lang() === "ru";
+    var stage = document.getElementById("stage");
+    stage.className = "stage setup";
+    var e = exo;
+    if (!e.done) {
+      var w = e.prompts[e.i], pc = w.word.char[w.pos];
+      var show = w.pos === 0 ? pc + '<span class="blank">&nbsp;</span>' : '<span class="blank">&nbsp;</span>' + pc;
+      stage.innerHTML = '<div class="exo"><h3>' + (X("Ajoute un caractère pour former un mot", "Добавь иероглиф, чтобы получилось слово")) + '</h3>' +
+        '<div class="exo-prog">' + (e.i + 1) + ' / 5</div>' +
+        '<div class="exo-prompt">' + show + '</div>' +
+        '<div class="exo-choices" id="exoCh"></div>' +
+        '<div class="launch-row" id="exoActions"></div></div>';
+      var box = document.getElementById("exoCh");
+      e.choices[e.i].forEach(function (c, ci) {
+        var b = document.createElement("button");
+        b.style.setProperty("--i", ci);
+        b.type = "button"; b.className = "exo-cell zh"; b.textContent = c;
+        b.addEventListener("click", function () {
+          e.picks.push(c); e.i++;
+          if (e.i >= 5) e.done = true;
+          renderExoWord();
+        });
+        box.appendChild(b);
+      });
+    } else {
+      var good = 0, li = "";
+      e.prompts.forEach(function (w, i) {
+        var ok = e.picks[i] === e.answers[i]; if (ok) good++;
+        var pc = w.word.char[w.pos];
+        var pk = e.picks[i] === undefined ? "？" : e.picks[i];
+        var mine = w.pos === 0 ? pc + pk : pk + pc;
+        li += '<li style="--i:' + i + ';border-color:' + (ok ? "var(--accent-jade)" : "var(--accent-seal)") + '"><span>' + (ok ? "✓" : "✗") + '</span><span class="zh2">' + (ok ? w.word.char : mine) + '</span>' +
+          (ok ? '' : '<span class="exo-fix">→ <span class="zh2">' + w.word.char + '</span></span>') +
+          '<span class="exo-fix">' + w.word.pinyin + ' · ' + meaningOf(w.word) + '</span></li>';
+      });
+      stage.innerHTML = '<div class="exo"><h3>' + (X("Résultat", "Результат")) + '</h3><div class="exo-score">' + good + ' / 5</div><ul class="exo-recap">' + li + '</ul><div class="launch-row" id="exoActions"></div></div>';
+    }
+    var A = document.getElementById("exoActions");
+    function btn(cls, text, fn) { var b = document.createElement("button"); b.type = "button"; b.className = "btn " + cls; b.textContent = text; b.addEventListener("click", fn); A.appendChild(b); }
+    if (e.done) btn("big", X("Nouvel exercice", "Новое упражнение"), startExo);
+    else if (e.i > 0) btn("outline-seal", (X("Terminer maintenant", "Завершить сейчас")) + " (" + e.i + "/5)", function () { e.done = true; renderExoWord(); });
+    btn("secondary small", X("Quitter", "Закончить"), function () { mode = "setup"; exo = null; renderStage(); });
+  }
+
+  function renderExo() {
+    if (exo && exo.kind === "word") { renderExoWord(); return; }
+    var ru = lang() === "ru";
+    var stage = document.getElementById("stage");
+    stage.className = "stage setup";
+    var e = exo, nLinked = Object.keys(e.links).length;
+    var rev = {}; Object.keys(e.links).forEach(function (c) { rev[e.links[c]] = +c; });
+    var good = 0;
+    if (e.checked) Object.keys(e.links).forEach(function (c) { if (e.links[c] === +c) good++; });
+    var isS = e.kind === "sent";
+    var h = '<div class="exo"><h3>' + (isS ? (X("Place chaque mot dans la bonne phrase", "Вставь слово в нужное предложение")) : (X("Relie chaque caractère à son pinyin", "Соедини иероглифы с пиньинем"))) + '</h3>' +
+      '<p class="sub">' + (e.checked ? '' : (isS ? (X("Clique sur une phrase puis sur le mot qui va dedans. Clique sur un élément relié pour défaire le lien.", "Нажми на предложение, затем на подходящее слово. Нажми на соединённый элемент, чтобы отменить.")) : (X("Clique sur un caractère puis sur son pinyin. Clique sur un élément relié pour défaire le lien.", "Нажми на иероглиф, затем на его пиньинь. Нажми на соединённый элемент, чтобы отменить.")))) + '</p>';
+    if (e.checked) h += '<div class="exo-score">' + good + ' / 10</div>';
+    h += '<div class="exo-cols"><div class="exo-col" id="exoL"></div><div class="exo-col" id="exoR"></div></div>' +
+      '<div class="launch-row" id="exoActions"></div></div>';
+    stage.innerHTML = h;
+    var L = document.getElementById("exoL"), R = document.getElementById("exoR");
+    function cell(cls, text, idx, color, badge, fix) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "exo-cell " + cls;
+      if (color) b.style.setProperty("--pc", color);
+      b.textContent = text;
+      if (badge) { var d = document.createElement("span"); d.className = "exo-dot"; d.textContent = badge; b.appendChild(d); }
+      if (fix) { var f = document.createElement("span"); f.className = "exo-fix"; f.textContent = fix; b.appendChild(f); }
+      return b;
+    }
+    e.items.forEach(function (it, i) {
+      var linked = e.links[i] !== undefined;
+      var cls = isS ? "zh sent" : "zh", color = null, badge = null;
+      if (e.checked) cls += e.links[i] === i ? " ok" : " ko";
+      else if (e.sel === i) cls += " sel";
+      else if (linked) { cls += " linked"; color = PCOL[i % 10]; badge = String(i + 1); }
+      if (e.checked || linked) badge = String(i + 1);
+      var b = cell(cls, isS ? it.left : it.char, i, color || PCOL[i % 10], badge);
+      b.addEventListener("click", function () {
+        if (e.checked) return;
+        if (linked) { delete e.links[i]; e.sel = i; }
+        else e.sel = (e.sel === i ? null : i);
+        renderExo();
+      });
+      if (e.pop && e.pop.l === i) b.classList.add("pop");
+      b.style.setProperty("--d", (i * 45) + "ms");
+      L.appendChild(b);
+    });
+    e.order.forEach(function (pi) {
+      var owner = rev[pi];
+      var cls = isS ? "py wd" : "py", color = null, badge = null, fix = null;
+      if (owner !== undefined) {
+        color = PCOL[owner % 10]; badge = String(owner + 1);
+        if (e.checked) { cls += owner === pi ? " ok" : " ko"; if (owner !== pi) fix = ""; }
+        else cls += " linked";
+      }
+      var b = cell(cls, isS ? e.items[pi].right : e.items[pi].pinyin, pi, color || PCOL[pi % 10], badge);
+      if (e.checked && owner === undefined) { /* unreachable once all linked */ }
+      b.addEventListener("click", function () {
+        if (e.checked) return;
+        if (owner !== undefined) { delete e.links[owner]; e.sel = owner; renderExo(); return; }
+        if (e.sel === null) return;
+        e.links[e.sel] = pi; e.pop = { l: e.sel, r: pi }; e.sel = null;
+        renderExo();
+      });
+      if (e.pop && e.pop.r === pi) b.classList.add("pop");
+      b.style.setProperty("--d", (pi * 45) + "ms");
+      R.appendChild(b);
+    });
+    e.pop = null;
+    var A = document.getElementById("exoActions");
+    function btn(cls, text, fn, dis) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "btn " + cls; b.textContent = text; b.disabled = !!dis;
+      b.addEventListener("click", fn); A.appendChild(b);
+    }
+    if (!e.checked) {
+      btn("big", (nLinked < 10 ? (X("Terminer", "Завершить")) : (X("Vérifier", "Проверить"))) + " (" + nLinked + "/10)", function () { e.checked = true; renderExo(); }, nLinked < 1);
+    } else {
+      var ul = document.createElement("ul");
+      ul.className = "exo-recap";
+      e.items.forEach(function (it, i) {
+        var ok = e.links[i] === i, mine = e.items[e.links[i]] || { right: X("pas de réponse", "нет ответа"), pinyin: X("pas de réponse", "нет ответа"), char: "—" };
+        var li = document.createElement("li");
+        li.style.setProperty("--i", i);
+        li.style.borderColor = ok ? "var(--accent-jade)" : "var(--accent-seal)";
+        var h2;
+        if (isS) {
+          var hl = it.full.replace(it.right, "【" + it.right + "】");
+          h2 = '<span>' + (ok ? "✓" : "✗") + '</span><div style="flex:1;min-width:0"><div class="zh2" style="font-size:1.15rem">' + hl + '</div>' +
+            '<div class="exo-fix">' + it.st.pinyin + '</div><div>' + meaningOf(it.st) + '</div>' +
+            '<div class="exo-fix">' + it.right + ' · ' + it.py + (it.wm ? ' · ' + it.wm : '') +
+            (ok ? '' : ' — ' + (X("ta réponse : ", "твой ответ: ")) + mine.right) + '</div></div>';
+        } else {
+          h2 = '<span>' + (ok ? "✓" : "✗") + '</span><span class="zh2">' + it.char + '</span><div style="flex:1;min-width:0"><div>' + it.pinyin + ' · ' + meaningOf(it) + '</div>' +
+            (ok ? '' : '<div class="exo-fix">' + (X("ta réponse : ", "твой ответ: ")) + mine.pinyin + ' (' + mine.char + ')</div>') + '</div>';
+        }
+        li.innerHTML = h2;
+        ul.appendChild(li);
+      });
+      A.parentNode.insertBefore(ul, A);
+      btn("big", X("Nouvel exercice", "Новое упражнение"), startExo);
+    }
+    btn("secondary small", X("Quitter", "Закончить"), function () { mode = "setup"; exo = null; renderStage(); });
+  }
+
+  function renderSetup() {
+    if (testType === "exo") { renderExoSetup(); return; }
+    var stage = document.getElementById("stage");
+    stage.className = "stage setup";
+    stage.innerHTML =
+      '<h3>' + tr("setupTitle")() + '</h3>' +
       '<p class="sub">' + tr("setupSub") + '</p>' +
+      '<div class="step"><div class="step-title">' + tr("typeTitle") + '</div><div class="len-row" id="typeRow"></div></div>' +
       '<div class="setup-grid">' +
         '<div class="step">' +
           '<div class="step-title"><span class="step-num">1</span>' + tr("step1") + '</div>' +
+          (testType === "read" ? '<p class="sub" style="margin:0 0 8px">' + tr("lockNote") + '</p>' : '') +
           '<div id="chapterRows"></div>' +
           '<div class="btn-row">' +
             '<button class="btn secondary small" id="chapAll" type="button">' + tr("all") + '</button>' +
             '<button class="btn secondary small" id="chapNone" type="button">' + tr("none") + '</button>' +
           '</div>' +
         '</div>' +
+        (testType === "read" ? '' :
         '<div class="step">' +
           '<div class="step-title"><span class="step-num">2</span>' + tr("step2") + '</div>' +
           '<div class="overview-bar" id="overviewBar"></div>' +
           '<div id="overviewRows"></div>' +
           '<p class="overview-hint">' + tr("ovHint") + '</p>' +
-        '</div>' +
+        '</div>') +
       '</div>' +
       '<div class="step">' +
-        '<div class="step-title"><span class="step-num">3</span>' + tr("step3") + '</div>' +
+        '<div class="step-title"><span class="step-num">' + (testType === "read" ? "2" : "3") + '</span>' + tr("step3") + '</div>' +
         '<div class="len-row" id="lenRow"></div>' +
       '</div>' +
       '<div class="launch-row">' +
@@ -1130,14 +1686,16 @@
       '</div>';
 
     document.getElementById("chapAll").addEventListener("click", function () {
-      CHAPTERS.forEach(function (ch) { chapSel[ch.id] = true; });
+      chapList().forEach(function (ch) { selMap()[ch.id] = true; });
       save(); renderChapters(); renderPanel(); renderOverview(); updateSetupSummary();
     });
     document.getElementById("chapNone").addEventListener("click", function () {
-      CHAPTERS.forEach(function (ch) { chapSel[ch.id] = false; });
+      chapList().forEach(function (ch) { selMap()[ch.id] = false; });
       save(); renderChapters(); renderPanel(); renderOverview(); updateSetupSummary();
     });
     document.getElementById("launchBtn").addEventListener("click", function () { startTest(); });
+
+    typeButtons();
 
     renderChapters();
     renderOverview();
@@ -1176,7 +1734,7 @@
 
     stage.innerHTML =
       '<h3>' + tr("done") + '</h3>' +
-      '<p class="sub">' + tr("tested")(testTotal) + '</p>' +
+      '<p class="sub">' + tr("tested")(testTotal, testType === "read") + '</p>' +
       '<div class="result-tally">' +
         '<span style="color:var(--accent-jade)">✓ ' + c.known + '</span>' +
         '<span style="color:var(--accent-gold)">〜 ' + c.half + '</span>' +
@@ -1186,6 +1744,13 @@
       '<div id="resultBody"></div>' +
       '<div class="launch-row" id="resultActions"></div>';
 
+    if (testType === "read") {
+      missed = [];
+      ["result-tally", "resultBar", "resultBody"].forEach(function (id) {
+        var el = document.getElementById(id) || stage.querySelector("." + id);
+        if (el) el.style.display = "none";
+      });
+    }
     var bar = document.getElementById("resultBar");
     ["known", "half", "unknown"].forEach(function (lv) {
       var seg = document.createElement("span");
@@ -1208,7 +1773,7 @@
       var ul = document.createElement("ul");
       ul.className = "result-list";
       missed.forEach(function (r) {
-        var item = ALL[r.idx];
+        var item = bank()[r.idx];
         var li = document.createElement("li");
         var dot = document.createElement("span");
         dot.className = "level-dot lv-" + r.level;
@@ -1219,6 +1784,7 @@
         var m = document.createElement("span");
         m.className = "cl-meta";
         m.textContent = item.pinyin + " · " + meaningOf(item);
+        if (item.isSentence) { li.style.flexWrap = "wrap"; ch.style.flexBasis = "calc(100% - 24px)"; ch.style.fontSize = "1rem"; }
         li.appendChild(dot);
         li.appendChild(ch);
         li.appendChild(m);
@@ -1250,7 +1816,13 @@
     }
   }
 
+  var lastStageKey = "";
   function renderStage() {
+    renderStageInner();
+    var key = mode + "|" + testType + "|" + (exo ? exo.kind + (exo.checked || exo.done ? "c" : "") : "");
+    if (key !== lastStageKey) { lastStageKey = key; fadeIn(document.getElementById("stage")); }
+  }
+  function renderStageInner() {
     var stage = document.getElementById("stage");
     resetBtn.disabled = (mode === "quiz");
 
@@ -1258,21 +1830,22 @@
 
     if (mode === "setup") { renderSetup(); return; }
     if (mode === "result") { renderResult(); return; }
+    if (mode === "exo") { renderExo(); return; }
 
     // mode === "quiz"
     if (current === null) {
       if (queue.length === 0) { mode = "result"; renderResult(); return; }
       current = queue.shift();
     }
-    stage.className = "stage" + (justRevealed ? " just-revealed" : "");
+    stage.className = "stage" + (justRevealed ? " just-revealed" : "") + (testType === "read" ? " read" : "");
     justRevealed = false;
 
-    var item = ALL[current];
+    var item = bank()[current];
     var c = tally();
 
     stage.innerHTML =
-      '<div class="card-index">' + currentProfile + ' · ' + (testResults.length + 1) + ' / ' + testTotal + '</div>' +
-      '<div class="score-badge"><span class="ok">✓ ' + c.known + '</span><span class="half">〜 ' + c.half + '</span><span class="ko">✗ ' + c.unknown + '</span></div>' +
+      '<div class="card-index">' + (testResults.length + 1) + ' / ' + testTotal + '</div>' +
+      (testType === "read" ? '' : '<div class="score-badge"><span class="ok">✓ ' + c.known + '</span><span class="half">〜 ' + c.half + '</span><span class="ko">✗ ' + c.unknown + '</span></div>') +
       '<div class="hanzi-display">' + item.char + '</div>' +
       '<div class="answer-block">' +
         (revealed
@@ -1280,7 +1853,7 @@
           : '<div class="answer-hidden">' + tr("hidden") + '</div>') +
       '</div>' +
       '<div class="stage-actions" id="stageActions"></div>' +
-      '<div class="kbd-hint">' + tr("kbdHint") + '</div><div class="stop-row"><button class="btn secondary small" id="stopTest" type="button">' + tr("stop") + '</button></div>';
+      '<div class="kbd-hint">' + tr(testType === "read" ? "kbdHintRead" : "kbdHint") + '</div><div class="stop-row"><button class="btn secondary small" id="stopTest" type="button">' + tr("stop") + '</button></div>';
 
     document.getElementById("stopTest").addEventListener("click", function () {
       mode = "setup";
@@ -1303,9 +1876,13 @@
     if (!revealed) {
       addBtn("", tr("show"), function () { revealed = true; justRevealed = true; renderStage(); }, "␣");
     } else {
-      addBtn("outline-seal", tr("bUnknown"), function () { answer("unknown"); }, "←");
-      addBtn("outline-gold", tr("bHalf"), function () { answer("half"); }, "↓");
-      addBtn("jade", tr("bKnown"), function () { answer("known"); }, "→");
+      if (testType === "read") {
+        addBtn("jade", tr("next"), function () { answer("known"); }, "→");
+      } else {
+        addBtn("outline-seal", tr("bUnknown"), function () { answer("unknown"); }, "←");
+        addBtn("outline-gold", tr("bHalf"), function () { answer("half"); }, "↓");
+        addBtn("jade", tr("bKnown"), function () { answer("known"); }, "→");
+      }
     }
   }
 
@@ -1331,8 +1908,12 @@
 
   function answer(level) {
     if (locked || current === null) return;
-    var item = ALL[current];
-    progress[item.char] = level;
+    var item = bank()[current];
+    if (!item.isSentence) {
+      progress[item.char] = level;
+      var st = stats[item.char] || (stats[item.char] = { n: 0, k: 0, h: 0, u: 0, last: "", t: 0 });
+      st.n++; st[level === "known" ? "k" : level === "half" ? "h" : "u"]++; st.last = level; st.t = Date.now();
+    }
     testResults.push({ idx: current, level: level });
     save();
     renderTeam();
@@ -1340,14 +1921,14 @@
     var idx = current;
     locked = true;
     var stage = document.getElementById("stage");
-    stage.classList.add("fx-" + level);
-    if (level === "known") celebrate(stage);
+    var plain = !!item.isSentence;
+    if (!plain) { stage.classList.add("fx-" + level); if (level === "known") celebrate(stage); }
     setTimeout(function () {
       locked = false;
       current = null;
       revealed = false;
       renderStage();
-    }, level === "known" ? 430 : 290);
+    }, plain ? 120 : (level === "known" ? 430 : 290));
   }
 
   document.addEventListener("keydown", function (e) {
@@ -1358,9 +1939,10 @@
     if (e.repeat || locked || current === null) return;
     if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
     if (!revealed) {
-      if (k === " ") { revealed = true; justRevealed = true; renderStage(); }
+      if (k === " " || (testType === "read" && k === "ArrowRight")) { revealed = true; justRevealed = true; renderStage(); }
       return;
     }
+    if (testType === "read") { if (k === " " || k === "ArrowRight") answer("known"); return; }
     if (k === "ArrowLeft") answer("unknown");
     else if (k === "ArrowDown") answer("half");
     else if (k === "ArrowRight") answer("known");
@@ -1368,6 +1950,62 @@
   document.addEventListener("keyup", function (e) {
     if (mode === "quiz" && e.key === " ") e.preventDefault();
   });
+
+  /* ---------- Statistiques ---------- */
+  var tabTest = document.getElementById("tabTest"), tabStats = document.getElementById("tabStats");
+  function setView(v) {
+    view = v;
+    document.getElementById("mainLayout").style.display = v === "test" ? "" : "none";
+    document.getElementById("statsView").style.display = v === "stats" ? "" : "none";
+    tabTest.classList.toggle("active", v === "test");
+    tabStats.classList.toggle("active", v === "stats");
+    if (v === "stats") renderStats();
+    fadeIn(document.getElementById(v === "stats" ? "statsView" : "mainLayout"));
+  }
+  tabTest.addEventListener("click", function () { setView("test"); });
+  tabStats.addEventListener("click", function () { setView("stats"); });
+
+  function renderStats() {
+    var ru = lang() === "ru";
+    var box = document.getElementById("statsView");
+    var tested = 0, total = 0, k = 0, h = 0, u = 0;
+    ALL.forEach(function (it) { var x = stats[it.char]; if (x && x.n) { tested++; total += x.n; k += x.k; h += x.h; u += x.u; } });
+    var pct = total ? Math.round(k / total * 100) : 0;
+    var html = '<div class="stats-box"><h3>' + (X("Statistiques", "Статистика")) + '</h3>' +
+      '<p class="sub">' + (X("Comptées à partir de maintenant, pour les tests de mots uniquement.", "Считается с момента добавления этой вкладки, только тесты по словам.")) + '</p>' +
+      '<div class="stats-sum">' +
+        '<div><b>' + tested + ' / ' + ALL.length + '</b><span>' + (X("mots testés au moins une fois", "слов проверено")) + '</span></div>' +
+        '<div><b>' + total + '</b><span>' + (X("réponses au total", "ответов всего")) + '</span></div>' +
+        '<div><b class="c-k" style="color:var(--accent-jade)">' + k + '</b><span>' + (X("je savais tout", "знала всё")) + '</span></div>' +
+        '<div><b style="color:var(--accent-gold)">' + h + '</b><span>' + (X("à moitié", "наполовину")) + '</span></div>' +
+        '<div><b style="color:var(--accent-seal)">' + u + '</b><span>' + (X("pas connu", "не знаю")) + '</span></div>' +
+        '<div><b>' + pct + ' %</b><span>' + (X("de réussite complète", "успешных ответов")) + '</span></div>' +
+      '</div>';
+    var rowI = 0;
+    CHAPTERS.forEach(function (ch) {
+      var rows = ALL.filter(function (it) { return it.chapters[0] === ch.id; });
+      if (!rows.length) return;
+      html += '<div class="stats-chap">' + chTitle(ch) + '</div><table class="stats-table"><thead><tr><th>' + (X("Mot", "Слово")) + '</th><th>' + (X("Testé", "Раз")) + '</th><th>✓</th><th>〜</th><th>✗</th><th>' + (X("Progression", "Прогресс")) + '</th><th>' + (X("Dernier", "Последний")) + '</th></tr></thead><tbody>';
+      rows.forEach(function (it) {
+        var x = stats[it.char] || { n: 0, k: 0, h: 0, u: 0, last: "" };
+        var z = function (v) { return v ? "" : ' class="zero"'; };
+        html += '<tr style="--i:' + (rowI++ % 30) + '"><td><span class="zh3">' + it.char + '</span><span class="sm">' + it.pinyin + ' · ' + meaningOf(it) + '</span></td>' +
+          '<td' + z(x.n) + '>' + x.n + '×</td><td' + (x.k ? ' class="c-k"' : ' class="zero"') + '>' + x.k + '</td><td' + (x.h ? ' class="c-h"' : ' class="zero"') + '>' + x.h + '</td><td' + (x.u ? ' class="c-u"' : ' class="zero"') + '>' + x.u + '</td>' +
+          '<td class="bar-cell"><div class="wbar" title="' + x.n + '×">' +
+            (x.n ? '<span style="width:' + (x.k / x.n * 100) + '%;background:var(--accent-jade)"></span><span style="width:' + (x.h / x.n * 100) + '%;background:var(--accent-gold)"></span><span style="width:' + (x.u / x.n * 100) + '%;background:var(--accent-seal)"></span>' : '') +
+            '</div><span class="pc" style="text-align:right">' + (x.n ? Math.round(x.k / x.n * 100) + ' %' : '—') + '</span></td>' +
+          '<td>' + (x.last ? '<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:' + LEVEL_COLORS[x.last] + '" title="' + levelLabel(x.last) + '"></span>' : '<span class="sm">—</span>') + '</td></tr>';
+      });
+      html += '</tbody></table>';
+    });
+    html += '<div class="btn-row" style="margin-top:22px"><button class="btn secondary small" id="resetStats" type="button">' + (X("Réinitialiser les statistiques", "Сбросить статистику")) + '</button></div></div>';
+    box.innerHTML = html;
+    var rb = document.getElementById("resetStats"), armed = false;
+    rb.addEventListener("click", function () {
+      if (!armed) { armed = true; rb.textContent = tr("confirm"); setTimeout(function () { armed = false; if (document.body.contains(rb)) rb.textContent = X("Réinitialiser les statistiques", "Сбросить статистику"); }, 3000); return; }
+      stats = {}; save(); renderStats();
+    });
+  }
 
   /* ---------- Contrôles ---------- */
   var resetBtn = document.getElementById("resetProgress");
@@ -1392,27 +2030,115 @@
     renderStage();
   });
 
-  var themeBtn = document.getElementById("themeToggle");
-  function applyTheme(t) {
-    if (t) document.documentElement.setAttribute("data-theme", t);
-    else document.documentElement.removeAttribute("data-theme");
-    refreshThemeText();
+  /* ---------- Paramètres ---------- */
+  var SET_KEY = "hanzi-quiz-settings";
+  var SET = { theme: "auto", palette: "parchemin", ui: "work", zh: "serif", size: "md", anim: "on" };
+  var UI_FONTS = { work: '"Work Sans", "Noto Sans KR", -apple-system, sans-serif', lora: '"Lora", "Noto Sans KR", Georgia, serif', nunito: '"Nunito", "Noto Sans KR", -apple-system, sans-serif' };
+  var ZH_FONTS = { serif: ['"Noto Serif SC", serif', 700], sans: ['"Noto Sans SC", sans-serif', 700], brush: ['"Ma Shan Zheng", "Noto Serif SC", cursive', 400] };
+  var darkMQ = null;
+  try { darkMQ = window.matchMedia("(prefers-color-scheme: dark)"); } catch (e) {}
+  function animOK() { return SET.anim !== "off" && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }
+  function fadeIn(el, delay) {
+    if (!el || !el.animate || !animOK()) return;
+    try { el.animate([{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 280, delay: delay || 0, easing: "ease-out", fill: "backwards" }); } catch (e) {}
   }
-  function refreshThemeText() {
-    themeBtn.textContent = (document.documentElement.getAttribute("data-theme") === "dark") ? tr("light") : tr("dark");
+  function applySettings() {
+    var r = document.documentElement;
+    var eff = /^noir/.test(SET.palette) ? "dark" : SET.theme === "auto" ? (darkMQ && darkMQ.matches ? "dark" : "light") : SET.theme;
+    r.setAttribute("data-theme", eff);
+    r.setAttribute("data-palette", SET.palette);
+    r.setAttribute("data-size", SET.size);
+    r.setAttribute("data-anim", SET.anim);
+    r.style.setProperty("--font-ui", UI_FONTS[SET.ui] || UI_FONTS.work);
+    var z = ZH_FONTS[SET.zh] || ZH_FONTS.serif;
+    r.style.setProperty("--font-zh", z[0]);
+    r.style.setProperty("--zh-w", z[1]);
   }
-  themeBtn.addEventListener("click", function () {
-    var cur = document.documentElement.getAttribute("data-theme");
-    applyTheme(cur === "dark" ? "light" : "dark");
-    try { localStorage.setItem("hanzi-quiz-theme", document.documentElement.getAttribute("data-theme") || ""); } catch (e) {}
-  });
-  try {
-    var savedTheme = localStorage.getItem("hanzi-quiz-theme");
-    applyTheme(savedTheme || null);
-  } catch (e) { applyTheme(null); }
+  function saveSettings() { try { localStorage.setItem(SET_KEY, JSON.stringify(SET)); } catch (e) {} }
+  function loadSettings() {
+    try {
+      var raw = localStorage.getItem(SET_KEY);
+      if (raw) { var o = JSON.parse(raw); Object.keys(SET).forEach(function (k) { if (typeof o[k] === "string") SET[k] = o[k]; }); }
+      else { var old = localStorage.getItem("hanzi-quiz-theme"); if (old === "dark" || old === "light") SET.theme = old; }
+    } catch (e) {}
+  }
+  if (darkMQ && darkMQ.addEventListener) darkMQ.addEventListener("change", function () { if (SET.theme === "auto") applySettings(); });
+
+  function openSettings() {
+    var ru = lang() === "ru";
+    var T = X;
+    var ov = document.createElement("div");
+    ov.className = "set-overlay";
+    var card = document.createElement("div");
+    card.className = "set-card";
+    ov.appendChild(card);
+    function close() { document.removeEventListener("keydown", onKey, true); ov.remove(); }
+    function onKey(e) { if (e.key === "Escape") { e.stopPropagation(); close(); } }
+    document.addEventListener("keydown", onKey, true);
+    ov.addEventListener("mousedown", function (e) { if (e.target === ov) close(); });
+
+    function row(label, opts, cur, onPick) {
+      var d = document.createElement("div"); d.className = "set-row";
+      d.innerHTML = '<div class="lbl">' + label + '</div>';
+      var box = document.createElement("div"); box.className = "set-opts"; d.appendChild(box);
+      opts.forEach(function (o) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "len-btn" + (cur === o[0] ? " active" : "");
+        b.textContent = o[1];
+        if (o[2]) b.style.fontFamily = o[2];
+        b.addEventListener("click", function () { onPick(o[0]); });
+        box.appendChild(b);
+      });
+      return d;
+    }
+    function upd(k, v) { SET[k] = v; saveSettings(); applySettings(); draw(); }
+    function draw() {
+      card.innerHTML = '<h3>⚙ ' + T("Paramètres", "Настройки") + '</h3>';
+      var prev = document.createElement("div"); prev.className = "set-preview";
+      prev.innerHTML = '<span class="big">学</span><span>xué · ' + T("étudier, apprendre", "учиться, изучать") + '</span>';
+      card.appendChild(prev);
+
+      card.appendChild(row(T("Langue", "Язык"), [["fr", "Français"], ["en", "English"], ["es", "Español"], ["ru", "Русский"], ["ko", "한국어"], ["tk", "Türkmen"]], langPref, function (v) {
+        langPref = v; save(); renderAll(); if (view === "stats") renderStats(); close(); openSettings();
+      }));
+      card.appendChild(row(T("Mode", "Режим"), [["auto", T("Auto", "Авто")], ["light", T("Clair", "Светлая")], ["dark", T("Sombre", "Тёмная")]], SET.theme, function (v) { upd("theme", v); }));
+      if (/^noir/.test(SET.palette)) { var nt = document.createElement("div"); nt.className = "set-note"; nt.textContent = T("Les thèmes noirs utilisent toujours le mode sombre.", "Чёрные темы всегда используют тёмный режим."); card.lastChild.appendChild(nt); }
+
+      var pr = document.createElement("div"); pr.className = "set-row";
+      pr.innerHTML = '<div class="lbl">' + T("Thème de couleurs", "Цветовая тема") + '</div>';
+      var pb = document.createElement("div"); pb.className = "set-opts"; pr.appendChild(pb);
+      [["parchemin", T("Parchemin", "Пергамент"), "#EDE6D6", "#A63D2F"], ["papier", T("Papier", "Бумага"), "#F3F3F1", "#A63D2F"], ["bambou", T("Bambou", "Бамбук"), "#E3EADB", "#43593B"], ["ocean", T("Océan", "Океан"), "#DCE5EB", "#2f5d7a"], ["noir", T("Noir pur", "Чистый чёрный"), "#000000", "#D3594A"], ["noir-bleu", T("Noir & bleu", "Чёрный и синий"), "#000000", "#4F8FE0"], ["noir-or", T("Noir & or", "Чёрный и золото"), "#000000", "#D4AF5A"], ["noir-jade", T("Noir & jade", "Чёрный и нефрит"), "#000000", "#5FB58A"]].forEach(function (o) {
+        var b = document.createElement("button"); b.type = "button";
+        b.className = "sw" + (SET.palette === o[0] ? " active" : "");
+        b.title = o[1]; b.setAttribute("aria-label", o[1]);
+        b.style.background = o[2]; b.innerHTML = '<i style="background:' + o[3] + '"></i>';
+        b.addEventListener("click", function () { upd("palette", o[0]); });
+        pb.appendChild(b);
+      });
+      card.appendChild(pr);
+
+      card.appendChild(row(T("Police de l'interface", "Шрифт интерфейса"), [["work", "Work Sans", UI_FONTS.work], ["lora", "Lora", UI_FONTS.lora], ["nunito", "Nunito", UI_FONTS.nunito]], SET.ui, function (v) { upd("ui", v); }));
+      card.appendChild(row(T("Police des caractères chinois", "Шрифт иероглифов"), [["serif", T("宋体 Classique", "宋体 Классика"), ZH_FONTS.serif[0]], ["sans", T("黑体 Moderne", "黑体 Современный"), ZH_FONTS.sans[0]], ["brush", T("马善政 Pinceau", "马善政 Кисть"), ZH_FONTS.brush[0]]], SET.zh, function (v) { upd("zh", v); }));
+      card.appendChild(row(T("Taille du texte", "Размер текста"), [["sm", T("Petite", "Малый")], ["md", T("Normale", "Обычный")], ["lg", T("Grande", "Большой")]], SET.size, function (v) { upd("size", v); }));
+      card.appendChild(row(T("Animations", "Анимации"), [["on", T("Activées", "Включены")], ["off", T("Désactivées", "Выключены")]], SET.anim, function (v) { upd("anim", v); }));
+
+      var foot = document.createElement("div"); foot.className = "set-foot";
+      var cb = document.createElement("button"); cb.type = "button"; cb.className = "btn"; cb.textContent = T("Fermer", "Закрыть");
+      cb.addEventListener("click", close);
+      foot.appendChild(cb); card.appendChild(foot);
+    }
+    draw();
+    document.body.appendChild(ov);
+  }
+  document.getElementById("settingsBtn").addEventListener("click", openSettings);
+
+  loadSettings();
+  applySettings();
 
   load();
   renderAll();
+  [document.querySelector("header"), document.querySelector(".tabs"), document.getElementById("mainLayout")].forEach(function (el, i) { fadeIn(el, i * 90); });
 })();
 </script>
 </body>
